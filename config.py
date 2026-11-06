@@ -15,6 +15,11 @@ class OpticalConfig:
     normalization: Literal["per_plane_max"] = "per_plane_max"
     normalization_eps: float = 1e-8
 
+    @property
+    def z_m(self) -> tuple[float, ...]:
+        """Distance order used by the fixed-dataset generator."""
+        return self.distances_m
+
     def snapshot(self) -> dict:
         """Return a JSON-compatible protocol for checkpoints and metrics."""
         snapshot = asdict(self)
@@ -23,3 +28,4 @@ class OpticalConfig:
 
 
 DEFAULT_CONFIG = OpticalConfig()
+CONFIG = DEFAULT_CONFIG
