@@ -146,3 +146,5 @@ C1–C3 завершены. Чистое извлечение архивиров
 окружение Python 3.13 с зафиксированными зависимостями; исходники импортировались
 из извлечения. Подробный журнал — [outputs/release_verification.json](outputs/release_verification.json).
 A подтвердил физику, B — загрузку/выбор checkpoint. Ограничения качества приведены в RESULTS.md.
+
+Разбор расхождения с Yan 2025 и validation-диагностика: [ANALYSIS_YAN2025.md](ANALYSIS_YAN2025.md).
