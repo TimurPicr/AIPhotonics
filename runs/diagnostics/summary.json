@@ -44,5 +44,177 @@
       "normalization": "per_plane_max",
       "normalization_eps": 1e-08
     }
+  },
+  "overfit": {
+    "steps": 200,
+    "samples_seen": 800,
+    "seed": 42,
+    "device": "mps",
+    "seconds": 16.455097915953957,
+    "manifest_sha256": "9f8856d67c3ab150bcb3571bfb3285eb9119b0b59262a0166d66a7ad2d1daaec",
+    "sample_ids": [
+      "train_diagnostic_0000",
+      "train_diagnostic_0001",
+      "train_diagnostic_0002",
+      "train_diagnostic_0003"
+    ],
+    "protocol": {
+      "wavelength_m": 5.32e-07,
+      "slm_pitch_m": 1e-05,
+      "distances_m": [
+        0.0241,
+        0.0253,
+        0.0265,
+        0.0277
+      ],
+      "image_size": 128,
+      "reconstruction_value": "amplitude",
+      "normalization": "per_plane_max",
+      "normalization_eps": 1e-08
+    },
+    "git_revision": "9b0f652e4a0b20e4c3fdfe496c6e6bbd5b955f6c",
+    "initial_float_mse_by_plane": [
+      [
+        0.13002422451972961,
+        0.11980614066123962,
+        0.1281961351633072,
+        0.13022243976593018
+      ],
+      [
+        0.12547126412391663,
+        0.1030726507306099,
+        0.11738759279251099,
+        0.10142223536968231
+      ],
+      [
+        0.12631423771381378,
+        0.05979409068822861,
+        0.07212363183498383,
+        0.07267135381698608
+      ],
+      [
+        0.1500781625509262,
+        0.0398687943816185,
+        0.12174677103757858,
+        0.05690816044807434
+      ]
+    ],
+    "final_float_mse_by_plane": [
+      [
+        0.02856282889842987,
+        0.01757233217358589,
+        0.012152588926255703,
+        0.031081028282642365
+      ],
+      [
+        0.03494218736886978,
+        0.009036403149366379,
+        0.014629273675382137,
+        0.008843595162034035
+      ],
+      [
+        0.011936178430914879,
+        0.019246313720941544,
+        0.023168468847870827,
+        0.049853723496198654
+      ],
+      [
+        0.02991040050983429,
+        0.020414333790540695,
+        0.03103531338274479,
+        0.047675155103206635
+      ]
+    ],
+    "initial_png": {
+      "samples": 4,
+      "total_pairs": 16,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.09496011682845412,
+          "ssim": 0.03324401603737631,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 2,
+          "pearson": 0.10724027812999594,
+          "ssim": 0.06297651904492388,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 3,
+          "pearson": 0.07566883197146218,
+          "ssim": 0.02837892918356543,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 4,
+          "pearson": 0.07663483202657762,
+          "ssim": 0.05068862357634593,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        }
+      ],
+      "mean": {
+        "pearson": 0.08862601473912246,
+        "ssim": 0.04382202196055289
+      },
+      "worst_plane_mean": {
+        "pearson": 0.07566883197146218,
+        "ssim": 0.02837892918356543
+      },
+      "valid_pearson_pairs": 16,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "final_png": {
+      "samples": 4,
+      "total_pairs": 16,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.0742363699331986,
+          "ssim": 0.0970782440572997,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 2,
+          "pearson": 0.23228653670398525,
+          "ssim": 0.16630523743666786,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 3,
+          "pearson": 0.17383453397098853,
+          "ssim": 0.08200561178006154,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        },
+        {
+          "plane": 4,
+          "pearson": 0.1803929079914276,
+          "ssim": 0.12495327756000403,
+          "valid_pearson_pairs": 4,
+          "total_pairs": 4
+        }
+      ],
+      "mean": {
+        "pearson": 0.1651875871499,
+        "ssim": 0.11758559270850828
+      },
+      "worst_plane_mean": {
+        "pearson": 0.0742363699331986,
+        "ssim": 0.08200561178006154
+      },
+      "valid_pearson_pairs": 16,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "minimum_gradient_norm": 0.03743579787460786
   }
 }
