@@ -9,6 +9,6 @@
 - Выбор модели/экспериментов завершён до test/OOD; после финальной оценки веса не менялись.
 - Все test/OOD PNG повторно прочитаны, распространены из phase.png и сверены с recon PNG; метрики и агрегаты пересчитаны. Аудит: outputs/final_verification.json.
 - 8 финальных examples и коллажи — outputs/examples/. Исторический outputs/c2_initial относится к checkpoint до B3.1; актуальные initial-результаты — outputs/comparison/final/initial_network/.
-- C3.2/C3.3 выполняются: README/отчёт, пакет сдачи и воспроизведение в новом каталоге.
+- C3.2 завершён: README, RESULTS.md, данные/checkpoints/логи/PNG включены в архивируемую ревизию. C3.3 — проверка чистого извлечения архива. Полный suite: 50 passed, 1 skipped (Metal недоступен в среде C).
 
 Общий экспорт для A/B: `src.io.export_result(targets, phase, out, metadata=...)`. Для validation: `aggregate_results(results)['worst_plane_mean']['ssim']`, затем `['mean']['pearson']`. Постоянные реконструкции непостоянных целей записываются как ошибки; JSON не допускает NaN/Infinity.

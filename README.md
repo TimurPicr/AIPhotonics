@@ -1,111 +1,138 @@
-# Многоплоскостной ДОЭ
+# Нейросетевой синтез многоплоскостного ДОЭ
 
-Четыре независимые цели 128×128 → U-Net → фаза → одно-FFT Френель → четыре PNG.
-План и контракты: [AGENTS.md](AGENTS.md), [TASKS.md](TASKS.md).
+Четыре независимых PNG → один проход обученной U-Net → одна фазовая маска → одно-FFT Френель на четырёх расстояниях → PNG и Pearson/SSIM.
 
-## Старт и соглашения
+Обученный checkpoint — `checkpoints/best.pt`, шаг **1400**, SHA256:
+`55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c`.
 
-Первый коммит C: 2026-11-06 22:12 Europe/Moscow; общий T0/дедлайн команды
-не предоставлены. Плановый срок MVP — 7–9 часов, предел — 24 часа от общего T0. C — текущий coding-agent; имена A/B не предоставлены.
-Источник требований: AGENTS.md и TASKS.md; PDF организаторов в репозитории отсутствуют.
-Предположения: `amplitude = abs(U)`, независимое деление каждой плоскости на её максимум
-с epsilon 1e-8, вход uint8/255. При изменении протокола требуется повторное обучение.
-Параметры физики задаёт A в config.py, общую нормировку — src.reconstruction.
-Seed train/val/test/OOD: 42/42001/42002/42003. Best выбирает B по максимальному
-худшему среднему SSIM плоскостей validation, затем среднему Pearson. Test не используется для выбора.
-Проверка B `select_device()` подтверждена локально: CPU, конечный комплексный FFT/backward.
+Технический конвейер проверен; качество восстановления ограничено, особенно на OOD.
+Test: Pearson **0.14464**, SSIM **0.11864** (64 четвёрки).
+OOD: Pearson **0.08278**, SSIM **0.02409** (16 четвёрок).
+Каждая плоскость, категории, начальная сеть, Adam и время — в [RESULTS.md](RESULTS.md).
 
-## Установка
+## Установка и проверка
+
+Проверенная среда C: macOS arm64, Python 3.13, PyTorch 2.15.0, CPU, 2 потока.
+Точные версии сохранены в `requirements-lock.txt`; `requirements.txt` задаёт основные зависимости.
 
 ```bash
 python3.13 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m pytest
+python -m pip install -r requirements-lock.txt
+python -m pytest -q
 ```
 
-Системный Python 3.15 не используется: окружение проекта — Python 3.13.
-Физика принадлежит A, сеть и checkpoints — B, данные/IO/метрики/интеграция — C.
-Техническая готовность и качество обучения фиксируются раздельно. `checkpoints/initial.pt` —
-необученная сеть для сквозной проверки; обученный `best.pt` пока не передан B.
+На CPU тест Metal пропускается. Обучение B проверено на Metal/Python 3.12.14;
+версии, seed и параметры запусков находятся в `runs/*/config.json`.
 
-## Данные и проверка C1
+## Инференс
+
+Все входы — PNG режима `L`, 128×128. Порядок файлов соответствует расстояниям z.
 
 ```bash
-python -m src.data --prepare-eval --val-size 64 --test-size 64 --ood-size 16 --z-m 0.0241 0.0253 0.0265 0.0277
-python -m pytest tests/test_io.py -q
+python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/best.pt --out outputs/reproduce_example
 ```
 
-Явные z позволяют подготовить данные до интеграции конфигурации A. Без `--z-m`
-используется `config.CONFIG.z_m`; конфигурация A интегрирована.
-Данные уже сохранены: validation/test/OOD — 64/64/16, train_diagnostic — 4,
-examples — 8. Категории идут циклически: геометрия, символы, полутона, смешанные.
-В val/test по 16 четвёрок каждой категории. Четыре цели генерируются независимо.
-Manifests содержат split, seed, source IDs/seeds, порядок z, версии и SHA256 PNG.
-Загрузка manifest проверяет хеши. Генератор проверяет отсутствие общих исходников
-и идентичных PNG между фиксированными наборами. Внешние данные не используются.
-OOD удерживает треугольники, символы XYZ789 и частоты 12–20 вместо train 1–7.
-Полутона включают цели с максимумом ниже 1. Train — бесконечный RNG-поток;
-`next(iter(make_train_loader(batch_size, seed)))` возвращает float32 [B,4,128,128].
+Результат: `phase.png`, `recon_1.png` … `recon_4.png`, `metrics.json`.
+Сначала сохраняется и перечитывается фаза, затем рассчитываются и перечитываются реконструкции.
+Метрики считаются по PNG; JSON содержит checkpoint hash, протокол, native pixel pitches,
+версию библиотек, seed, ошибки и раздельное время forward/полного пути.
+Чистый нейросетевой режим выполняет один forward, без уточнения фазы.
 
-`src.io.export_result(targets, phase, out, metadata=...)` — общий путь для A/B:
-сохранение фазы → чтение фазы → общий оператор A → сохранение recon → чтение recon → метрики.
-Pearson постоянной цели — null/диагностика; постоянная реконструкция непостоянной
-цели — null/ошибка. Отчёт сохраняет число валидных пар и ошибок; SSIM всегда
-считает `data_range=1`, `win_size=7`, остальные настройки и версия записаны в JSON.
+## Фиксированные наборы и оценка
 
-## Инференс и оценка
+Данные уже включены: 64 val, 64 test, 16 OOD, 4 train_diagnostic и 8 examples.
+В val/test по 16 четвёрок геометрии, символов, полутонов и смешанных целей.
+Четыре изображения генерируются независимо. Внешние данные не используются.
+Manifests фиксируют source IDs/seeds, SHA256 PNG, split, версии генерации и порядок z.
+Хеши проверяются при загрузке; фиксированные исходники и PNG между наборами не пересекаются.
+Train генерируется потоком с локальным RNG без сброса на каждом batch.
+OOD удерживает треугольники, символы XYZ789 и частоты 12–20 против train 1–7.
 
 ```bash
-python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/best.pt --out outputs/example
-python -m src.evaluate --manifest data/test/manifest.json --checkpoint checkpoints/best.pt --out outputs/test
-python -m src.evaluate --manifest data/ood/manifest.json --checkpoint checkpoints/best.pt --out outputs/ood
+python -m src.data --prepare-eval --val-size 64 --test-size 64 --ood-size 16
+python -m src.evaluate --manifest data/test/manifest.json --checkpoint checkpoints/best.pt --out outputs/reproduce_test
+python -m src.evaluate --manifest data/ood/manifest.json --checkpoint checkpoints/best.pt --out outputs/reproduce_ood
+python -m src.evaluate --manifest examples/manifest.json --checkpoint checkpoints/best.pt --out outputs/reproduce_examples
 ```
 
-На пример: phase.png, recon_1.png … recon_4.png, metrics.json. Оценка набора
-создаёт summary.json: категории, каждая плоскость, среднее и худшее среднее плоскостей,
-число примеров/пар/ошибок. CPU по умолчанию; forward замеряется после двух прогревов,
-отдельно от экспорта. Pipeline включает forward и экспорт; чтение входов и загрузка
-checkpoint выполняются до замера. Метрики и изображения повторяемы; время меняется.
-Checkpoint проверяется API B `load_checkpoint(..., expected_protocol=...)`;
-текущий контракт B — `current_protocol()`, то есть `config.DEFAULT_CONFIG.snapshot()`.
-Несовместимые значения физики/нормировки отклоняются; правка комментариев config.py
-не меняет совместимость. `initial.pt` содержит актуальный протокол.
+`summary.json` содержит каждую плоскость, категории, среднее, худшее среднее плоскостей,
+число валидных пар и ошибки с sample ID. Постоянная цель: Pearson `null`/диагностика;
+постоянная реконструкция непостоянной цели: `null`/ошибка. SSIM: `data_range=1`,
+`win_size=7`, без Gaussian weights, sample covariance, K1=0.01, K2=0.03.
+JSON не допускает NaN/Infinity.
 
-## Текущий результат
+Финальные PNG и отчёты находятся в `outputs/{test,ood,examples}/`.
+Коллажи примеров: `outputs/examples/examples_0000/collage.png` … `examples_0007/collage.png`.
+Аудит повторного распространения всех test/OOD фаз: `outputs/final_verification.json`.
+Одинаковая среда даёт одинаковые PNG/метрики; время и численные результаты разных платформ могут отличаться.
 
-Проверено на macOS arm64, Python 3.13, CPU; комплексный FFT/backward доступен.
-Точные версии установленных пакетов: requirements-lock.txt (`pip install -r requirements-lock.txt`).
-Полный suite: 49 passed, 1 skipped (Metal недоступен в среде C); C1: 7 passed. Проверены PNG/фаза, RNG, manifests,
-известные Pearson/SSIM, вырожденные пары, JSON и путь экспорта на искусственном операторе.
-Проверка искусственного оператора тестирует только IO; физическую корректность проверяет A.
-C2 проверен с реальным Френелем A и `initial.pt` B: два CLI-запуска дали побайтно
-одинаковые phase/recon PNG и одинаковые метрики. Независимое восстановление из phase.png
-совпало с сохранёнными реконструкциями. Результаты: `outputs/c2_initial/verification.json`.
-Максимальная ошибка квантования фазы: 0.0123201 рад (не более π/255).
-На 8 examples необученной сети: средний Pearson 0.0267693, SSIM 0.0289239,
-худший средний SSIM плоскости 0.0231847; 32/32 валидных пар, ошибок нет.
-Подробности по категориям/плоскостям: `outputs/c2_initial/examples/summary.json`.
-Это техническая проверка начальной сети, качество обучения пока не оценено.
-C3 ожидает обученный best.pt B и сравнение A3; test/OOD не использовались.
+## Сравнение с baseline
 
-Идеи проекта: U-Net/каналы глубины — Zeng 2026, обучение через восстановление —
-DeepCGH 2020, PyTorch-оптика и Adam baseline — Peng 2020; независимые синтетические
-2D-цели C — адаптация подхода Yan 2025. Код генератора, IO и метрик написан здесь;
-чужой код и готовые оптические операторы не копировались. Ссылки и границы адаптации — AGENTS.md §11.
-
-Повторение технической проверки C2 без обученного checkpoint:
+Общая подвыборка — первые восемь val, по две каждой категории, зафиксирована до финального выбора модели.
+Сравнение начальной сети, обученной сети и Adam выполняется на одинаковых целях и PNG-протоколе.
 
 ```bash
-python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/initial.pt --out outputs/reproduce_initial
-python -m src.evaluate --manifest examples/manifest.json --checkpoint checkpoints/initial.pt --out outputs/reproduce_examples
+python -m src.compare --out outputs/reproduce_comparison --device cpu --threads 2 --steps 100 --seed 42
+python -m src.baseline --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --steps 300 --seed 42 --out outputs/reproduce_baseline
 ```
 
-Общая подвыборка A3: `data/val/comparison_manifest.json`, первые 8 val (две четвёрки
-каждой категории). Начальная сеть уже оценена: `outputs/comparison/initial/summary.json`;
-mean Pearson=0.1218250, SSIM=0.0596306, worst-plane mean SSIM=0.0352225, ошибок 0/32.
-После фиксации best.pt обученная сеть оценивается на тех же целях:
+Все фазы/PNG локального сравнения C — `outputs/comparison/final/`.
+Baseline оптимизирует фазу Adam; сеть и baseline используют один оператор и нормировку.
+Гибрид в финальную оценку не включён.
+
+## Обучение и checkpoint
+
+U-Net ширины 16 со skip-связями, 4→1 канал, выход `π*tanh(raw)`, interleave_factor=1.
+Физический FFT фиксирован. Обучение без фазовых меток: 500 шагов MSE,
+затем 1500 шагов MSE+0.1·(1−SSIM), Adam lr=1e-3, batch=8, seed=42.
+Checkpoint выбран на шаге 1400 из бюджета 2000 по худшему среднему SSIM четырёх
+плоскостей validation, затем среднему Pearson. Checkpoint видел 11 200 четвёрок;
+полный бюджет выбранной ветки — 16 000 показов. Test/OOD не участвовали в выборе.
 
 ```bash
-python -m src.evaluate --manifest data/val/comparison_manifest.json --checkpoint checkpoints/best.pt --out outputs/comparison/network
+python -m src.train --steps 500 --batch-size 8 --seed 42 --device auto --checkpoint-dir checkpoints/repro --run-dir runs/repro
+python -m src.train --resume checkpoints/repro/last.pt --steps 1500 --batch-size 8 --seed 42 --device auto --ssim-weight 0.1 --checkpoint-dir checkpoints/repro --run-dir runs/repro
 ```
+
+`initial.pt` — согласованное начальное состояние; `best.pt` — выбранный результат;
+`last.pt` — шаг 2000 с optimizer/RNG для продолжения. `pilot_best.pt` и `mse_best.pt` —
+контрольные MSE-модели. Загрузка: `src.train.load_checkpoint(path, expected_protocol=current_protocol())`.
+Несовместимые значения физики/нормировки вызывают ошибку.
+Loss/архитектурные сравнения и CPU-проверка выбора — `runs/{mvp,ssim,interleave}/`.
+
+## Физика, предположения и границы
+
+Источник протокола — AGENTS.md/TASKS.md; PDF организаторов в репозитории отсутствуют.
+Рабочее предположение: `amplitude = abs(U)`, нормировка отдельно для каждой
+плоскости по максимуму с epsilon 1e-8; цели uint8/255. Абсолютная яркость между плоскостями
+не сохраняется. Если полное условие требует интенсивность, нужно изменить общий config,
+повторить обучение и оценку. Подбор усиления по целям не используется.
+
+Физика хранится в `config.py`: λ=532e-9 м, шаг SLM=10e-6 м,
+z=[0.0241,0.0253,0.0265,0.0277] м. Собственный одно-FFT Френель использует
+центрированные координаты/FFT и norm=backward; глобальный фазовый множитель сохранён.
+Цели сравниваются на native сетках каждой плоскости: dx_out≈[10.0166,10.5153,11.0141,11.5128] мкм.
+Фаза кодируется `0→−π`, `255→+π`; все рабочие PNG — `L`, 128×128.
+
+Идеи: U-Net/каналы глубины — Zeng 2026, обучение через восстановление — DeepCGH 2020,
+PyTorch-оптика и Adam — Peng 2020, независимые 2D-цели — адаптация Yan 2025.
+Источники и границы адаптации — [AGENTS.md §11](AGENTS.md). Чужой код не копировался.
+Роли: A — физика/baseline, B — сеть/обучение, C — данные/интеграция/сдача.
+Общий T0, реальные имена всех участников и дедлайн не предоставлены; первый коммит C —
+2026-11-06 22:12 Europe/Moscow. Статусы и приёмка — [TASKS.md](TASKS.md), [B_STATUS.md](B_STATUS.md), [C_STATUS.md](C_STATUS.md).
+
+Состав сдачи: исходники/tests, config, генератор и manifests/PNG, checkpoints,
+логи обучения, `RESULTS.md`, результаты и коллажи. Исторический `outputs/c2_initial/`
+относится к раннему initial checkpoint; для актуального сравнения используется `outputs/comparison/final/`.
+
+## Архив сдачи
+
+Из зафиксированной ревизии репозитория:
+
+```bash
+git archive --format=zip --output=/tmp/AIPhotonics-mvp.zip HEAD
+```
+
+Архив содержит исходники, данные, checkpoints, логи и результаты, без `.git` и `.venv`.
+В извлечённом каталоге выполняются те же команды установки, тестов и инференса.

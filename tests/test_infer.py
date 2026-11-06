@@ -11,9 +11,11 @@ from src.reconstruction import normalize_recons, reconstruct_four
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_initial_checkpoint_real_pipeline_is_repeatable(tmp_path):
-    model, metadata = load_predictor(ROOT / 'checkpoints/initial.pt')
-    assert metadata['method'] == 'initial_network' and len(metadata['dx_out_m']) == 4
+@pytest.mark.parametrize('checkpoint', ['initial.pt', 'best.pt'])
+def test_checkpoint_real_pipeline_is_repeatable(tmp_path, checkpoint):
+    model, metadata = load_predictor(ROOT / 'checkpoints' / checkpoint)
+    assert metadata['method'] == ('initial_network' if checkpoint == 'initial.pt' else 'network')
+    assert len(metadata['dx_out_m']) == 4
     targets = load_four_png([str(ROOT / f'examples/examples_0000/{i}.png') for i in range(1, 5)])
     first = infer_sample(model, targets, tmp_path / 'first', metadata=metadata)
     second = infer_sample(model, targets, tmp_path / 'second', metadata=metadata)
