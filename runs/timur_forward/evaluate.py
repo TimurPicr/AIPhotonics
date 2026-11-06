@@ -63,9 +63,23 @@ def main():
                                                               if sample['category']==category])
                                        for name,values in results.items()} for category in categories},
                'paired_changes':pairs}
+    control_manifest, control_samples = load_manifest('data/timur_control/arbitrary_test/manifest.json')
+    arbitrary = {'old_model': [], 'forward_model': []}
+    for sample, targets in control_samples:
+        for name, predictor, predictor_metadata in [('old_model',old,old_metadata),('forward_model',new,new_metadata)]:
+            arbitrary[name].append(infer_sample(
+                predictor,targets,OUT / 'arbitrary_control' / name / sample['id'],
+                metadata={**predictor_metadata,'sample_id':sample['id'],'split':'arbitrary_test',
+                          'category':sample['category'],'seed':control_manifest['seed']}))
+    summary['arbitrary_control'] = {
+        'samples':len(control_samples),'seed':control_manifest['seed'],
+        'manifest_sha256':file_hash('data/timur_control/arbitrary_test/manifest.json'),
+        'methods':{name:aggregate_results(values) for name,values in arbitrary.items()}}
     write_json(OUT / 'summary.json',summary)
     for name,value in summary['methods'].items():
         print(name,value['mean'],value['worst_plane_mean'])
+    for name,value in summary['arbitrary_control']['methods'].items():
+        print('arbitrary_control',name,value['mean'])
 
 
 if __name__ == '__main__':
