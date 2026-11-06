@@ -1,0 +1,13 @@
+{
+  "selected_step": 1800,
+  "score": [
+    0.968635958051804,
+    0.983253759335146
+  ],
+  "checkpoint_sha256": "4a16fcb91512efd57bcdbf2d85618e5a89aeec12ef0a3b85a519bf0abc10ad34",
+  "budget_steps": 2000,
+  "samples_seen": 16000,
+  "selected_samples_seen": 14400,
+  "selection_fixed_before_test": true,
+  "test_manifest_sha256": "49391326001ca6dcebbf1f4710dbfeb77fbea9a6d0060d4a1123366e16c4d24a"
+}
