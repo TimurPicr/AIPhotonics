@@ -76,3 +76,16 @@ def test_auto_device_falls_back_when_mps_is_unsupported(monkeypatch):
 
     monkeypatch.setattr(torch, "randn", unavailable_mps)
     assert select_device("auto").type == "cpu"
+
+
+def test_real_four_plane_objective_updates_network_weights():
+    from src.data import make_train_loader
+
+    seed_everything(42)
+    model = PhaseUNet(base_channels=2)
+    before = model.head.weight.detach().clone()
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    result = train_step(model, next(iter(make_train_loader(1, 42))), optimizer)
+    assert result["gradient_norm"] > 0
+    assert result["loss"] >= 0
+    assert not torch.equal(model.head.weight.detach(), before)
