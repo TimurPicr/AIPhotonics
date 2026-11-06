@@ -2,14 +2,16 @@
   "steps": 500,
   "batch_size": 8,
   "base_channels": 16,
+  "interleave_factor": 1,
   "lr": 0.001,
+  "ssim_weight": 0.0,
   "seed": 42,
   "threads": 2,
   "device": "mps",
   "overfit_samples": null,
   "checkpoint_dir": "checkpoints",
   "run_dir": "runs/mvp",
-  "resume": null,
+  "resume": "/private/tmp/photonics-b-controls/last500.pt",
   "val_manifest": "data/val/manifest.json",
   "val_every": 50,
   "versions": {
@@ -19,7 +21,7 @@
     "pillow": "13.0.0",
     "scikit_image": "0.26.0"
   },
-  "git_revision": "f245287bfaef451325e1f59f64de48b20ae615be",
+  "git_revision": "dee76fc5da647ae2a6b291659faad86bff491c70",
   "protocol": {
     "wavelength_m": 5.32e-07,
     "slm_pitch_m": 1e-05,

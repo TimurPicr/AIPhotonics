@@ -1,16 +1,28 @@
 # Передача роли B
 
-- B1.1–B1.4 готовы и отправлены; 20 тестов модели, loss, train-loop и checkpoint прошли.
-- Среда B: Python 3.12.14, PyTorch 2.15.0. CPU и Metal проверены; полный градиент U-Net/четырёх Френелей работает на Metal. `--device auto` проверяет ускоритель и откатывается на CPU; RNG Metal сохраняется/восстанавливается.
-- Загрузка: `from src.train import load_checkpoint, current_protocol`; `model, metadata = load_checkpoint(path, expected_protocol=current_protocol())`.
-- **Согласование с A:** конфигурация — `config.DEFAULT_CONFIG`, расстояния — `.distances_m`, протокол — `.snapshot()`. Протокол checkpoint теперь содержит эти значения, а не хеш исходника; C следует использовать `current_protocol()` в `src.infer.protocol_snapshot`.
-- `checkpoints/initial.pt` — необученная сеть для C2, с актуальным протоколом A. Она не является результатом обучения.
-- Код validation использует `src.io.export_result` C и удаляет временные PNG. Критерий best: худший средний SSIM плоскостей, затем средний Pearson; тесты validation прошли.
-- B2 завершён: smoke 20 шагов, MSE 0.12327→0.04501; overfit 200 шагов/4 четвёрки, MSE 0.10344→0.02438, PNG SSIM 0.04382→0.11759. Диагностика — `runs/diagnostics/`.
-- B3.1: 500 шагов/4000 показов, 64 val; лучший шаг 450, средний SSIM 0.10452, Pearson 0.13996, худший средний SSIM 0.09209. Проверены 500 конечных обновлений и выбор best из логов. Пилот — `checkpoints/pilot_best.pt`, `runs/mvp/`.
-- O3 отклонён: interleave=4 при 500 шагах дал худший средний SSIM 0.04033 против 0.09209; выбран обычный U-Net. Данные — `runs/interleave/`, временные веса удалены.
-- B3.2 ещё не завершён: из одного checkpoint шага 500 сравниваются ещё 500 шагов MSE и `MSE + 0.1*(1-SSIM)`. SSIM совпадает с метрикой C (окно 7, sample covariance); 18 затронутых тестов прошли. Финальный `best.pt` пока не публикуется.
-- C/A: `initial.pt` пересоздан самим train-loop из seed=42; перед итоговым сравнением пересчитать initial по окончательно выбранной архитектуре и SHA256 checkpoint.
+**B1–B3 завершены; A3/C3 разблокированы.** Финальные веса — [checkpoints/best.pt](checkpoints/best.pt), SHA256 `55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c`.
 
-Обучаем веса через `L = mean((normalize(abs(P_z(exp(i*phi)))) - T)**2)` по четырём z; режим интенсивности определяется общим протоколом.
+- Модель: `PhaseUNet(base_channels=16, interleave_factor=1)`, четыре цели → одна фаза `π*tanh(raw)`. Interleave=4 проверен и отклонён по validation.
+- Обучение на Metal: 500 шагов MSE, затем 1500 шагов `MSE + 0.1*(1-SSIM)`, всего 16 000 показов четвёрок. По фиксированному критерию выбран **шаг 1400**, а не последний шаг.
+- Повторная CPU-проверка на 64 validation-четвёрках: средний **SSIM 0.12606**, **Pearson 0.16699**; худший средний SSIM плоскости **0.10873**. Все 256 пар валидны. Необученная сеть: SSIM 0.04731, Pearson 0.11487. Качество реконструкции остаётся низким; сильная точность не заявляется.
+- Все **50 тестов A/B/C** прошли, включая Metal RNG, реальный Френель, PNG и checkpoint. CLI проверен и с обученными весами. Среда B: Python 3.12.14, PyTorch 2.15.0; остальные версии/протокол сохранены в конфигурациях запусков.
+- `initial.pt` соответствует архитектуре и начальному состоянию выбранного обучения; `last.pt` содержит optimizer/RNG шага 2000 для продолжения. `pilot_best.pt` и `mse_best.pt` — контрольные MSE-модели бюджетов 500/1000.
+- История/сравнения: [диагностика](runs/diagnostics/summary.json), [MSE-контроль](runs/mvp/summary.json), [interleave](runs/interleave/summary.json), [выбранный loss и CPU-проверка](runs/ssim/summary.json). Временные веса, PNG и установочный кеш удалены.
+- A/C: использовать финальный `best.pt` и текущий `initial.pt`; сверять SHA256 в сравнении. Выбор сделан только по validation; test/OOD и итоговое сравнение с baseline выполняет C/A.
+
+Оптика и нормировка берутся из A: `config.DEFAULT_CONFIG.snapshot()`. C использует тот же `current_protocol()` и экспорт с повторным чтением phase/reconstruction PNG.
+
+Для загрузки: `from src.train import load_checkpoint, current_protocol`, затем `model, metadata = load_checkpoint(path, device="cpu", expected_protocol=current_protocol())`.
+
+Воспроизведение выбранной схемы:
+
+```bash
+python -m src.train --steps 500 --batch-size 8 --seed 42 --device auto --checkpoint-dir checkpoints/repro --run-dir runs/repro
+python -m src.train --resume checkpoints/repro/last.pt --steps 1500 --batch-size 8 --seed 42 --device auto --ssim-weight 0.1 --checkpoint-dir checkpoints/repro --run-dir runs/repro
+```
+
+При продолжении готового `last.pt` число `--steps` означает дополнительные обновления; явно указывать `--ssim-weight 0.1`.
+
+Текущий режим: `R_k = |P_zk(exp(i*phi))|`, `L = mean((normalize(R_k)-T_k)^2) + 0.1*(1-SSIM)` по четырём z. SSIM использует окно 7 и sample covariance, как метрика C. Амплитуда остаётся рабочим предположением до проверки полного кейса.
+
 Основа: [Zeng — U-Net](https://doi.org/10.3390/photonics13030252), [DeepCGH — обучение по восстановлению](https://doi.org/10.1364/OE.399624), [Peng — дифференцируемая оптика](https://doi.org/10.1145/3414685.3417802).
