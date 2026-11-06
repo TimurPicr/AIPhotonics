@@ -26,7 +26,8 @@ python -m pytest
 
 Системный Python 3.15 не используется: окружение проекта — Python 3.13.
 Физика принадлежит A, сеть и checkpoints — B, данные/IO/метрики/интеграция — C.
-Техническая готовность и качество обучения фиксируются раздельно; пока checkpoint отсутствует.
+Техническая готовность и качество обучения фиксируются раздельно. `checkpoints/initial.pt` —
+необученная сеть для сквозной проверки; обученный `best.pt` пока не передан B.
 
 ## Данные и проверка C1
 
@@ -36,7 +37,7 @@ python -m pytest tests/test_io.py -q
 ```
 
 Явные z позволяют подготовить данные до интеграции конфигурации A. Без `--z-m`
-используется `config.CONFIG.z_m` (контракт ожидает согласования с A).
+используется `config.CONFIG.z_m`; конфигурация A интегрирована.
 Данные уже сохранены: validation/test/OOD — 64/64/16, train_diagnostic — 4,
 examples — 8. Категории идут циклически: геометрия, символы, полутона, смешанные.
 В val/test по 16 четвёрок каждой категории. Четыре цели генерируются независимо.
@@ -53,7 +54,7 @@ Pearson постоянной цели — null/диагностика; пост�
 цели — null/ошибка. Отчёт сохраняет число валидных пар и ошибок; SSIM всегда
 считает `data_range=1`, `win_size=7`, остальные настройки и версия записаны в JSON.
 
-## Инференс и оценка после передачи A/B
+## Инференс и оценка
 
 ```bash
 python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/best.pt --out outputs/example
@@ -67,20 +68,35 @@ python -m src.evaluate --manifest data/ood/manifest.json --checkpoint checkpoint
 отдельно от экспорта. Pipeline включает forward и экспорт; чтение входов и загрузка
 checkpoint выполняются до замера. Метрики и изображения повторяемы; время меняется.
 Checkpoint проверяется API B `load_checkpoint(..., expected_protocol=...)`;
-текущий контракт B — SHA256 config.py. Несовместимые checkpoints отклоняются.
-Начальный checkpoint без протокола требует пересоздания B после появления config.py.
+текущий контракт B — `current_protocol()`, то есть `config.DEFAULT_CONFIG.snapshot()`.
+Несовместимые значения физики/нормировки отклоняются; правка комментариев config.py
+не меняет совместимость. `initial.pt` содержит актуальный протокол.
 
 ## Текущий результат
 
 Проверено на macOS arm64, Python 3.13, CPU; комплексный FFT/backward доступен.
 Точные версии установленных пакетов: requirements-lock.txt (`pip install -r requirements-lock.txt`).
-Полный suite: 25 passed; C1: 7 passed. Проверены PNG/фаза, RNG, manifests,
+Полный suite: 41 passed, 1 skipped (Metal недоступен в среде C); C1: 7 passed. Проверены PNG/фаза, RNG, manifests,
 известные Pearson/SSIM, вырожденные пары, JSON и путь экспорта на искусственном операторе.
 Проверка искусственного оператора тестирует только IO; физическую корректность проверяет A.
-Реальный сквозной запуск C2 и финальные C3 пока ожидают физику/config A,
-совместимый обученный best.pt B и сравнение A3. Качество сети не оценено.
+C2 проверен с реальным Френелем A и `initial.pt` B: два CLI-запуска дали побайтно
+одинаковые phase/recon PNG и одинаковые метрики. Независимое восстановление из phase.png
+совпало с сохранёнными реконструкциями. Результаты: `outputs/c2_initial/verification.json`.
+Максимальная ошибка квантования фазы: 0.0123201 рад (не более π/255).
+На 8 examples необученной сети: средний Pearson 0.0267693, SSIM 0.0289239,
+худший средний SSIM плоскости 0.0231847; 32/32 валидных пар, ошибок нет.
+Подробности по категориям/плоскостям: `outputs/c2_initial/examples/summary.json`.
+Это техническая проверка начальной сети, качество обучения пока не оценено.
+C3 ожидает обученный best.pt B и сравнение A3; test/OOD не использовались.
 
 Идеи проекта: U-Net/каналы глубины — Zeng 2026, обучение через восстановление —
 DeepCGH 2020, PyTorch-оптика и Adam baseline — Peng 2020; независимые синтетические
 2D-цели C — адаптация подхода Yan 2025. Код генератора, IO и метрик написан здесь;
 чужой код и готовые оптические операторы не копировались. Ссылки и границы адаптации — AGENTS.md §11.
+
+Повторение технической проверки C2 без обученного checkpoint:
+
+```bash
+python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/initial.pt --out outputs/reproduce_initial
+python -m src.evaluate --manifest examples/manifest.json --checkpoint checkpoints/initial.pt --out outputs/reproduce_examples
+```

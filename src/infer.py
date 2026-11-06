@@ -10,23 +10,24 @@ import PIL
 import torch
 
 from src.io import export_result, file_hash, load_four_png, write_json
-from src.train import load_checkpoint, select_device
+from src.train import current_protocol, load_checkpoint, select_device
 
 
 def protocol_snapshot() -> dict:
-    import config
-    return {'config_sha256': file_hash(config.__file__)}
+    return current_protocol()
 
 
 def load_predictor(checkpoint: str | Path, device: str = 'cpu') -> tuple:
-    import config
+    from config import DEFAULT_CONFIG
+    from src.physics import output_pitch_m
     selected = select_device(device)
     model, payload = load_checkpoint(checkpoint, device=selected, expected_protocol=protocol_snapshot())
     revision = subprocess.run(['git', 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip() or None
     metadata = {'checkpoint_sha256': file_hash(checkpoint), 'checkpoint_step': payload['step'],
                 'method': 'initial_network' if payload['step'] == 0 else 'network',
-                'protocol': payload['protocol'], 'config_source': Path(config.__file__).read_text(),
-                'device': str(selected), 'seed': payload['training_config'].get('seed'),
+                'protocol': payload['protocol'],
+                'dx_out_m': [output_pitch_m(z, DEFAULT_CONFIG.image_size) for z in DEFAULT_CONFIG.distances_m],
+                'device': str(selected), 'threads': torch.get_num_threads(), 'seed': payload['training_config'].get('seed'),
                 'versions': {'python': platform.python_version(), 'torch': str(torch.__version__),
                              'numpy': np.__version__, 'pillow': PIL.__version__},
                 'git_revision': revision}
@@ -73,6 +74,8 @@ def main():
     torch.set_num_threads(args.threads)
     targets = load_four_png(args.images)
     model, metadata = load_predictor(args.checkpoint, args.device)
+    metadata['run_id'] = args.out.name
+    metadata['sample_id'] = args.out.name
     metadata['inputs'] = [{'path': path, 'sha256': file_hash(path)} for path in args.images]
     result = infer_sample(model, targets, args.out, metadata=metadata)
     print(result['mean'])
