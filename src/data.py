@@ -129,14 +129,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prepare-eval', action='store_true', required=True)
     parser.add_argument('--root', type=Path, default=Path('data'))
+    parser.add_argument('--z-m', nargs=4, type=float, help='Explicit dataset distance order; defaults to config.CONFIG.z_m')
     parser.add_argument('--val-size', type=int, default=64)
     parser.add_argument('--test-size', type=int, default=64)
     parser.add_argument('--ood-size', type=int, default=16)
     args = parser.parse_args()
-    manifests = [prepare_split(args.root, name, size) for name, size in
+    manifests = [prepare_split(args.root, name, size, z_m=args.z_m) for name, size in
                  [('val', args.val_size), ('test', args.test_size), ('ood', args.ood_size),
                   ('train_diagnostic', 4)]]
-    manifests.append(prepare_split(Path('.'), 'examples', 8))
+    manifests.append(prepare_split(Path('.'), 'examples', 8, z_m=args.z_m))
     verify_disjoint(manifests)
     print('Prepared:', ', '.join(f"{m['split']}={m['size']}" for m in manifests))
 

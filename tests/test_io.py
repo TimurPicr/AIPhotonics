@@ -89,3 +89,27 @@ def test_manifests_reproducible_disjoint_and_verified(tmp_path):
     write_png(torch.zeros(128, 128), path)
     with pytest.raises(ValueError, match='hash mismatch'):
         load_manifest(tmp_path / 'val/manifest.json')
+
+
+def test_export_uses_quantized_phase_and_saved_recons(tmp_path, monkeypatch):
+    import json
+    import sys
+    from types import SimpleNamespace
+    from src.evaluate import evaluate_four
+    from src.io import export_result
+    seen = []
+
+    def interface_only_reconstruction(phase):
+        seen.append(phase.clone())
+        return phase.sigmoid().repeat(1, 4, 1, 1)
+
+    monkeypatch.setitem(sys.modules, 'src.reconstruction', SimpleNamespace(
+        reconstruct_four=interface_only_reconstruction, normalize_recons=lambda x: x))
+    phase = torch.linspace(-math.pi, math.pi, 128 * 128).reshape(1, 1, 128, 128)
+    target = torch.rand(1, 4, 128, 128)
+    result = export_result(target, phase, tmp_path, metadata={'method': 'interface_test_only'})
+    assert torch.equal(seen[0], load_phase_png(str(tmp_path / 'phase.png')))
+    assert not torch.equal(seen[0], phase)
+    recon = load_four_png([str(tmp_path / f'recon_{i}.png') for i in range(1, 5)])
+    assert result['planes'] == evaluate_four(target, recon)['planes']
+    assert json.loads((tmp_path / 'metrics.json').read_text()) == result
