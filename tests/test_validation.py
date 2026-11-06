@@ -51,3 +51,16 @@ def test_validation_restores_model_mode_when_export_fails():
             export_fn=fail,
         )
     assert model.training
+
+
+def test_default_validation_integrates_real_fresnel_and_png_export():
+    from src.data import make_train_loader
+
+    targets = next(iter(make_train_loader(1, 42)))
+    result = evaluate_validation(
+        PhaseUNet(base_channels=2),
+        [({"id": "pipeline_smoke", "category": "mixed"}, targets)],
+    )
+    assert result["aggregate"]["total_pairs"] == 4
+    assert result["aggregate"]["valid_pearson_pairs"] == 4
+    assert validation_score(result) is not None
