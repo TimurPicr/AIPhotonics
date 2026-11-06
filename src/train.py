@@ -73,8 +73,60 @@ def save_checkpoint(
         "protocol": protocol,
         "training_config": training_config or {},
         "torch_version": str(torch.__version__),
+        "rng_state": capture_rng_state(),
     }
     _atomic_save(payload, Path(path))
+
+
+def capture_rng_state() -> dict:
+    numpy_state = np.random.get_state()
+    state = {
+        "python": random.getstate(),
+        "numpy": [numpy_state[0], numpy_state[1].tolist(), *numpy_state[2:]],
+        "torch": torch.get_rng_state(),
+    }
+    if torch.cuda.is_available():
+        state["cuda"] = torch.cuda.get_rng_state_all()
+    return state
+
+
+def restore_rng_state(checkpoint: dict) -> None:
+    state = checkpoint["rng_state"]
+    random.setstate(state["python"])
+    name, keys, position, has_gauss, cached_gauss = state["numpy"]
+    np.random.set_state((name, np.asarray(keys, dtype=np.uint32), position, has_gauss, cached_gauss))
+    torch.set_rng_state(state["torch"].cpu())
+    if "cuda" in state and torch.cuda.is_available():
+        torch.cuda.set_rng_state_all([value.cpu() for value in state["cuda"]])
+
+
+def load_checkpoint(
+    path: str | Path,
+    *,
+    device: str | torch.device = "cpu",
+    expected_protocol: dict | None = None,
+) -> tuple[PhaseUNet, dict]:
+    """C's inference API: ``model, metadata = load_checkpoint(path)``.
+
+    Model is returned in eval mode. Pass the current protocol to reject an
+    incompatible trained checkpoint. A step-zero initial checkpoint is untrained.
+    """
+    payload = torch.load(path, map_location="cpu", weights_only=True)
+    if not isinstance(payload, dict) or payload.get("format_version") != 1:
+        raise ValueError("unsupported checkpoint format_version")
+    if expected_protocol is not None and payload.get("protocol") != expected_protocol:
+        raise ValueError("checkpoint optical/reconstruction protocol does not match")
+    model_config = payload.get("model_config", {})
+    if set(model_config) != {"base_channels"}:
+        raise ValueError("checkpoint model configuration is unsupported")
+    model = PhaseUNet(**model_config)
+    try:
+        model.load_state_dict(payload["model_state_dict"], strict=True)
+    except (KeyError, RuntimeError) as error:
+        raise ValueError("checkpoint weights do not match the phase model") from error
+    if any(not torch.isfinite(p).all() for p in model.parameters()):
+        raise ValueError("checkpoint contains non-finite model parameters")
+    return model.to(device).eval(), payload
 
 
 def train_step(
@@ -176,6 +228,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--overfit-samples", type=int, choices=[1, 2, 3, 4])
     parser.add_argument("--checkpoint-dir", type=Path, default=Path("checkpoints"))
     parser.add_argument("--run-dir", type=Path, default=Path("runs/mvp"))
+    parser.add_argument("--resume", type=Path, help="resume optimizer/RNG; --steps is additional updates")
     return parser
 
 
@@ -200,16 +253,38 @@ def main(argv: list[str] | None = None) -> int:
     settings = {key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()}
     settings["device"] = str(device)
     model = PhaseUNet(args.base_channels)
+    optimizer = None
+    start_step = 0
+    resumed = None
+    if args.resume is not None:
+        model, resumed = load_checkpoint(args.resume, device=device, expected_protocol=protocol)
+        for name in ["base_channels", "seed", "batch_size", "overfit_samples"]:
+            previous = resumed["training_config"].get(name)
+            if previous != settings[name]:
+                parser.error(f"resume requires the same {name}: saved={previous}, requested={settings[name]}")
+        optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+        if resumed.get("optimizer_state_dict") is None:
+            parser.error("checkpoint has no optimizer state; resume from last.pt")
+        optimizer.load_state_dict(resumed["optimizer_state_dict"])
+        for group in optimizer.param_groups:
+            group["lr"] = args.lr
+        start_step = resumed["step"]
     batches = make_train_loader(args.overfit_samples or args.batch_size, args.seed)
     if args.overfit_samples:
         batches = itertools.repeat(next(iter(batches)))
+    else:
+        batches = iter(batches)
+        for _ in range(start_step):
+            next(batches)
+    if resumed is not None:
+        restore_rng_state(resumed)
     args.run_dir.mkdir(parents=True, exist_ok=True)
     (args.run_dir / "config.json").write_text(json.dumps({**settings, "protocol": protocol}, indent=2) + "\n")
 
     def objective(phase: Tensor, targets: Tensor) -> Tensor:
         return physics_loss(phase, targets, reconstruct_fn=reconstruct_four, normalize_fn=normalize_recons)
 
-    with (args.run_dir / "metrics.jsonl").open("w") as log:
+    with (args.run_dir / "metrics.jsonl").open("a" if resumed is not None else "w") as log:
         def report(record: dict) -> None:
             log.write(json.dumps(record, allow_nan=False) + "\n")
             log.flush()
@@ -221,6 +296,7 @@ def main(argv: list[str] | None = None) -> int:
                 model, batches, steps=args.steps, learning_rate=args.lr, device=device,
                 objective=objective, checkpoint_dir=args.checkpoint_dir,
                 protocol=protocol, training_config=settings, on_step=report,
+                optimizer=optimizer, start_step=start_step,
             )
         except KeyboardInterrupt:
             print("Interrupted: last finite checkpoint saved.", flush=True)
