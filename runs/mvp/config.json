@@ -1,0 +1,37 @@
+{
+  "steps": 500,
+  "batch_size": 8,
+  "base_channels": 16,
+  "lr": 0.001,
+  "seed": 42,
+  "threads": 2,
+  "device": "mps",
+  "overfit_samples": null,
+  "checkpoint_dir": "checkpoints",
+  "run_dir": "runs/mvp",
+  "resume": null,
+  "val_manifest": "data/val/manifest.json",
+  "val_every": 50,
+  "versions": {
+    "python": "3.12.14",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "scikit_image": "0.26.0"
+  },
+  "git_revision": "f245287bfaef451325e1f59f64de48b20ae615be",
+  "protocol": {
+    "wavelength_m": 5.32e-07,
+    "slm_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "image_size": 128,
+    "reconstruction_value": "amplitude",
+    "normalization": "per_plane_max",
+    "normalization_eps": 1e-08
+  }
+}
