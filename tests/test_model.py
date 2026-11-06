@@ -6,9 +6,10 @@ import torch
 from src.model import PhaseUNet
 
 
-def test_phase_model_shape_bounds_and_all_four_input_gradients():
+@pytest.mark.parametrize("interleave_factor", [1, 4])
+def test_phase_model_shape_bounds_and_all_four_input_gradients(interleave_factor):
     torch.manual_seed(42)
-    model = PhaseUNet()
+    model = PhaseUNet(interleave_factor=interleave_factor)
     images = torch.rand(1, 4, 128, 128, requires_grad=True)
     phase = model(images)
     assert phase.shape == (1, 1, 128, 128)

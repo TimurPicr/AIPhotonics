@@ -13,8 +13,9 @@ def objective(phase, targets):
     return (torch.sigmoid(phase).expand_as(targets) - targets).square().mean()
 
 
-def test_checkpoint_restores_exact_predictions_and_checks_protocol(tmp_path):
-    model = PhaseUNet(base_channels=4).eval()
+@pytest.mark.parametrize("interleave_factor", [1, 4])
+def test_checkpoint_restores_exact_predictions_and_checks_protocol(tmp_path, interleave_factor):
+    model = PhaseUNet(base_channels=4, interleave_factor=interleave_factor).eval()
     images = torch.rand(1, 4, 32, 32)
     protocol = {"reconstruction_value": "amplitude", "wavelength_m": 532e-9}
     save_checkpoint(tmp_path / "initial.pt", model, protocol=protocol)
@@ -24,6 +25,15 @@ def test_checkpoint_restores_exact_predictions_and_checks_protocol(tmp_path):
         torch.testing.assert_close(model(images), loaded(images), rtol=0, atol=0)
     with pytest.raises(ValueError, match="protocol"):
         load_checkpoint(tmp_path / "initial.pt", expected_protocol={"reconstruction_value": "intensity"})
+
+
+def test_original_direct_phase_checkpoint_remains_loadable(tmp_path):
+    save_checkpoint(tmp_path / "v1.pt", PhaseUNet(base_channels=2))
+    payload = torch.load(tmp_path / "v1.pt", weights_only=True)
+    payload["model_config"].pop("interleave_factor")
+    torch.save(payload, tmp_path / "v1.pt")
+    loaded, _ = load_checkpoint(tmp_path / "v1.pt")
+    assert loaded.interleave_factor == 1
 
 
 def test_rng_roundtrip(tmp_path):

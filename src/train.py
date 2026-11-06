@@ -84,7 +84,7 @@ def save_checkpoint(
     """Save state dictionaries and plain metadata, never a pickled model object."""
     payload = {
         "format_version": 1,
-        "model_config": {"base_channels": model.base_channels},
+        "model_config": {"base_channels": model.base_channels, "interleave_factor": model.interleave_factor},
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict() if optimizer is not None else None,
         "step": step,
@@ -141,7 +141,7 @@ def load_checkpoint(
     if expected_protocol is not None and payload.get("protocol") != expected_protocol:
         raise ValueError("checkpoint optical/reconstruction protocol does not match")
     model_config = payload.get("model_config", {})
-    if set(model_config) != {"base_channels"}:
+    if "base_channels" not in model_config or set(model_config) - {"base_channels", "interleave_factor"}:
         raise ValueError("checkpoint model configuration is unsupported")
     model = PhaseUNet(**model_config)
     try:
@@ -303,6 +303,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--steps", type=_positive_int, default=500)
     parser.add_argument("--batch-size", type=_positive_int, default=8)
     parser.add_argument("--base-channels", type=_positive_int, default=16)
+    parser.add_argument("--interleave-factor", type=int, choices=[1, 2, 4, 8, 16], default=1)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--threads", type=_positive_int, default=2)
@@ -345,15 +346,15 @@ def main(argv: list[str] | None = None) -> int:
         ["git", "rev-parse", "HEAD"], cwd=Path(__file__).resolve().parents[1],
         capture_output=True, text=True, check=False,
     ).stdout.strip() or None
-    model = PhaseUNet(args.base_channels)
+    model = PhaseUNet(args.base_channels, args.interleave_factor)
     optimizer = None
     start_step = 0
     start_samples = 0
     resumed = None
     if args.resume is not None:
         model, resumed = load_checkpoint(args.resume, device=device, expected_protocol=protocol)
-        for name in ["base_channels", "seed", "batch_size", "overfit_samples"]:
-            previous = resumed["training_config"].get(name)
+        for name in ["base_channels", "interleave_factor", "seed", "batch_size", "overfit_samples"]:
+            previous = resumed["training_config"].get(name, 1 if name == "interleave_factor" else None)
             if previous != settings[name]:
                 parser.error(f"resume requires the same {name}: saved={previous}, requested={settings[name]}")
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)

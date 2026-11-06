@@ -78,11 +78,12 @@ def test_auto_device_falls_back_when_mps_is_unsupported(monkeypatch):
     assert select_device("auto").type == "cpu"
 
 
-def test_real_four_plane_objective_updates_network_weights():
+@pytest.mark.parametrize("interleave_factor", [1, 4])
+def test_real_four_plane_objective_updates_network_weights(interleave_factor):
     from src.data import make_train_loader
 
     seed_everything(42)
-    model = PhaseUNet(base_channels=2)
+    model = PhaseUNet(base_channels=2, interleave_factor=interleave_factor)
     before = model.head.weight.detach().clone()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     result = train_step(model, next(iter(make_train_loader(1, 42))), optimizer)
