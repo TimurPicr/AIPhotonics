@@ -30,7 +30,7 @@ def test_initial_checkpoint_real_pipeline_is_repeatable(tmp_path):
 
 
 def test_inference_rejects_incompatible_checkpoint(tmp_path):
-    payload = torch.load(ROOT / 'checkpoints/initial.pt', weights_only=True)
+    payload = torch.load(ROOT / 'checkpoints/initial.pt', map_location='cpu', weights_only=True)
     payload['protocol']['reconstruction_value'] = 'intensity'
     torch.save(payload, tmp_path / 'incompatible.pt')
     with pytest.raises(ValueError, match='protocol'):
