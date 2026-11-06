@@ -1,0 +1,2077 @@
+{
+  "split": "train",
+  "size": 64,
+  "seed": 42,
+  "generator": "forward-v1",
+  "category_kind": "source_target_category",
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "protocol": {
+    "wavelength_m": 5.32e-07,
+    "slm_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "image_size": 128,
+    "reconstruction_value": "amplitude",
+    "normalization": "per_plane_max",
+    "normalization_eps": 1e-08
+  },
+  "samples": [
+    {
+      "id": "forward_train_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0000_0",
+          "path": "forward_train_0000/1.png",
+          "sha256": "f3c68bf8e26ffcbb0ec7e1355e37e71e722e9dadf04a19a6d2c3f6072acc9638"
+        },
+        {
+          "id": "forward_train_0000_1",
+          "path": "forward_train_0000/2.png",
+          "sha256": "6a7e62a574254141312cc73f989b7931d45c24d30fbc5766bb448c28cfaea264"
+        },
+        {
+          "id": "forward_train_0000_2",
+          "path": "forward_train_0000/3.png",
+          "sha256": "ab90eea6ebac55bc4bb8518b13affd4f2156f0fa0b9749476d35eb956a4d5a23"
+        },
+        {
+          "id": "forward_train_0000_3",
+          "path": "forward_train_0000/4.png",
+          "sha256": "58c550266e5edae8dd7f0d4437a3d44c17a5b7cd5f753d143012771984dfd96c"
+        }
+      ],
+      "phase_path": "forward_train_0000/phase.png",
+      "phase_sha256": "ffc9f860943fb5939b7defa855c9f164b162b6cbd1c768b35ef80677cc818277",
+      "parent_sample_id": "test_0032",
+      "parent_phase_path": "outputs/test/test_0032/phase.png",
+      "parent_phase_sha256": "ffc9f860943fb5939b7defa855c9f164b162b6cbd1c768b35ef80677cc818277",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0001",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0001_0",
+          "path": "forward_train_0001/1.png",
+          "sha256": "4f0183f4fb14593ec156d6fd7bee7c2b455a76d691b6fc4529934148609f8e1d"
+        },
+        {
+          "id": "forward_train_0001_1",
+          "path": "forward_train_0001/2.png",
+          "sha256": "4a5b83224620bd35dbe81a95d7d66e15910f692adf36243c691df6ab5faab367"
+        },
+        {
+          "id": "forward_train_0001_2",
+          "path": "forward_train_0001/3.png",
+          "sha256": "483d23b7bf0057d27eb7a8f3e289b88fb462eeee602d905480b24ebeded8bd65"
+        },
+        {
+          "id": "forward_train_0001_3",
+          "path": "forward_train_0001/4.png",
+          "sha256": "8a8d7116691f5a7ed89ca412f9fbd33db14579732f4e4c1f5fe5b95f1cb9b90d"
+        }
+      ],
+      "phase_path": "forward_train_0001/phase.png",
+      "phase_sha256": "6aec6ec3ec9d3973d4bf5c272c8fbbe92db4da519d3c5e6fa97068158111da94",
+      "parent_sample_id": "test_0028",
+      "parent_phase_path": "outputs/test/test_0028/phase.png",
+      "parent_phase_sha256": "6aec6ec3ec9d3973d4bf5c272c8fbbe92db4da519d3c5e6fa97068158111da94",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0002",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0002_0",
+          "path": "forward_train_0002/1.png",
+          "sha256": "f1a0917ce9932d5c8484f7e68dd056efa47f45bcd7e217821d30072cfaa00623"
+        },
+        {
+          "id": "forward_train_0002_1",
+          "path": "forward_train_0002/2.png",
+          "sha256": "cfeff83257a5938b0dfe7fe7b0b201e5cc3c781d1e3b787064d554c9a777511e"
+        },
+        {
+          "id": "forward_train_0002_2",
+          "path": "forward_train_0002/3.png",
+          "sha256": "5cc8b0185346550042fb5be8baaf71af54759f7d7ed1df9fb03e311fb8ee93ab"
+        },
+        {
+          "id": "forward_train_0002_3",
+          "path": "forward_train_0002/4.png",
+          "sha256": "59f2d48da8640b6b26738b139dd4c0681e38f826e81535e827048658a2e795b5"
+        }
+      ],
+      "phase_path": "forward_train_0002/phase.png",
+      "phase_sha256": "850a3dfd1e781615924749be71928bdab7418c242673f2086fbd33c10684cb4e",
+      "parent_sample_id": "test_0040",
+      "parent_phase_path": "outputs/test/test_0040/phase.png",
+      "parent_phase_sha256": "850a3dfd1e781615924749be71928bdab7418c242673f2086fbd33c10684cb4e",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0003",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0003_0",
+          "path": "forward_train_0003/1.png",
+          "sha256": "45300ff1005dcc82fcdcb7b455dda016a949007bd134fcb661a4fc7ae41c0b4c"
+        },
+        {
+          "id": "forward_train_0003_1",
+          "path": "forward_train_0003/2.png",
+          "sha256": "cb5fa207b52287474731e1339e472f16aaedd3842601de969fe40bbc91631dcf"
+        },
+        {
+          "id": "forward_train_0003_2",
+          "path": "forward_train_0003/3.png",
+          "sha256": "0ee036fec000074468ba413243cf82dedab98be6dd4a04101b121e97bd3be506"
+        },
+        {
+          "id": "forward_train_0003_3",
+          "path": "forward_train_0003/4.png",
+          "sha256": "b719954f7111bfc4ef3ed8e3c1ba8b65c16161f2e0e220a9a9930d744537be51"
+        }
+      ],
+      "phase_path": "forward_train_0003/phase.png",
+      "phase_sha256": "898206f03802dfced5edbe90d052898df39beda15e102ed92eeca81e36c3afab",
+      "parent_sample_id": "test_0044",
+      "parent_phase_path": "outputs/test/test_0044/phase.png",
+      "parent_phase_sha256": "898206f03802dfced5edbe90d052898df39beda15e102ed92eeca81e36c3afab",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0004",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0004_0",
+          "path": "forward_train_0004/1.png",
+          "sha256": "005dc93a7384f401efac93c18aafc720b9540ee8f0597eb9d92393f6bc241b36"
+        },
+        {
+          "id": "forward_train_0004_1",
+          "path": "forward_train_0004/2.png",
+          "sha256": "3cb31e39c463718365f6a99976191636e0795348bcfb97adae8113c89f471c5e"
+        },
+        {
+          "id": "forward_train_0004_2",
+          "path": "forward_train_0004/3.png",
+          "sha256": "bca8f054834410e4725ada8884e9f05a254d2207a760ed588dd80983e2d2e2a0"
+        },
+        {
+          "id": "forward_train_0004_3",
+          "path": "forward_train_0004/4.png",
+          "sha256": "ac0d32a99592fb858cb90cb503b460dcd995405c2c6fe4f138c182b3ea0c3e04"
+        }
+      ],
+      "phase_path": "forward_train_0004/phase.png",
+      "phase_sha256": "023a82d938c1f49e67f4ff75055afa7e8454e70fd7dee9f5e1a69a09aae76f1c",
+      "parent_sample_id": "test_0004",
+      "parent_phase_path": "outputs/test/test_0004/phase.png",
+      "parent_phase_sha256": "023a82d938c1f49e67f4ff75055afa7e8454e70fd7dee9f5e1a69a09aae76f1c",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0005",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0005_0",
+          "path": "forward_train_0005/1.png",
+          "sha256": "45c326e1ae7d23acefad36eca707d9e403e15279116e8f0aad41c67308cc76e3"
+        },
+        {
+          "id": "forward_train_0005_1",
+          "path": "forward_train_0005/2.png",
+          "sha256": "abdf92a3d527adce01eeae337e5fbeb7400845532a62b3faaffffd7b27983984"
+        },
+        {
+          "id": "forward_train_0005_2",
+          "path": "forward_train_0005/3.png",
+          "sha256": "7a340d8223ee66ee2d9d0e375676153bca65bc1e2da56096992d1bfa10638019"
+        },
+        {
+          "id": "forward_train_0005_3",
+          "path": "forward_train_0005/4.png",
+          "sha256": "a2f38a4bfdfb04ef3fb8724fc33fd4a9049b65a04921ca571074cee336e909cf"
+        }
+      ],
+      "phase_path": "forward_train_0005/phase.png",
+      "phase_sha256": "59cbaa9d3b85d4b929efbad78429100ed17934fcec201b260ed75a81615dbebc",
+      "parent_sample_id": "ood_0012",
+      "parent_phase_path": "outputs/ood/ood_0012/phase.png",
+      "parent_phase_sha256": "59cbaa9d3b85d4b929efbad78429100ed17934fcec201b260ed75a81615dbebc",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0006",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0006_0",
+          "path": "forward_train_0006/1.png",
+          "sha256": "de05f090cc4a44f495dad81baf3fac3a5c23562b83e60af1ce70978b2d63ce4f"
+        },
+        {
+          "id": "forward_train_0006_1",
+          "path": "forward_train_0006/2.png",
+          "sha256": "9efb23f85bf8f33dac3fc6c4b25ffc9aa46079c78c115e698efc5c764edff612"
+        },
+        {
+          "id": "forward_train_0006_2",
+          "path": "forward_train_0006/3.png",
+          "sha256": "45f0c7dd0a1d8c36e198acd8162652988e1bc6ec7e289cb29ee65ce7b226e3bd"
+        },
+        {
+          "id": "forward_train_0006_3",
+          "path": "forward_train_0006/4.png",
+          "sha256": "62df0beedfae09810d81c322be66554a804d859d263e5cc719c66f07ff1f8e34"
+        }
+      ],
+      "phase_path": "forward_train_0006/phase.png",
+      "phase_sha256": "efbfd852b03cf85274a8209c9b901792b7c964b3de6b35eae5c7e6d24a52444e",
+      "parent_sample_id": "test_0036",
+      "parent_phase_path": "outputs/test/test_0036/phase.png",
+      "parent_phase_sha256": "efbfd852b03cf85274a8209c9b901792b7c964b3de6b35eae5c7e6d24a52444e",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0007",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0007_0",
+          "path": "forward_train_0007/1.png",
+          "sha256": "919b445bab0694d8360b09793934a212006fac9d50c979cbdd74dc3dc531aa39"
+        },
+        {
+          "id": "forward_train_0007_1",
+          "path": "forward_train_0007/2.png",
+          "sha256": "2f6d4829c00e6be0a23310f088cc6f6c033bda6e8a273b9b3909841180285d74"
+        },
+        {
+          "id": "forward_train_0007_2",
+          "path": "forward_train_0007/3.png",
+          "sha256": "26fc11bcfd7806012c11eaa06d0350751ccc9d2b0d42564b7f82766ab0013d79"
+        },
+        {
+          "id": "forward_train_0007_3",
+          "path": "forward_train_0007/4.png",
+          "sha256": "adcf57d6b09b3751efd524e525f5eb546263405dac5d8c9cc601f4b0d5515c74"
+        }
+      ],
+      "phase_path": "forward_train_0007/phase.png",
+      "phase_sha256": "110cc882a66345da7a89354bf11d851e900aa771b98d9aae434a76512d6e4c40",
+      "parent_sample_id": "test_0060",
+      "parent_phase_path": "outputs/test/test_0060/phase.png",
+      "parent_phase_sha256": "110cc882a66345da7a89354bf11d851e900aa771b98d9aae434a76512d6e4c40",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0008",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0008_0",
+          "path": "forward_train_0008/1.png",
+          "sha256": "1f679b41d62096b8ac03266074676180f1ab703fb4c8e65dd555e77963247a9a"
+        },
+        {
+          "id": "forward_train_0008_1",
+          "path": "forward_train_0008/2.png",
+          "sha256": "932839930ee1974560c0d82b5ce21a17f457b7ff921ff304bc0958d15b1ceea5"
+        },
+        {
+          "id": "forward_train_0008_2",
+          "path": "forward_train_0008/3.png",
+          "sha256": "0e93f3a3839df9585cde7c4f6f396ef3409ddc0c97602fdc7b30fa04b6332fdd"
+        },
+        {
+          "id": "forward_train_0008_3",
+          "path": "forward_train_0008/4.png",
+          "sha256": "75b3e435acf4ca95f1cbdd47d067bfada2cc35e41441f0fdae88a50c3cf05355"
+        }
+      ],
+      "phase_path": "forward_train_0008/phase.png",
+      "phase_sha256": "bed732185fd2c177c9170a95d4b5bcacd6b64ff7bc40a0235714a45f6af6b5d7",
+      "parent_sample_id": "ood_0008",
+      "parent_phase_path": "outputs/ood/ood_0008/phase.png",
+      "parent_phase_sha256": "bed732185fd2c177c9170a95d4b5bcacd6b64ff7bc40a0235714a45f6af6b5d7",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0009",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0009_0",
+          "path": "forward_train_0009/1.png",
+          "sha256": "4eb963235591cf3ada18d46125333bd2472ee66b93f29e42acf184d16974082d"
+        },
+        {
+          "id": "forward_train_0009_1",
+          "path": "forward_train_0009/2.png",
+          "sha256": "812da8da3812d7781ff69b7f612990d9b758064f2af2ca970a3489d54424381d"
+        },
+        {
+          "id": "forward_train_0009_2",
+          "path": "forward_train_0009/3.png",
+          "sha256": "506232a03ee0b4c9fb2365b7bf4e8706bf66338bd7c6eb488206d2db1113f446"
+        },
+        {
+          "id": "forward_train_0009_3",
+          "path": "forward_train_0009/4.png",
+          "sha256": "e81d234b1b6fe1e8ce97d65ae2323c3a3d2c3389e00f2f4777122661566362b5"
+        }
+      ],
+      "phase_path": "forward_train_0009/phase.png",
+      "phase_sha256": "3d8ffa08f411cb87d72fe87edb75c2b821e315f8b300dccf393ef0d8a6210a33",
+      "parent_sample_id": "test_0008",
+      "parent_phase_path": "outputs/test/test_0008/phase.png",
+      "parent_phase_sha256": "3d8ffa08f411cb87d72fe87edb75c2b821e315f8b300dccf393ef0d8a6210a33",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0010",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0010_0",
+          "path": "forward_train_0010/1.png",
+          "sha256": "8ebfe42241588f85a536fd0234c60813065fa20544978f9d1f64fe8c1025d5dc"
+        },
+        {
+          "id": "forward_train_0010_1",
+          "path": "forward_train_0010/2.png",
+          "sha256": "b69430ebd1d9ab87f3358d8d08def84b636b7369188af65d8dc6f7019bafa961"
+        },
+        {
+          "id": "forward_train_0010_2",
+          "path": "forward_train_0010/3.png",
+          "sha256": "52ed33a612b59e51b654ab987b99acb26515834b3370a75fb106bb7f4b9af890"
+        },
+        {
+          "id": "forward_train_0010_3",
+          "path": "forward_train_0010/4.png",
+          "sha256": "00d622015f6f841f36cc7fbc3c90a475684379186f58cabe2f9246abbf0720cd"
+        }
+      ],
+      "phase_path": "forward_train_0010/phase.png",
+      "phase_sha256": "21d77251b79758c674d63718f610bd676126480290a792bf33c9e8279637bf61",
+      "parent_sample_id": "examples_0004",
+      "parent_phase_path": "outputs/examples/examples_0004/phase.png",
+      "parent_phase_sha256": "21d77251b79758c674d63718f610bd676126480290a792bf33c9e8279637bf61",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0011",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0011_0",
+          "path": "forward_train_0011/1.png",
+          "sha256": "186d93c0d49434b74d9cfdcff3993500e7a4820350d8b9bae69ab47995cd8585"
+        },
+        {
+          "id": "forward_train_0011_1",
+          "path": "forward_train_0011/2.png",
+          "sha256": "84d7d5957931eac327672441663923487b34aa697b4581736f55ea9e72fc4f37"
+        },
+        {
+          "id": "forward_train_0011_2",
+          "path": "forward_train_0011/3.png",
+          "sha256": "e69092ae189c068050b58e952d3b10ff699cde731f01ea21a1cb1a40ec198f59"
+        },
+        {
+          "id": "forward_train_0011_3",
+          "path": "forward_train_0011/4.png",
+          "sha256": "8633c9194754ffb0c011d1c489a842400d65ab9c21121257e772e50ffd1f4c76"
+        }
+      ],
+      "phase_path": "forward_train_0011/phase.png",
+      "phase_sha256": "a2de7834ef3fe3ec835b71c06efcbe55362aa4f9b075524e2d47d6693114105a",
+      "parent_sample_id": "val_0000",
+      "parent_phase_path": "outputs/comparison/final/network/val_0000/phase.png",
+      "parent_phase_sha256": "a2de7834ef3fe3ec835b71c06efcbe55362aa4f9b075524e2d47d6693114105a",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0012",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0012_0",
+          "path": "forward_train_0012/1.png",
+          "sha256": "82b7eefd47fb688fe5a36f71f0facf803ff397c811761748728e4cb1c9d65a2b"
+        },
+        {
+          "id": "forward_train_0012_1",
+          "path": "forward_train_0012/2.png",
+          "sha256": "ff241081e438c50e15750f3256591b6d20fa4f65c0ee7d0692404f90ef67dbcc"
+        },
+        {
+          "id": "forward_train_0012_2",
+          "path": "forward_train_0012/3.png",
+          "sha256": "0571c3b289c8a4a7666fdfc578e0eae33633625fbfbdba5fa86b2ac646feed49"
+        },
+        {
+          "id": "forward_train_0012_3",
+          "path": "forward_train_0012/4.png",
+          "sha256": "aec6321a20fdd11565b4aeea6dcca6b2de6e243d837b46a3d66ba986d95f6600"
+        }
+      ],
+      "phase_path": "forward_train_0012/phase.png",
+      "phase_sha256": "c6d671d3e98c27088ef612c07b0418923a6ce00184f20a71fb97b92d01111153",
+      "parent_sample_id": "test_0048",
+      "parent_phase_path": "outputs/test/test_0048/phase.png",
+      "parent_phase_sha256": "c6d671d3e98c27088ef612c07b0418923a6ce00184f20a71fb97b92d01111153",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0013",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0013_0",
+          "path": "forward_train_0013/1.png",
+          "sha256": "01101d50ff497e1d6c503bb72b70756cbcd5cca3328a31d3fc8f5daca80a98d3"
+        },
+        {
+          "id": "forward_train_0013_1",
+          "path": "forward_train_0013/2.png",
+          "sha256": "c9c9c74220175d3ac947524de80e27e4f40d2a3c753c16309d8872cedbb55a4c"
+        },
+        {
+          "id": "forward_train_0013_2",
+          "path": "forward_train_0013/3.png",
+          "sha256": "4562f931d116c1a1683688d4e616ca41e43f23ddc66cfd170074a46ca351a490"
+        },
+        {
+          "id": "forward_train_0013_3",
+          "path": "forward_train_0013/4.png",
+          "sha256": "d86beb20f8ce2f1a25e33069664131c60cbbdd7c1ef325f63030f7662114b780"
+        }
+      ],
+      "phase_path": "forward_train_0013/phase.png",
+      "phase_sha256": "55cb99e8e8984fa8315823896283c1b48fc9733f6740e0170870658f8a020ab0",
+      "parent_sample_id": "test_0016",
+      "parent_phase_path": "outputs/test/test_0016/phase.png",
+      "parent_phase_sha256": "55cb99e8e8984fa8315823896283c1b48fc9733f6740e0170870658f8a020ab0",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0014",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0014_0",
+          "path": "forward_train_0014/1.png",
+          "sha256": "86b654709ca1f203b7cabfe723e924492a6d25728046811c767df35177d37444"
+        },
+        {
+          "id": "forward_train_0014_1",
+          "path": "forward_train_0014/2.png",
+          "sha256": "8651dd7803f2dd2bd38a11c4d208ebfe911b4b90145151d1756a43e93e0fa989"
+        },
+        {
+          "id": "forward_train_0014_2",
+          "path": "forward_train_0014/3.png",
+          "sha256": "254f478cc8fac2d09abb62568397ff18eecf39aaf6088f93feb938e64676f20e"
+        },
+        {
+          "id": "forward_train_0014_3",
+          "path": "forward_train_0014/4.png",
+          "sha256": "7a3a9b22e1620781afc6e5878a26af348f57069f8fa0dc03dd5133b1ad448ed2"
+        }
+      ],
+      "phase_path": "forward_train_0014/phase.png",
+      "phase_sha256": "ee58f5944260464f955079405e0fad6f19ab48b24663c5bcdcf16e79a059b7d1",
+      "parent_sample_id": "ood_0004",
+      "parent_phase_path": "outputs/ood/ood_0004/phase.png",
+      "parent_phase_sha256": "ee58f5944260464f955079405e0fad6f19ab48b24663c5bcdcf16e79a059b7d1",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0015",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_train_0015_0",
+          "path": "forward_train_0015/1.png",
+          "sha256": "6595ebb85b61a0565a5341b80203b2da0b60247c7b349afcc6550bce8febfcf1"
+        },
+        {
+          "id": "forward_train_0015_1",
+          "path": "forward_train_0015/2.png",
+          "sha256": "002fc1525d2ea106668bfbb0656c68957b93b7c877984edc54e9542c4970dcaa"
+        },
+        {
+          "id": "forward_train_0015_2",
+          "path": "forward_train_0015/3.png",
+          "sha256": "ec7ab12dea08b7528c657a7244423bd87fbe816983ee345a6ae71539468ad958"
+        },
+        {
+          "id": "forward_train_0015_3",
+          "path": "forward_train_0015/4.png",
+          "sha256": "2641cc53792d51d125f25ee57d13b9008f42dfccf16888496b71ecf32a48bfa8"
+        }
+      ],
+      "phase_path": "forward_train_0015/phase.png",
+      "phase_sha256": "9fffc89dc446c6e5e38717359d24baacbda13af44a0534a2251f4b6876f6fa9c",
+      "parent_sample_id": "test_0012",
+      "parent_phase_path": "outputs/test/test_0012/phase.png",
+      "parent_phase_sha256": "9fffc89dc446c6e5e38717359d24baacbda13af44a0534a2251f4b6876f6fa9c",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0016",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0016_0",
+          "path": "forward_train_0016/1.png",
+          "sha256": "754d9075888aec9e4d030a43f3fef159bb3058f1a4ab6bec83f98b8f750db669"
+        },
+        {
+          "id": "forward_train_0016_1",
+          "path": "forward_train_0016/2.png",
+          "sha256": "882ba6943df18d1811396421a23c995ec2150bf2ccc9d880ed785a1e135655e8"
+        },
+        {
+          "id": "forward_train_0016_2",
+          "path": "forward_train_0016/3.png",
+          "sha256": "b11a98a43f30edef7d4938618729f636a62bce481e5aee9aa77b0b998d8dbdb0"
+        },
+        {
+          "id": "forward_train_0016_3",
+          "path": "forward_train_0016/4.png",
+          "sha256": "15db7b62b71936ea5753421876931bc3991231992c97a0f40c80044fa8576172"
+        }
+      ],
+      "phase_path": "forward_train_0016/phase.png",
+      "phase_sha256": "8a22159dac7456c7bb1bf3e750c0b04d35240e57b7c111cf4bcce1c343336793",
+      "parent_sample_id": "test_0006",
+      "parent_phase_path": "outputs/test/test_0006/phase.png",
+      "parent_phase_sha256": "8a22159dac7456c7bb1bf3e750c0b04d35240e57b7c111cf4bcce1c343336793",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0017",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0017_0",
+          "path": "forward_train_0017/1.png",
+          "sha256": "d52ee6c9eeef54578c97e1174005d56d01cc6324df6432affb512e6db55784d7"
+        },
+        {
+          "id": "forward_train_0017_1",
+          "path": "forward_train_0017/2.png",
+          "sha256": "512513c6f60bee10fc378add1653035865fb728cfd485ef1ecce307099b4bdab"
+        },
+        {
+          "id": "forward_train_0017_2",
+          "path": "forward_train_0017/3.png",
+          "sha256": "986163af46311141b37bc9e290d8dd24544bbdeb189a6a80de44398b45737c22"
+        },
+        {
+          "id": "forward_train_0017_3",
+          "path": "forward_train_0017/4.png",
+          "sha256": "ece76882d5cb90b0a03ec455e5da741eac389a39b4917b5f2a75087930ec8658"
+        }
+      ],
+      "phase_path": "forward_train_0017/phase.png",
+      "phase_sha256": "afcc728ae63c286db20fc081488d2c47567e2595f4cf5e3f8ced5344efe86adb",
+      "parent_sample_id": "test_0042",
+      "parent_phase_path": "outputs/test/test_0042/phase.png",
+      "parent_phase_sha256": "afcc728ae63c286db20fc081488d2c47567e2595f4cf5e3f8ced5344efe86adb",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0018",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0018_0",
+          "path": "forward_train_0018/1.png",
+          "sha256": "a88c44a6833bf6ee1938191e99d003454d88df4e2938620d8efb4f9fb0b79053"
+        },
+        {
+          "id": "forward_train_0018_1",
+          "path": "forward_train_0018/2.png",
+          "sha256": "01f34e1e42ce270753987ab15be53132ac343e940169b885926c688a1b72b33a"
+        },
+        {
+          "id": "forward_train_0018_2",
+          "path": "forward_train_0018/3.png",
+          "sha256": "cce2f27d6d960c7807520cd2e044bcd55158960e8954da117500a72a6d6d641a"
+        },
+        {
+          "id": "forward_train_0018_3",
+          "path": "forward_train_0018/4.png",
+          "sha256": "26c3bc4a1448415e5bca4e43088a4deb13bc4bc7d8fe9b9db84347df8a01757e"
+        }
+      ],
+      "phase_path": "forward_train_0018/phase.png",
+      "phase_sha256": "103d048fa439615a3d7d5fb1c19ad039d3f0b955724ebe3646035cc4815ab6c7",
+      "parent_sample_id": "ood_0010",
+      "parent_phase_path": "outputs/ood/ood_0010/phase.png",
+      "parent_phase_sha256": "103d048fa439615a3d7d5fb1c19ad039d3f0b955724ebe3646035cc4815ab6c7",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0019",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0019_0",
+          "path": "forward_train_0019/1.png",
+          "sha256": "a74669cb9a93c4032e821a7efd29f141c0bf4d2354881bcfd3bcf509fada1c76"
+        },
+        {
+          "id": "forward_train_0019_1",
+          "path": "forward_train_0019/2.png",
+          "sha256": "748cd431672ba68650054ec2d00203dd1fa390398743430f3f95ea17fa84d27a"
+        },
+        {
+          "id": "forward_train_0019_2",
+          "path": "forward_train_0019/3.png",
+          "sha256": "fab56a3abdbe4f30ca244637451be94ba3a75c3a27a5875bc1e02da39e85ce23"
+        },
+        {
+          "id": "forward_train_0019_3",
+          "path": "forward_train_0019/4.png",
+          "sha256": "4c1f13efaf5dc91c9d189115b7c99ce35fe0a313b661f54391802de19cdf7a87"
+        }
+      ],
+      "phase_path": "forward_train_0019/phase.png",
+      "phase_sha256": "2766a04a213bacd325dce91c20d91e912660b916a69033bebf15dd02eba5233b",
+      "parent_sample_id": "test_0046",
+      "parent_phase_path": "outputs/test/test_0046/phase.png",
+      "parent_phase_sha256": "2766a04a213bacd325dce91c20d91e912660b916a69033bebf15dd02eba5233b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0020",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0020_0",
+          "path": "forward_train_0020/1.png",
+          "sha256": "d31f73141897f863e5a8dbdd245c499105806b932c4e5c23f28e0c1b8a71d815"
+        },
+        {
+          "id": "forward_train_0020_1",
+          "path": "forward_train_0020/2.png",
+          "sha256": "0eb964fe1927b01fa54242fa1b42c7e9f13b08a1ebfbff48ffe939ec87e84c9b"
+        },
+        {
+          "id": "forward_train_0020_2",
+          "path": "forward_train_0020/3.png",
+          "sha256": "addbce0cd27c9237557cd014fef85676219196c72789e61af0a28193a6e132bc"
+        },
+        {
+          "id": "forward_train_0020_3",
+          "path": "forward_train_0020/4.png",
+          "sha256": "527723525d449f43c0800e986e0f54c9d1333f03e6ba9e5dc1a6c6c455b8b95d"
+        }
+      ],
+      "phase_path": "forward_train_0020/phase.png",
+      "phase_sha256": "8071170cf66c34f616205bd4fc7b01f896fda9de23d5b627e4a2a3ad177a3549",
+      "parent_sample_id": "val_0006",
+      "parent_phase_path": "outputs/comparison/final/network/val_0006/phase.png",
+      "parent_phase_sha256": "8071170cf66c34f616205bd4fc7b01f896fda9de23d5b627e4a2a3ad177a3549",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0021",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0021_0",
+          "path": "forward_train_0021/1.png",
+          "sha256": "b1f9803ae6eac753c053c5d0b984cd4a3cbe1fe10ddb96afcbc96d33ed470260"
+        },
+        {
+          "id": "forward_train_0021_1",
+          "path": "forward_train_0021/2.png",
+          "sha256": "6fe20a8a3c4f16e3e74d1efda4bdfb455b0d253834a7c603cb0ccaed4792de78"
+        },
+        {
+          "id": "forward_train_0021_2",
+          "path": "forward_train_0021/3.png",
+          "sha256": "ca2e1c5ed9ae2120d51e6356c293cd764b5cfc89e33df6978238ba40ea3ddef8"
+        },
+        {
+          "id": "forward_train_0021_3",
+          "path": "forward_train_0021/4.png",
+          "sha256": "35dffa3b26f1a0df16be05830f1021748724c204dee6fd5b892a5f7491653d88"
+        }
+      ],
+      "phase_path": "forward_train_0021/phase.png",
+      "phase_sha256": "6da7ef85c8f85930df73178b9a3e0c1775774b19e1566137fc2562cb281f6aff",
+      "parent_sample_id": "ood_0002",
+      "parent_phase_path": "outputs/ood/ood_0002/phase.png",
+      "parent_phase_sha256": "6da7ef85c8f85930df73178b9a3e0c1775774b19e1566137fc2562cb281f6aff",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0022",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0022_0",
+          "path": "forward_train_0022/1.png",
+          "sha256": "939035775cf3053d4c508cc1eb864985a9538cacdba14c9c36357d38671a9948"
+        },
+        {
+          "id": "forward_train_0022_1",
+          "path": "forward_train_0022/2.png",
+          "sha256": "efb237e2e6e5984927364e614ecd672a3ccedf9658ffb452746e56e5dccbb88c"
+        },
+        {
+          "id": "forward_train_0022_2",
+          "path": "forward_train_0022/3.png",
+          "sha256": "c31b50146c74f360f31cbb006fa7aa03228722773248f2a5f3c2c56bb98dcbf5"
+        },
+        {
+          "id": "forward_train_0022_3",
+          "path": "forward_train_0022/4.png",
+          "sha256": "d03ea130e20b11e343627f18551ffe0c5c8a4f28246b4857255c7b96e4890dc8"
+        }
+      ],
+      "phase_path": "forward_train_0022/phase.png",
+      "phase_sha256": "650dab077bf189bcdce914f8d9f33b980f489f95f704ee42fb9b9e57db0c5591",
+      "parent_sample_id": "test_0002",
+      "parent_phase_path": "outputs/test/test_0002/phase.png",
+      "parent_phase_sha256": "650dab077bf189bcdce914f8d9f33b980f489f95f704ee42fb9b9e57db0c5591",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0023",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0023_0",
+          "path": "forward_train_0023/1.png",
+          "sha256": "69746c8b132f556e0ed0b49b89793938d5f3dab08f9eb1a7181295f585be5e88"
+        },
+        {
+          "id": "forward_train_0023_1",
+          "path": "forward_train_0023/2.png",
+          "sha256": "9fed4ee5f75faea6afd0454c56667b58096016383cb841e8c373a66f48071c49"
+        },
+        {
+          "id": "forward_train_0023_2",
+          "path": "forward_train_0023/3.png",
+          "sha256": "888979d009acf312c11e1c626cd66a75628cf5d8bbbae405fcf75cda08bb52db"
+        },
+        {
+          "id": "forward_train_0023_3",
+          "path": "forward_train_0023/4.png",
+          "sha256": "97628bc303e38717f84ad66108ab2322f59dbad797ec5c2e788d38a74ee0e9e9"
+        }
+      ],
+      "phase_path": "forward_train_0023/phase.png",
+      "phase_sha256": "d3e197339fba6d14117485e3f93c1d30dec3bb0544085a815e897e7f49dbdc12",
+      "parent_sample_id": "test_0014",
+      "parent_phase_path": "outputs/test/test_0014/phase.png",
+      "parent_phase_sha256": "d3e197339fba6d14117485e3f93c1d30dec3bb0544085a815e897e7f49dbdc12",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0024",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0024_0",
+          "path": "forward_train_0024/1.png",
+          "sha256": "bbdc83289f93164b1164d48d417e662a1fd420bbbfed9fca5c6fd14abf6d5c49"
+        },
+        {
+          "id": "forward_train_0024_1",
+          "path": "forward_train_0024/2.png",
+          "sha256": "d3203da84acdc7246326fedd6882fa0501110fd4e3c5e818c18baa62f9ee0942"
+        },
+        {
+          "id": "forward_train_0024_2",
+          "path": "forward_train_0024/3.png",
+          "sha256": "f6f843b072115e180c8d61f3ba38702ce7ffa2a3b1e2bdd551ab7d8cc5c1064c"
+        },
+        {
+          "id": "forward_train_0024_3",
+          "path": "forward_train_0024/4.png",
+          "sha256": "57a0bf7bb01c031919857a41bae747609d7bfe5302e6292247519f2a781ba34c"
+        }
+      ],
+      "phase_path": "forward_train_0024/phase.png",
+      "phase_sha256": "17ff3450a262cd443cde2961dad6e362fc7b340278a4fc921f67952d50628801",
+      "parent_sample_id": "ood_0014",
+      "parent_phase_path": "outputs/ood/ood_0014/phase.png",
+      "parent_phase_sha256": "17ff3450a262cd443cde2961dad6e362fc7b340278a4fc921f67952d50628801",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0025",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0025_0",
+          "path": "forward_train_0025/1.png",
+          "sha256": "d01311ecd02d50ae09c8dab2098385bc27d48426f3df935f50706e9eab76fc09"
+        },
+        {
+          "id": "forward_train_0025_1",
+          "path": "forward_train_0025/2.png",
+          "sha256": "c98ef5782fad704850938a58093e3e2ac2a2d12e9d081f06f4a1430e4c83d228"
+        },
+        {
+          "id": "forward_train_0025_2",
+          "path": "forward_train_0025/3.png",
+          "sha256": "7e91ebcd33c88dfabd70aa3186030a30a970308ed6d11942f0a299d7d56be26b"
+        },
+        {
+          "id": "forward_train_0025_3",
+          "path": "forward_train_0025/4.png",
+          "sha256": "c3fe2d37a353bcd6baed663d5631c3dbc49543987553f307addcbf2aee44ce46"
+        }
+      ],
+      "phase_path": "forward_train_0025/phase.png",
+      "phase_sha256": "1e2c5233f99afee30c11ae3c0f8ef5142d01c84d8c99e9bae49727b3e50e32c7",
+      "parent_sample_id": "test_0034",
+      "parent_phase_path": "outputs/test/test_0034/phase.png",
+      "parent_phase_sha256": "1e2c5233f99afee30c11ae3c0f8ef5142d01c84d8c99e9bae49727b3e50e32c7",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0026",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0026_0",
+          "path": "forward_train_0026/1.png",
+          "sha256": "5813c5d100d1fb7233e6ae1a163faa31ad59ac1c976bb4f9a7c86438858b252b"
+        },
+        {
+          "id": "forward_train_0026_1",
+          "path": "forward_train_0026/2.png",
+          "sha256": "43a1084dcba626d1568b14d26d84fbc3f64898682b4215b80f004415df34e14d"
+        },
+        {
+          "id": "forward_train_0026_2",
+          "path": "forward_train_0026/3.png",
+          "sha256": "c2e0f518383205827321f3c0d3f6a6ba40b84d1d61a14afb28902c6ef1a0913d"
+        },
+        {
+          "id": "forward_train_0026_3",
+          "path": "forward_train_0026/4.png",
+          "sha256": "15cddf3e074b1c0cfeca4d5c094dd356dc500889442bc72b12c249c01d801d3f"
+        }
+      ],
+      "phase_path": "forward_train_0026/phase.png",
+      "phase_sha256": "9be9fd022838fc4b4ea28a82acb38561a4ad4bbe7d0810729e4d23ef9077bd6a",
+      "parent_sample_id": "ood_0006",
+      "parent_phase_path": "outputs/ood/ood_0006/phase.png",
+      "parent_phase_sha256": "9be9fd022838fc4b4ea28a82acb38561a4ad4bbe7d0810729e4d23ef9077bd6a",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0027",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0027_0",
+          "path": "forward_train_0027/1.png",
+          "sha256": "7ef8170f3dfe25ccab52d68f9002dff7a07e55315df93d9421b2e8a06f6bf799"
+        },
+        {
+          "id": "forward_train_0027_1",
+          "path": "forward_train_0027/2.png",
+          "sha256": "de88ae6b34bbbe5858c2b45c00fd81273f150f23e9f11c2a7b7924d993917a28"
+        },
+        {
+          "id": "forward_train_0027_2",
+          "path": "forward_train_0027/3.png",
+          "sha256": "4fbc0314ce2197a408acfa448f836ec0c670b15671c5aa880a976d39ed80934e"
+        },
+        {
+          "id": "forward_train_0027_3",
+          "path": "forward_train_0027/4.png",
+          "sha256": "4c6a8f73868560c633167df6e918445829c4662c7f60561a29534a96ae490836"
+        }
+      ],
+      "phase_path": "forward_train_0027/phase.png",
+      "phase_sha256": "e31263af3cb5fedc299eb6a8b552460efa867f28979c3e0d6fbfa9a1cb492e50",
+      "parent_sample_id": "test_0054",
+      "parent_phase_path": "outputs/test/test_0054/phase.png",
+      "parent_phase_sha256": "e31263af3cb5fedc299eb6a8b552460efa867f28979c3e0d6fbfa9a1cb492e50",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0028",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0028_0",
+          "path": "forward_train_0028/1.png",
+          "sha256": "9d059891fe864fef8c35bd93abee52f4ca2fc55416d904dd827ad7f270299d35"
+        },
+        {
+          "id": "forward_train_0028_1",
+          "path": "forward_train_0028/2.png",
+          "sha256": "9c7f62bda8a96b9fe6c44ba632b2d82998ce594e71f7f54ba8435ae9621b73c5"
+        },
+        {
+          "id": "forward_train_0028_2",
+          "path": "forward_train_0028/3.png",
+          "sha256": "c9f4d3277cba6e2cf337efb56af62d5f6cb367a5f219200d3da31b1b26bc5804"
+        },
+        {
+          "id": "forward_train_0028_3",
+          "path": "forward_train_0028/4.png",
+          "sha256": "7149ed24aae325e91d76fa955c286c361d9621de77d0e48a326780aeb89c6994"
+        }
+      ],
+      "phase_path": "forward_train_0028/phase.png",
+      "phase_sha256": "fcacccebabc11a56348037aae909d67e5e7666724407bbf6cc137928471bfecf",
+      "parent_sample_id": "test_0018",
+      "parent_phase_path": "outputs/test/test_0018/phase.png",
+      "parent_phase_sha256": "fcacccebabc11a56348037aae909d67e5e7666724407bbf6cc137928471bfecf",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0029",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0029_0",
+          "path": "forward_train_0029/1.png",
+          "sha256": "fed648cc258e87d556cf630cd7501129aeba552132694be0bbf4ad25cfb31127"
+        },
+        {
+          "id": "forward_train_0029_1",
+          "path": "forward_train_0029/2.png",
+          "sha256": "3121cbe93d87bd300a38d4716115cc45bf0c27db95589873b557e2da8be8600e"
+        },
+        {
+          "id": "forward_train_0029_2",
+          "path": "forward_train_0029/3.png",
+          "sha256": "fbfa1f84a7f4d0dcda9b1d9ee70267e060f51b8fb7feb9a9538da29a669a9cdf"
+        },
+        {
+          "id": "forward_train_0029_3",
+          "path": "forward_train_0029/4.png",
+          "sha256": "6d5bd808d51c9f081d6b16eb6862ff61fbb20ca63a8ff715434d547871ea2c5c"
+        }
+      ],
+      "phase_path": "forward_train_0029/phase.png",
+      "phase_sha256": "3d680f2933819820be4ef3496c71cf231418ef9f7c945b2bc5afb2aa6e04c81b",
+      "parent_sample_id": "val_0002",
+      "parent_phase_path": "outputs/comparison/final/network/val_0002/phase.png",
+      "parent_phase_sha256": "3d680f2933819820be4ef3496c71cf231418ef9f7c945b2bc5afb2aa6e04c81b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0030",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0030_0",
+          "path": "forward_train_0030/1.png",
+          "sha256": "b438022c23e1e84bfc43f0ba30bb5baceaf3647f15d9f76a00b505ea5515c5d7"
+        },
+        {
+          "id": "forward_train_0030_1",
+          "path": "forward_train_0030/2.png",
+          "sha256": "08d3d7b47f5aebab07061bed666b4bbcdb7f103d99bd24259847df17ea86456c"
+        },
+        {
+          "id": "forward_train_0030_2",
+          "path": "forward_train_0030/3.png",
+          "sha256": "fd85bbd03a91f552701ad4ebfe115fb539b529425450b2b9480750d5d772a553"
+        },
+        {
+          "id": "forward_train_0030_3",
+          "path": "forward_train_0030/4.png",
+          "sha256": "f61bb8667be9db21b63f74d10fedd7c10684f147eb048bb5567fc14e3d46a1d2"
+        }
+      ],
+      "phase_path": "forward_train_0030/phase.png",
+      "phase_sha256": "3e4b810db1dcdcaf9e5cbbebde05da196f3bb93cbe1b5c09b4d228791bf6d354",
+      "parent_sample_id": "test_0026",
+      "parent_phase_path": "outputs/test/test_0026/phase.png",
+      "parent_phase_sha256": "3e4b810db1dcdcaf9e5cbbebde05da196f3bb93cbe1b5c09b4d228791bf6d354",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0031",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_train_0031_0",
+          "path": "forward_train_0031/1.png",
+          "sha256": "f7e7d35af61ed956c1103901418ad7ed0a0bbf9772b3c6f1943a8036e9b22102"
+        },
+        {
+          "id": "forward_train_0031_1",
+          "path": "forward_train_0031/2.png",
+          "sha256": "4eecbbede0f0fabd0180d784e03d180d556ecf8044a815471052142189644efc"
+        },
+        {
+          "id": "forward_train_0031_2",
+          "path": "forward_train_0031/3.png",
+          "sha256": "441f356d2108542f3aba399a6771e8880842087485a662c05e36d7983f41bf23"
+        },
+        {
+          "id": "forward_train_0031_3",
+          "path": "forward_train_0031/4.png",
+          "sha256": "d5bdb1fb0b0a2e709115a924f9444c8496d22c576aeb61d20d7d34f5b9bb8115"
+        }
+      ],
+      "phase_path": "forward_train_0031/phase.png",
+      "phase_sha256": "4acaf1b7f1b1bf430a9ee203ed250bdb300b718ffe02b66ce53a7fcbdc52eea4",
+      "parent_sample_id": "test_0062",
+      "parent_phase_path": "outputs/test/test_0062/phase.png",
+      "parent_phase_sha256": "4acaf1b7f1b1bf430a9ee203ed250bdb300b718ffe02b66ce53a7fcbdc52eea4",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0032",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0032_0",
+          "path": "forward_train_0032/1.png",
+          "sha256": "a658fc7af9131dce7545973ba7c21fb025c52baf22dabb9e38f2943debd26243"
+        },
+        {
+          "id": "forward_train_0032_1",
+          "path": "forward_train_0032/2.png",
+          "sha256": "847ae42f0d95f3aa74056797fee43d13e50ae2a4c9b822f19386ebc2cbfdf417"
+        },
+        {
+          "id": "forward_train_0032_2",
+          "path": "forward_train_0032/3.png",
+          "sha256": "40b28854696755ed86ff766d40972657923e5049cd7479e926c5a000f30b1caa"
+        },
+        {
+          "id": "forward_train_0032_3",
+          "path": "forward_train_0032/4.png",
+          "sha256": "fec19c5d17dbacbe5e66b6a406cccd0c05dd86e3286a28c2baa51bebf45328c6"
+        }
+      ],
+      "phase_path": "forward_train_0032/phase.png",
+      "phase_sha256": "16fb30634f402886a9521b2facdc0cd2feed3e24c7ec6d880994e8a14fdd6bfa",
+      "parent_sample_id": "ood_0003",
+      "parent_phase_path": "outputs/ood/ood_0003/phase.png",
+      "parent_phase_sha256": "16fb30634f402886a9521b2facdc0cd2feed3e24c7ec6d880994e8a14fdd6bfa",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0033",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0033_0",
+          "path": "forward_train_0033/1.png",
+          "sha256": "57ef7233321ada3bc9e5f40b586baffe38debdf7f91e17afd45e9f887784f0dd"
+        },
+        {
+          "id": "forward_train_0033_1",
+          "path": "forward_train_0033/2.png",
+          "sha256": "b653b1ea45c5eb76929491340c7e1356a928b49ad361a5b21ea5243e0f436860"
+        },
+        {
+          "id": "forward_train_0033_2",
+          "path": "forward_train_0033/3.png",
+          "sha256": "c7c1048a2ec31e31bfced81e33c7bf066656a791f9d90f930eb7f356a2b839b4"
+        },
+        {
+          "id": "forward_train_0033_3",
+          "path": "forward_train_0033/4.png",
+          "sha256": "ca6b9eb6cb7e37e4c8806f7b2bb232dd52a1c64a278018ec663098f2f7c85edb"
+        }
+      ],
+      "phase_path": "forward_train_0033/phase.png",
+      "phase_sha256": "7e4b129c4c0d373b18ab8b4824a2f823e74cd7e5eac2069d93e70b028b79b9ca",
+      "parent_sample_id": "test_0043",
+      "parent_phase_path": "outputs/test/test_0043/phase.png",
+      "parent_phase_sha256": "7e4b129c4c0d373b18ab8b4824a2f823e74cd7e5eac2069d93e70b028b79b9ca",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0034",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0034_0",
+          "path": "forward_train_0034/1.png",
+          "sha256": "43200c2b2bf1aabaaa32c9c08479e7893c9c367a9439c6ea1251f37475870cff"
+        },
+        {
+          "id": "forward_train_0034_1",
+          "path": "forward_train_0034/2.png",
+          "sha256": "ddaf1ad102fb64a488652e2f56ddb033762628158166c1b19fa717671163a5e2"
+        },
+        {
+          "id": "forward_train_0034_2",
+          "path": "forward_train_0034/3.png",
+          "sha256": "85679730bff9849e4ad483a71c4a8b07841a36056b7868d056fafb9bcba5e7e1"
+        },
+        {
+          "id": "forward_train_0034_3",
+          "path": "forward_train_0034/4.png",
+          "sha256": "a67be0bffdb4d824502c9fdf476d1c37daa829913fa3d7eae04ff92b1eb2d87b"
+        }
+      ],
+      "phase_path": "forward_train_0034/phase.png",
+      "phase_sha256": "6b7a19fbb5106f5faeeb3d8a5fac22b9b990439800a8a72a6efe3f1d82853bec",
+      "parent_sample_id": "test_0019",
+      "parent_phase_path": "outputs/test/test_0019/phase.png",
+      "parent_phase_sha256": "6b7a19fbb5106f5faeeb3d8a5fac22b9b990439800a8a72a6efe3f1d82853bec",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0035",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0035_0",
+          "path": "forward_train_0035/1.png",
+          "sha256": "e0591f8660425ec11ebe1e96f9d76076f0c6b7495704859abbc927ac201d2cbd"
+        },
+        {
+          "id": "forward_train_0035_1",
+          "path": "forward_train_0035/2.png",
+          "sha256": "88a4f926d136a1d6db0bd326c094e264bfa749ab09ebe25710ff18efa17d8116"
+        },
+        {
+          "id": "forward_train_0035_2",
+          "path": "forward_train_0035/3.png",
+          "sha256": "2521e0c0c56c85cfc68d12d87a1754d03b3f6e365f2f0f545b8910b88b187706"
+        },
+        {
+          "id": "forward_train_0035_3",
+          "path": "forward_train_0035/4.png",
+          "sha256": "ae4f4b667403d1af340d78b8012ddb397e920bcdd946483731ca9acc562d7a84"
+        }
+      ],
+      "phase_path": "forward_train_0035/phase.png",
+      "phase_sha256": "0ca028dfdbad92f64ed4836ea86e2b1e0f7947bd972e49f758232a6c4c405b95",
+      "parent_sample_id": "test_0059",
+      "parent_phase_path": "outputs/test/test_0059/phase.png",
+      "parent_phase_sha256": "0ca028dfdbad92f64ed4836ea86e2b1e0f7947bd972e49f758232a6c4c405b95",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0036",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0036_0",
+          "path": "forward_train_0036/1.png",
+          "sha256": "767bee2cb830ee308bdcae3e9d9dd0bcf98a50e08de80ad2c633d1c98abc0d19"
+        },
+        {
+          "id": "forward_train_0036_1",
+          "path": "forward_train_0036/2.png",
+          "sha256": "e67a3cc3386cc135f25e3d11f4468a6b6cf50387cea0c4d52d7c69fc1f557307"
+        },
+        {
+          "id": "forward_train_0036_2",
+          "path": "forward_train_0036/3.png",
+          "sha256": "db7c98f3981892f32570cb6097718b5ecd1f74f89cae21bd3f86bb8c6ee34554"
+        },
+        {
+          "id": "forward_train_0036_3",
+          "path": "forward_train_0036/4.png",
+          "sha256": "cf5d598d9805ee012d3d59497486e945ac3aeea0a592e761c75848c0fb95ed72"
+        }
+      ],
+      "phase_path": "forward_train_0036/phase.png",
+      "phase_sha256": "c1ac3df1a10bfd041aeb87fd89787322bf75934556b47ee9c928726ce4913935",
+      "parent_sample_id": "test_0035",
+      "parent_phase_path": "outputs/test/test_0035/phase.png",
+      "parent_phase_sha256": "c1ac3df1a10bfd041aeb87fd89787322bf75934556b47ee9c928726ce4913935",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0037",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0037_0",
+          "path": "forward_train_0037/1.png",
+          "sha256": "0d22eac4010a95d8c672382e018a077142cbf07dafacb2ab4bfdbbc9467d4792"
+        },
+        {
+          "id": "forward_train_0037_1",
+          "path": "forward_train_0037/2.png",
+          "sha256": "dae94aa654846fc052bb0d11065568d7f6b6a2f73c9f9f089375697dfd7d1ee2"
+        },
+        {
+          "id": "forward_train_0037_2",
+          "path": "forward_train_0037/3.png",
+          "sha256": "36583e65443c4c27b8bf137c682c1844c1e74e8c4d37e0c5fe61bfabad4a37ce"
+        },
+        {
+          "id": "forward_train_0037_3",
+          "path": "forward_train_0037/4.png",
+          "sha256": "c788d733afe15190d9063f81ce1272fd200ccf3c4622fcadd353676eb24463b0"
+        }
+      ],
+      "phase_path": "forward_train_0037/phase.png",
+      "phase_sha256": "1b347390e16f05d25b9a52cf5fc2445a6f6bd514b95dab7456687bf0730d976b",
+      "parent_sample_id": "test_0031",
+      "parent_phase_path": "outputs/test/test_0031/phase.png",
+      "parent_phase_sha256": "1b347390e16f05d25b9a52cf5fc2445a6f6bd514b95dab7456687bf0730d976b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0038",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0038_0",
+          "path": "forward_train_0038/1.png",
+          "sha256": "11230f95b8053104c5bb7200596fc6821fedd1affc42a767b135d6a7b0a829df"
+        },
+        {
+          "id": "forward_train_0038_1",
+          "path": "forward_train_0038/2.png",
+          "sha256": "8edfb4557fb6b1ef7c16ceb3e865b32706a772915be9f49607ccb0be35ab5079"
+        },
+        {
+          "id": "forward_train_0038_2",
+          "path": "forward_train_0038/3.png",
+          "sha256": "51f1462628718f93e797fdf1d92aab83bcc2c631c527b455a9b68f980a67595c"
+        },
+        {
+          "id": "forward_train_0038_3",
+          "path": "forward_train_0038/4.png",
+          "sha256": "2e84bb0519a3729322c51f40586d705526bce703a81f8201bb9bf518412b48f8"
+        }
+      ],
+      "phase_path": "forward_train_0038/phase.png",
+      "phase_sha256": "6e5f0d479a9c3517b1b79fdaf84b1aa5dbf97cc1e556fa1c4a9f9bb89ffa048e",
+      "parent_sample_id": "ood_0015",
+      "parent_phase_path": "outputs/ood/ood_0015/phase.png",
+      "parent_phase_sha256": "6e5f0d479a9c3517b1b79fdaf84b1aa5dbf97cc1e556fa1c4a9f9bb89ffa048e",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0039",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0039_0",
+          "path": "forward_train_0039/1.png",
+          "sha256": "d0ed5dc5aeaef40936d2bc4004c2052252de823ee005fb145c9cca91b4d41292"
+        },
+        {
+          "id": "forward_train_0039_1",
+          "path": "forward_train_0039/2.png",
+          "sha256": "9a3f812ca4c7260adef77ce9c433151c7114e77802ca90bbe7acd49373ca8223"
+        },
+        {
+          "id": "forward_train_0039_2",
+          "path": "forward_train_0039/3.png",
+          "sha256": "658a16e302d643c210c62ac4f2f856a2ffb035e2be7c494465af1eb1afbdb60f"
+        },
+        {
+          "id": "forward_train_0039_3",
+          "path": "forward_train_0039/4.png",
+          "sha256": "3d8d731b4023e265f60650b61c5a9a35e780b59620696f0199d0ba94a393a4f8"
+        }
+      ],
+      "phase_path": "forward_train_0039/phase.png",
+      "phase_sha256": "af0ac77eaf9216cd8efe695e177caefdb74858c4d09f818025aece61b4e57381",
+      "parent_sample_id": "test_0055",
+      "parent_phase_path": "outputs/test/test_0055/phase.png",
+      "parent_phase_sha256": "af0ac77eaf9216cd8efe695e177caefdb74858c4d09f818025aece61b4e57381",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0040",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0040_0",
+          "path": "forward_train_0040/1.png",
+          "sha256": "30bda58497b8e1fc0c9d2ba6d8ad1dda43f38838648345dfffcb72feace5d138"
+        },
+        {
+          "id": "forward_train_0040_1",
+          "path": "forward_train_0040/2.png",
+          "sha256": "c9d3d1529532d38aaea1b26201bb252d39f209e0091989b77f9576af9525e6d1"
+        },
+        {
+          "id": "forward_train_0040_2",
+          "path": "forward_train_0040/3.png",
+          "sha256": "805bb6652b1cc6eeb814ab4fc1ee4acedd923e706093b417382722f2870db7af"
+        },
+        {
+          "id": "forward_train_0040_3",
+          "path": "forward_train_0040/4.png",
+          "sha256": "14a0d456e139c777a38ca9915bc3e91d126fa8e0c3c3c4c2d4307a14e75d08d3"
+        }
+      ],
+      "phase_path": "forward_train_0040/phase.png",
+      "phase_sha256": "5892946048462f40f26e3f29985f5ad75dff3e5255fa0f2af202035f76532ee6",
+      "parent_sample_id": "test_0023",
+      "parent_phase_path": "outputs/test/test_0023/phase.png",
+      "parent_phase_sha256": "5892946048462f40f26e3f29985f5ad75dff3e5255fa0f2af202035f76532ee6",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0041",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0041_0",
+          "path": "forward_train_0041/1.png",
+          "sha256": "f63c568947898693cba65f0e15bae7b5b76c487202167d722e9b01ea21a8c55f"
+        },
+        {
+          "id": "forward_train_0041_1",
+          "path": "forward_train_0041/2.png",
+          "sha256": "ba9128f14fd51566de3dad89e3bd5d0295df7704ae8b0c1d4d5d90d8b0b6b0e8"
+        },
+        {
+          "id": "forward_train_0041_2",
+          "path": "forward_train_0041/3.png",
+          "sha256": "df6d8efd7cade114c2d9b6ab6429797330c479bd0484e161ea7fc91a2adeccec"
+        },
+        {
+          "id": "forward_train_0041_3",
+          "path": "forward_train_0041/4.png",
+          "sha256": "de8bfaa0cc6053f661835f9ad7447c2340132c36a17915b3e113650ccf675603"
+        }
+      ],
+      "phase_path": "forward_train_0041/phase.png",
+      "phase_sha256": "7bfe2264ed0ad89a0a7278e8df2781ec329b6282df29063d1c0863e00d196120",
+      "parent_sample_id": "test_0003",
+      "parent_phase_path": "outputs/test/test_0003/phase.png",
+      "parent_phase_sha256": "7bfe2264ed0ad89a0a7278e8df2781ec329b6282df29063d1c0863e00d196120",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0042",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0042_0",
+          "path": "forward_train_0042/1.png",
+          "sha256": "8dc255d935acbd7c48048e11af29de1b25f325ea8134f7b3ff282fbf695b7c6e"
+        },
+        {
+          "id": "forward_train_0042_1",
+          "path": "forward_train_0042/2.png",
+          "sha256": "bc2c2141d129ea2bd5022e84ded8ad1eea1878b3827d90e953a4603cabd1549d"
+        },
+        {
+          "id": "forward_train_0042_2",
+          "path": "forward_train_0042/3.png",
+          "sha256": "2408088a05c10da70a35979488bc4974a370abaa2be9b2fbb8835382d3bbf318"
+        },
+        {
+          "id": "forward_train_0042_3",
+          "path": "forward_train_0042/4.png",
+          "sha256": "deffd4d1db61043b4e1a818229243c3ba4780a4c4b229df28c1e897efeb07c2b"
+        }
+      ],
+      "phase_path": "forward_train_0042/phase.png",
+      "phase_sha256": "6a0e25da283cea33ae87e77618061c6f9734596f794c3020238f8522006b5d9b",
+      "parent_sample_id": "ood_0011",
+      "parent_phase_path": "outputs/ood/ood_0011/phase.png",
+      "parent_phase_sha256": "6a0e25da283cea33ae87e77618061c6f9734596f794c3020238f8522006b5d9b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0043",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0043_0",
+          "path": "forward_train_0043/1.png",
+          "sha256": "87faa27797cceac9eee7de0b4f909ac7b2f0b965e7b610bfc296d3e12924c5d9"
+        },
+        {
+          "id": "forward_train_0043_1",
+          "path": "forward_train_0043/2.png",
+          "sha256": "1d2ecc3a3b7265caac16677fc959a46121bd2dc26021b5e19a2347068c9a5212"
+        },
+        {
+          "id": "forward_train_0043_2",
+          "path": "forward_train_0043/3.png",
+          "sha256": "f857291d5f22b090d2902277ca84c413f561ffff4da49b18a382c4e01c93a735"
+        },
+        {
+          "id": "forward_train_0043_3",
+          "path": "forward_train_0043/4.png",
+          "sha256": "d712a6942a748576ab4095057c942c5f1630a8ef663862dc77eade82c4c0beac"
+        }
+      ],
+      "phase_path": "forward_train_0043/phase.png",
+      "phase_sha256": "72369a9a7f4101e52c5b9522766ff195936a2afb7ede33e9fe11c460a8b30108",
+      "parent_sample_id": "test_0011",
+      "parent_phase_path": "outputs/test/test_0011/phase.png",
+      "parent_phase_sha256": "72369a9a7f4101e52c5b9522766ff195936a2afb7ede33e9fe11c460a8b30108",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0044",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0044_0",
+          "path": "forward_train_0044/1.png",
+          "sha256": "25bc704e27cbba21475d580cb9736c651d2f33a2e58754c95502caeebe1791c4"
+        },
+        {
+          "id": "forward_train_0044_1",
+          "path": "forward_train_0044/2.png",
+          "sha256": "95e0e6f6915eeb7666dc3892d40c50a078fd812dcfb15c0df047539cd7eb4779"
+        },
+        {
+          "id": "forward_train_0044_2",
+          "path": "forward_train_0044/3.png",
+          "sha256": "1bb3ac6b6dcc3d23eda5fe63497af185bbba452a9bc992304dae217553a78e9d"
+        },
+        {
+          "id": "forward_train_0044_3",
+          "path": "forward_train_0044/4.png",
+          "sha256": "3236110ef6667d29de252614d1c80ea927e1ff6833f464cdc2c7d2e3945e0f72"
+        }
+      ],
+      "phase_path": "forward_train_0044/phase.png",
+      "phase_sha256": "5c200e1f6ecb8e1f9f66f2a1d2f609b83fa99d258dadf19a9e74456c6b574563",
+      "parent_sample_id": "val_0003",
+      "parent_phase_path": "outputs/comparison/final/network/val_0003/phase.png",
+      "parent_phase_sha256": "5c200e1f6ecb8e1f9f66f2a1d2f609b83fa99d258dadf19a9e74456c6b574563",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0045",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0045_0",
+          "path": "forward_train_0045/1.png",
+          "sha256": "a0e83c073931565d2139b6de061a26b22ba267f49768a548ea19cf9444f4961e"
+        },
+        {
+          "id": "forward_train_0045_1",
+          "path": "forward_train_0045/2.png",
+          "sha256": "ce6ecaf45d2bf4c6b4acf83fe50dfac612f871cb68354ee915efa48bc0cd0919"
+        },
+        {
+          "id": "forward_train_0045_2",
+          "path": "forward_train_0045/3.png",
+          "sha256": "a339409761f4b8fb6da4a861f05dcf3a599f3037b8b6486fe84b28da5ce19a0f"
+        },
+        {
+          "id": "forward_train_0045_3",
+          "path": "forward_train_0045/4.png",
+          "sha256": "c7f6fc5134f76724f40683c0005e2fdfaa561463f86d5c5c87a93be358b2d073"
+        }
+      ],
+      "phase_path": "forward_train_0045/phase.png",
+      "phase_sha256": "fe642713e0d915cbebb8578a32a18116e7674db1f868484be75e73849dec90b7",
+      "parent_sample_id": "ood_0007",
+      "parent_phase_path": "outputs/ood/ood_0007/phase.png",
+      "parent_phase_sha256": "fe642713e0d915cbebb8578a32a18116e7674db1f868484be75e73849dec90b7",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0046",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0046_0",
+          "path": "forward_train_0046/1.png",
+          "sha256": "bc564e35b873c2a29ea3b55e428786e40a691f1288ed698f4b04d7ff8eb5aa52"
+        },
+        {
+          "id": "forward_train_0046_1",
+          "path": "forward_train_0046/2.png",
+          "sha256": "9b3721e475d48c33a0cfc3e9e301dc47eb2007477da6f220a5653ce87f38d5af"
+        },
+        {
+          "id": "forward_train_0046_2",
+          "path": "forward_train_0046/3.png",
+          "sha256": "17ece84608fb2f2460817599c471d1a1c011f2ed826b555fabdd465965bb439b"
+        },
+        {
+          "id": "forward_train_0046_3",
+          "path": "forward_train_0046/4.png",
+          "sha256": "86f2988c21950c2330687d36d14c99d72c94ee1f23b4fe74acaf82d35b664089"
+        }
+      ],
+      "phase_path": "forward_train_0046/phase.png",
+      "phase_sha256": "08080c8485e70d2632847bc6c07c298145ff8259f1ae9d97deb50de145d988b1",
+      "parent_sample_id": "val_0007",
+      "parent_phase_path": "outputs/comparison/final/network/val_0007/phase.png",
+      "parent_phase_sha256": "08080c8485e70d2632847bc6c07c298145ff8259f1ae9d97deb50de145d988b1",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0047",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_train_0047_0",
+          "path": "forward_train_0047/1.png",
+          "sha256": "5390e08628a301747981be09f18830dd48166e6c215cd1ba8372d3bc2323ec47"
+        },
+        {
+          "id": "forward_train_0047_1",
+          "path": "forward_train_0047/2.png",
+          "sha256": "4fa91bac4013e0f8af18b12a8469bf05e735650b9eef3b70e62c42ccd5db92b4"
+        },
+        {
+          "id": "forward_train_0047_2",
+          "path": "forward_train_0047/3.png",
+          "sha256": "6f637d71a4df060f640abfa04a41c90c946696709996a3d83815892abac5aa5d"
+        },
+        {
+          "id": "forward_train_0047_3",
+          "path": "forward_train_0047/4.png",
+          "sha256": "d9ee481d396e7f239126afee117753fa2dea66f252324c930dafe5c8954bb657"
+        }
+      ],
+      "phase_path": "forward_train_0047/phase.png",
+      "phase_sha256": "0cb09a16871c29cf5abeb314f118fb7bdc4935b002c19a6f9f975082ca226ad5",
+      "parent_sample_id": "test_0039",
+      "parent_phase_path": "outputs/test/test_0039/phase.png",
+      "parent_phase_sha256": "0cb09a16871c29cf5abeb314f118fb7bdc4935b002c19a6f9f975082ca226ad5",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0048",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0048_0",
+          "path": "forward_train_0048/1.png",
+          "sha256": "743a7acdd9579877f91297401036ad14c31d0a1e76f212ce7b579a7436c3928f"
+        },
+        {
+          "id": "forward_train_0048_1",
+          "path": "forward_train_0048/2.png",
+          "sha256": "0409134bdbeab5ad75d66458c7fa8396033cc104a217720cb56ea88c6117950a"
+        },
+        {
+          "id": "forward_train_0048_2",
+          "path": "forward_train_0048/3.png",
+          "sha256": "f126e0b7635dc847b203083881e662d60a63fd9f80a07dd2af6cf525a01c1737"
+        },
+        {
+          "id": "forward_train_0048_3",
+          "path": "forward_train_0048/4.png",
+          "sha256": "bca346212c89de30d4974db28be9bcfcf60599681f3eba7b185f7d429118299e"
+        }
+      ],
+      "phase_path": "forward_train_0048/phase.png",
+      "phase_sha256": "0dbcb0e86cf86098a5c35b3cc6065ba017ba087be141053f1bb9fdf7400f77dd",
+      "parent_sample_id": "ood_0009",
+      "parent_phase_path": "outputs/ood/ood_0009/phase.png",
+      "parent_phase_sha256": "0dbcb0e86cf86098a5c35b3cc6065ba017ba087be141053f1bb9fdf7400f77dd",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0049",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0049_0",
+          "path": "forward_train_0049/1.png",
+          "sha256": "edbd011a016ae2021149a16731543671a2886c8674f949b2addbec16ccaa92ce"
+        },
+        {
+          "id": "forward_train_0049_1",
+          "path": "forward_train_0049/2.png",
+          "sha256": "e2f6cfe41f26549d2c0682db2cb7eb5787fdbc307ecd9cebad55beb3f0553655"
+        },
+        {
+          "id": "forward_train_0049_2",
+          "path": "forward_train_0049/3.png",
+          "sha256": "ba9f492c62a442e05965e7ee2b90b427b20a8ec103d864710d0f657860ac53bc"
+        },
+        {
+          "id": "forward_train_0049_3",
+          "path": "forward_train_0049/4.png",
+          "sha256": "7969fb62ff33dc382d87f1b24e7f607e7459591e126755b804d0e52adda830a8"
+        }
+      ],
+      "phase_path": "forward_train_0049/phase.png",
+      "phase_sha256": "bf973085b385e6bb7c0f528479e7b964370e7e543641b0eabdc7f401127b2f4c",
+      "parent_sample_id": "test_0041",
+      "parent_phase_path": "outputs/test/test_0041/phase.png",
+      "parent_phase_sha256": "bf973085b385e6bb7c0f528479e7b964370e7e543641b0eabdc7f401127b2f4c",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0050",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0050_0",
+          "path": "forward_train_0050/1.png",
+          "sha256": "281dad3661dd4b068892d8ed3c1d04ade2e7d24c129994a025e95f61a15f0ad5"
+        },
+        {
+          "id": "forward_train_0050_1",
+          "path": "forward_train_0050/2.png",
+          "sha256": "d67386c357380e764195484de50d0d6d86975689be5fcbbd6dbe3b3aa5b40eae"
+        },
+        {
+          "id": "forward_train_0050_2",
+          "path": "forward_train_0050/3.png",
+          "sha256": "22d711297962eba8e56768b35c0dbc305a0d7370e431da518194649741517771"
+        },
+        {
+          "id": "forward_train_0050_3",
+          "path": "forward_train_0050/4.png",
+          "sha256": "035085ff0f0f5727026c152fcf96eedd8f902d74351024dca0b8640dca02e0c1"
+        }
+      ],
+      "phase_path": "forward_train_0050/phase.png",
+      "phase_sha256": "734ebcb943f36f22e9aea7103753ee18099470bf7ec78e46271b00e065a90b64",
+      "parent_sample_id": "examples_0001",
+      "parent_phase_path": "outputs/examples/examples_0001/phase.png",
+      "parent_phase_sha256": "734ebcb943f36f22e9aea7103753ee18099470bf7ec78e46271b00e065a90b64",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0051",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0051_0",
+          "path": "forward_train_0051/1.png",
+          "sha256": "1a0cec4bebd689dae16275a80aacb440bd65ac1dfd45256ceb0eb50fa50806fc"
+        },
+        {
+          "id": "forward_train_0051_1",
+          "path": "forward_train_0051/2.png",
+          "sha256": "647bf9f2dfd6871d4098ee7d0768552c3adc9345d0e8bc78a78c1b7977d1e6e6"
+        },
+        {
+          "id": "forward_train_0051_2",
+          "path": "forward_train_0051/3.png",
+          "sha256": "51e6a2060b8afbf207c81655a620159bbaaf4c8c7fd2829d0c8ad240ca0398be"
+        },
+        {
+          "id": "forward_train_0051_3",
+          "path": "forward_train_0051/4.png",
+          "sha256": "f20953356947d1f110aa8052335a5d5c4318469e6ab6522e91b809aa404461ab"
+        }
+      ],
+      "phase_path": "forward_train_0051/phase.png",
+      "phase_sha256": "e60a70cbe71711bc2286fd1ce27738c61b2f35134ed6fdf12fa6351187bef767",
+      "parent_sample_id": "test_0001",
+      "parent_phase_path": "outputs/test/test_0001/phase.png",
+      "parent_phase_sha256": "e60a70cbe71711bc2286fd1ce27738c61b2f35134ed6fdf12fa6351187bef767",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0052",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0052_0",
+          "path": "forward_train_0052/1.png",
+          "sha256": "f92193e8b341363ccb65ddee12c20cec66baddddbbd2a2436347628a2bfd7f14"
+        },
+        {
+          "id": "forward_train_0052_1",
+          "path": "forward_train_0052/2.png",
+          "sha256": "0226218e29c5d203e90bb404b5dce1aaab417e40313aafa45d3f8e46d1217f8f"
+        },
+        {
+          "id": "forward_train_0052_2",
+          "path": "forward_train_0052/3.png",
+          "sha256": "7c2466ce7d8f1e79e3f1124d9a3b6aa1c840e3eb449cca7ae500bd59857bfd52"
+        },
+        {
+          "id": "forward_train_0052_3",
+          "path": "forward_train_0052/4.png",
+          "sha256": "e9a5238b7356252ab4e23bed5d9c9822b8eeb7971a69edb16aca15416dd56522"
+        }
+      ],
+      "phase_path": "forward_train_0052/phase.png",
+      "phase_sha256": "91622e51999ed8eee3fe09a109080be22a08baca2cd0eeda91aeb2ed6f816e6b",
+      "parent_sample_id": "test_0021",
+      "parent_phase_path": "outputs/test/test_0021/phase.png",
+      "parent_phase_sha256": "91622e51999ed8eee3fe09a109080be22a08baca2cd0eeda91aeb2ed6f816e6b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0053",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0053_0",
+          "path": "forward_train_0053/1.png",
+          "sha256": "c8c0f825ee55c6bd8f76894bd1493ab65f549db9d983a40f642f06a1d745e70b"
+        },
+        {
+          "id": "forward_train_0053_1",
+          "path": "forward_train_0053/2.png",
+          "sha256": "fc1ba37460388d4a58b6c1d55889a164e15c2967e444e2aa5d247bc2d6a17d1f"
+        },
+        {
+          "id": "forward_train_0053_2",
+          "path": "forward_train_0053/3.png",
+          "sha256": "ce29fb437fb2c5035211c7d7ba7ce9ffb623dbdb3648388da2a79eb604b7a1c7"
+        },
+        {
+          "id": "forward_train_0053_3",
+          "path": "forward_train_0053/4.png",
+          "sha256": "d2284885425190f2e570904c86ba425cf3fc581b8add967958c684e4585d7ecf"
+        }
+      ],
+      "phase_path": "forward_train_0053/phase.png",
+      "phase_sha256": "f23b30df48b3a15f09a31fd94e15f6000591afad05a87ccb47ff59805b925dd9",
+      "parent_sample_id": "ood_0001",
+      "parent_phase_path": "outputs/ood/ood_0001/phase.png",
+      "parent_phase_sha256": "f23b30df48b3a15f09a31fd94e15f6000591afad05a87ccb47ff59805b925dd9",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0054",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0054_0",
+          "path": "forward_train_0054/1.png",
+          "sha256": "62832c87c9a557740b59592da24e91ba13ad833e5a82011e983e11505fb9d8b9"
+        },
+        {
+          "id": "forward_train_0054_1",
+          "path": "forward_train_0054/2.png",
+          "sha256": "efe5fc1c4e340c17ad9f93a89c6183b9ec779e974afeb695e513acb8f5f3e773"
+        },
+        {
+          "id": "forward_train_0054_2",
+          "path": "forward_train_0054/3.png",
+          "sha256": "289aff84360d95ac09446143115aea11871e0191909e01c0b552dd10bb074ab7"
+        },
+        {
+          "id": "forward_train_0054_3",
+          "path": "forward_train_0054/4.png",
+          "sha256": "7d38d8024c2b22474d4bc8f4e66342bcd38d63bdf4b416f7a28b1e2f1b2ec198"
+        }
+      ],
+      "phase_path": "forward_train_0054/phase.png",
+      "phase_sha256": "786611b11569900b2c0dff4a74cab098e1865e63eb4e7a8d87f9fd294f26e4f0",
+      "parent_sample_id": "test_0013",
+      "parent_phase_path": "outputs/test/test_0013/phase.png",
+      "parent_phase_sha256": "786611b11569900b2c0dff4a74cab098e1865e63eb4e7a8d87f9fd294f26e4f0",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0055",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0055_0",
+          "path": "forward_train_0055/1.png",
+          "sha256": "488e34b70a941c31452509e8845177d61ab07767c3d838c9c5c2c4b958be6ad4"
+        },
+        {
+          "id": "forward_train_0055_1",
+          "path": "forward_train_0055/2.png",
+          "sha256": "f98188a92ca9833befe73496b57c76edc4a901abd288f90d4b8a8fca82d963bd"
+        },
+        {
+          "id": "forward_train_0055_2",
+          "path": "forward_train_0055/3.png",
+          "sha256": "9811224d0cfa5a8c0ffd2cfa5e52bf9b821a76637f25aa0adeb72a76f7bc19e8"
+        },
+        {
+          "id": "forward_train_0055_3",
+          "path": "forward_train_0055/4.png",
+          "sha256": "aff3bdf4f43bc72f30e9c88530e079d90bd297b09880b294e687cc5bb6ac455a"
+        }
+      ],
+      "phase_path": "forward_train_0055/phase.png",
+      "phase_sha256": "8fdf4f08aab77bbe8cd7281336813c57d55e1f736a6d5a6e261f8ca60c546779",
+      "parent_sample_id": "test_0005",
+      "parent_phase_path": "outputs/test/test_0005/phase.png",
+      "parent_phase_sha256": "8fdf4f08aab77bbe8cd7281336813c57d55e1f736a6d5a6e261f8ca60c546779",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0056",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0056_0",
+          "path": "forward_train_0056/1.png",
+          "sha256": "6a0b7e392b6350cc3bcf3e1d9e6b203b3520c59cd521c06491e49ec2b55bb188"
+        },
+        {
+          "id": "forward_train_0056_1",
+          "path": "forward_train_0056/2.png",
+          "sha256": "cb5a022debf3c81075550fa9e0db216536f5409d178b5b10a89635484328bd75"
+        },
+        {
+          "id": "forward_train_0056_2",
+          "path": "forward_train_0056/3.png",
+          "sha256": "2b954fecdf32a5f150709536030adbf2184bf84f85bf2b193bce2ee3934cb8e5"
+        },
+        {
+          "id": "forward_train_0056_3",
+          "path": "forward_train_0056/4.png",
+          "sha256": "09dd7902171e34731f504417beec015e472389d3587459b8fbf88e9a9b07f64e"
+        }
+      ],
+      "phase_path": "forward_train_0056/phase.png",
+      "phase_sha256": "2d89818c760ffab3fd6aa10e46d49238d80fcfd66501dca79d63677d09924470",
+      "parent_sample_id": "test_0033",
+      "parent_phase_path": "outputs/test/test_0033/phase.png",
+      "parent_phase_sha256": "2d89818c760ffab3fd6aa10e46d49238d80fcfd66501dca79d63677d09924470",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0057",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0057_0",
+          "path": "forward_train_0057/1.png",
+          "sha256": "0cad567768dbdb62341e23573291504fa965bed6c823dc985da62e80df455e2c"
+        },
+        {
+          "id": "forward_train_0057_1",
+          "path": "forward_train_0057/2.png",
+          "sha256": "cfd86f5c0744806cba414fd7faf39d3437b94352feda63449396ca24a82b1105"
+        },
+        {
+          "id": "forward_train_0057_2",
+          "path": "forward_train_0057/3.png",
+          "sha256": "dc4e940533f6e0e76e2a473c95d2071078982255178657b6c068dd5fb7781aff"
+        },
+        {
+          "id": "forward_train_0057_3",
+          "path": "forward_train_0057/4.png",
+          "sha256": "42c3d47c1e51817807c9f5d9d241ecd587450f2a16dd32e112aaf37acc0cf4a0"
+        }
+      ],
+      "phase_path": "forward_train_0057/phase.png",
+      "phase_sha256": "b9b4b678bf2f1d98db831b4f37fb942507e6a3c9a0b49673b0bde12d8d91791f",
+      "parent_sample_id": "test_0045",
+      "parent_phase_path": "outputs/test/test_0045/phase.png",
+      "parent_phase_sha256": "b9b4b678bf2f1d98db831b4f37fb942507e6a3c9a0b49673b0bde12d8d91791f",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0058",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0058_0",
+          "path": "forward_train_0058/1.png",
+          "sha256": "3a3a4924d02d36effd882eb7fbc71eb340233f6fe924935085385c86fc1aa3ce"
+        },
+        {
+          "id": "forward_train_0058_1",
+          "path": "forward_train_0058/2.png",
+          "sha256": "44259ae99b9fb333f02f22c35cc2eda804664e68f8151c7ff13e8c4e7541dcc0"
+        },
+        {
+          "id": "forward_train_0058_2",
+          "path": "forward_train_0058/3.png",
+          "sha256": "7a03f53ca5af3e3d12a6d55d4db5295825a3b35f7b3725aff27fd8e17690e25d"
+        },
+        {
+          "id": "forward_train_0058_3",
+          "path": "forward_train_0058/4.png",
+          "sha256": "cbdd2cef376367bffc4d9737d8901eda2813c1d20da1529e854b40331ab3af68"
+        }
+      ],
+      "phase_path": "forward_train_0058/phase.png",
+      "phase_sha256": "f873862b66c47da2b3948ecf9fb297a50969d577c2d64d88cb1fdfcc48fc3575",
+      "parent_sample_id": "test_0025",
+      "parent_phase_path": "outputs/test/test_0025/phase.png",
+      "parent_phase_sha256": "f873862b66c47da2b3948ecf9fb297a50969d577c2d64d88cb1fdfcc48fc3575",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0059",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0059_0",
+          "path": "forward_train_0059/1.png",
+          "sha256": "db37fe1528647007d2a818930cbf656b39f3ee8367da86f6b47a9b725a29d2b6"
+        },
+        {
+          "id": "forward_train_0059_1",
+          "path": "forward_train_0059/2.png",
+          "sha256": "7baf094ba047f3a92bee8a7938e5f190dc09ab5982030df603468c92be7185a8"
+        },
+        {
+          "id": "forward_train_0059_2",
+          "path": "forward_train_0059/3.png",
+          "sha256": "654eab70660888d2f551a66c7bda997baa5372fde3b6bc280be4766d3d7a8930"
+        },
+        {
+          "id": "forward_train_0059_3",
+          "path": "forward_train_0059/4.png",
+          "sha256": "49bc019c7735b458f5c73d77041b77242742500e39727c6891bc077125698b00"
+        }
+      ],
+      "phase_path": "forward_train_0059/phase.png",
+      "phase_sha256": "ca16afb976d05be56f4c00e2a6464a9019408713e9f87b63db1993f01bd6d736",
+      "parent_sample_id": "test_0017",
+      "parent_phase_path": "outputs/test/test_0017/phase.png",
+      "parent_phase_sha256": "ca16afb976d05be56f4c00e2a6464a9019408713e9f87b63db1993f01bd6d736",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0060",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0060_0",
+          "path": "forward_train_0060/1.png",
+          "sha256": "17ee2dcc8eea99ea1709b002702e0856ce622f085f9b6d1eb910de212c97fc81"
+        },
+        {
+          "id": "forward_train_0060_1",
+          "path": "forward_train_0060/2.png",
+          "sha256": "a38b6988de75a60b12f4a53f58d3ce60b0aac76f60c6c819dbc579bae7db3707"
+        },
+        {
+          "id": "forward_train_0060_2",
+          "path": "forward_train_0060/3.png",
+          "sha256": "abe895224177e018554c16311f45f9de3cfd7c27366d326fce84738b365e19b4"
+        },
+        {
+          "id": "forward_train_0060_3",
+          "path": "forward_train_0060/4.png",
+          "sha256": "4d8e0f4a797a021d69643430f1b778747a47aa39c8803b9b0b09f78256b7bcca"
+        }
+      ],
+      "phase_path": "forward_train_0060/phase.png",
+      "phase_sha256": "5f96dfddfd5a80215e0ea95be3c18b03e9bafcbf752ae6b63800896e361bddd1",
+      "parent_sample_id": "val_0005",
+      "parent_phase_path": "outputs/comparison/final/network/val_0005/phase.png",
+      "parent_phase_sha256": "5f96dfddfd5a80215e0ea95be3c18b03e9bafcbf752ae6b63800896e361bddd1",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0061",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0061_0",
+          "path": "forward_train_0061/1.png",
+          "sha256": "0c9218b87a5e6c1d2ec16de754f4c42e953a5a0e40c7524a5b062702a1ba8087"
+        },
+        {
+          "id": "forward_train_0061_1",
+          "path": "forward_train_0061/2.png",
+          "sha256": "d8a0d8edbf630183fbb5f6158dcc6b64be1cee5979bdf029adafa7d788bcbe63"
+        },
+        {
+          "id": "forward_train_0061_2",
+          "path": "forward_train_0061/3.png",
+          "sha256": "bd427917ba4cdf1943b4d677bede3163ebb810006e9a359a6df3c05ea89722ff"
+        },
+        {
+          "id": "forward_train_0061_3",
+          "path": "forward_train_0061/4.png",
+          "sha256": "02a213ff50755d55afc194199c2118a2b4a87db58530aa2c943cd0dc9a065af4"
+        }
+      ],
+      "phase_path": "forward_train_0061/phase.png",
+      "phase_sha256": "5d4147e3802f60d85db66206375a4e9e97ad29d99cf72648445714277c6f5dc8",
+      "parent_sample_id": "examples_0005",
+      "parent_phase_path": "outputs/examples/examples_0005/phase.png",
+      "parent_phase_sha256": "5d4147e3802f60d85db66206375a4e9e97ad29d99cf72648445714277c6f5dc8",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0062",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0062_0",
+          "path": "forward_train_0062/1.png",
+          "sha256": "d6442f63c408d02fd16579b3fa55906b70f055d030993c95b3fb566271e6f35b"
+        },
+        {
+          "id": "forward_train_0062_1",
+          "path": "forward_train_0062/2.png",
+          "sha256": "cd7703c7374927a9d14b9f0c62ddb3248f873bacd6bae3e5aca241a8b24a5065"
+        },
+        {
+          "id": "forward_train_0062_2",
+          "path": "forward_train_0062/3.png",
+          "sha256": "6527ec062c9d8f8ba961713688a92466ba086e94a31d312e5a5f8d28a743661a"
+        },
+        {
+          "id": "forward_train_0062_3",
+          "path": "forward_train_0062/4.png",
+          "sha256": "2ec88203ea070778e57214c334408990f5705698a8673ddcf0d5b8cfbf9164d5"
+        }
+      ],
+      "phase_path": "forward_train_0062/phase.png",
+      "phase_sha256": "702e4db965f3b8881b825974418bc3f92a645cafe46d4ded076ccf3039da240b",
+      "parent_sample_id": "test_0029",
+      "parent_phase_path": "outputs/test/test_0029/phase.png",
+      "parent_phase_sha256": "702e4db965f3b8881b825974418bc3f92a645cafe46d4ded076ccf3039da240b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_train_0063",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_train_0063_0",
+          "path": "forward_train_0063/1.png",
+          "sha256": "4e1caeefc6d0d0dca44511a680d2175bcc16dac8e043e816f2e2b117651ae823"
+        },
+        {
+          "id": "forward_train_0063_1",
+          "path": "forward_train_0063/2.png",
+          "sha256": "480cecff1406afd51ba42f3a69267039d73bf933adde42b52a913c291195c8c9"
+        },
+        {
+          "id": "forward_train_0063_2",
+          "path": "forward_train_0063/3.png",
+          "sha256": "f913bb3e38d35b63bf8883d37230556f597f0cf961369d97f53c503078c1b088"
+        },
+        {
+          "id": "forward_train_0063_3",
+          "path": "forward_train_0063/4.png",
+          "sha256": "99931fb172c3c154f807b4e0900303824d0c89152e9a8e8cf918d874688790e3"
+        }
+      ],
+      "phase_path": "forward_train_0063/phase.png",
+      "phase_sha256": "8e3da1f05d4c5797b575e31c9d33159399fd6504998de8274d7052185bd50faa",
+      "parent_sample_id": "ood_0013",
+      "parent_phase_path": "outputs/ood/ood_0013/phase.png",
+      "parent_phase_sha256": "8e3da1f05d4c5797b575e31c9d33159399fd6504998de8274d7052185bd50faa",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    }
+  ]
+}

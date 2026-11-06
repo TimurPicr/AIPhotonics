@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "protocol": {
+    "wavelength_m": 5.32e-07,
+    "slm_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "image_size": 128,
+    "reconstruction_value": "amplitude",
+    "normalization": "per_plane_max",
+    "normalization_eps": 1e-08
+  },
+  "unique_parent_masks": 96,
+  "splits": {
+    "train": 64,
+    "val": 16,
+    "test": 16
+  },
+  "phase_families_disjoint": true,
+  "manifests": {
+    "train": "917a6865eb0a87776dc583e20056549412be0f79eef3d0a9c81e74500ba93258",
+    "val": "8f9a3bf240e9366c618afb20db31b2857ebead2ed6af0e9a78e0799177f2e38c",
+    "test": "49391326001ca6dcebbf1f4710dbfeb77fbea9a6d0060d4a1123366e16c4d24a"
+  }
+}

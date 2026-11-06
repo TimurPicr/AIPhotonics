@@ -1,0 +1,541 @@
+{
+  "split": "test",
+  "size": 16,
+  "seed": 42,
+  "generator": "forward-v1",
+  "category_kind": "source_target_category",
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "protocol": {
+    "wavelength_m": 5.32e-07,
+    "slm_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "image_size": 128,
+    "reconstruction_value": "amplitude",
+    "normalization": "per_plane_max",
+    "normalization_eps": 1e-08
+  },
+  "samples": [
+    {
+      "id": "forward_test_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_test_0000_0",
+          "path": "forward_test_0000/1.png",
+          "sha256": "2a2888657a73fb9121883be87b211a9a62e25151cfe32f0bfe06b5ce68bb3893"
+        },
+        {
+          "id": "forward_test_0000_1",
+          "path": "forward_test_0000/2.png",
+          "sha256": "840bf2228db7d0625f309e1befaf84075434110015aee0592bb03d5c927d9fa0"
+        },
+        {
+          "id": "forward_test_0000_2",
+          "path": "forward_test_0000/3.png",
+          "sha256": "6cd7a8deeab29ea0a3c718c98d596dfde929314a6b1b2a4f61c8440260c4740c"
+        },
+        {
+          "id": "forward_test_0000_3",
+          "path": "forward_test_0000/4.png",
+          "sha256": "5877da53826bb0fbbdd02258f2284a38718e24f7cbe77135083bb300a7b919e8"
+        }
+      ],
+      "phase_path": "forward_test_0000/phase.png",
+      "phase_sha256": "81b647056fa82d00db63229fd0e51aa40b861fcf81d5d32c19be8d1810fe1a9a",
+      "parent_sample_id": "test_0052",
+      "parent_phase_path": "outputs/test/test_0052/phase.png",
+      "parent_phase_sha256": "81b647056fa82d00db63229fd0e51aa40b861fcf81d5d32c19be8d1810fe1a9a",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0001",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_test_0001_0",
+          "path": "forward_test_0001/1.png",
+          "sha256": "db196569a1dcf9829ccccb760df3ad032523fccff9bcb346a24a9e1e8d9bdd34"
+        },
+        {
+          "id": "forward_test_0001_1",
+          "path": "forward_test_0001/2.png",
+          "sha256": "9f052c3c911203e42a4694168076f7c9daf1d5c6b0877b9d2b94025bd61c0596"
+        },
+        {
+          "id": "forward_test_0001_2",
+          "path": "forward_test_0001/3.png",
+          "sha256": "c354c53c767f7342e4c9bcbceb43db05b409169797b96820a2cd97bf5a9f18b4"
+        },
+        {
+          "id": "forward_test_0001_3",
+          "path": "forward_test_0001/4.png",
+          "sha256": "af15197256e69669db6f97f3d4ecf863563e47153f237e54a0a5bda178694165"
+        }
+      ],
+      "phase_path": "forward_test_0001/phase.png",
+      "phase_sha256": "b4e6e4d0a7f42b21f89293b876440dc988340d79e985334b8a4f9343b2c42eb6",
+      "parent_sample_id": "val_0004",
+      "parent_phase_path": "outputs/comparison/final/network/val_0004/phase.png",
+      "parent_phase_sha256": "b4e6e4d0a7f42b21f89293b876440dc988340d79e985334b8a4f9343b2c42eb6",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0002",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_test_0002_0",
+          "path": "forward_test_0002/1.png",
+          "sha256": "3577bdf2b7aaccc2780c3f53e9ea374a603830aeb9b0d238695ae80c391ae51a"
+        },
+        {
+          "id": "forward_test_0002_1",
+          "path": "forward_test_0002/2.png",
+          "sha256": "ef9775ea587930f653d779bf7a2de9716a6b87d1189a9e59b55cc6157e2caedf"
+        },
+        {
+          "id": "forward_test_0002_2",
+          "path": "forward_test_0002/3.png",
+          "sha256": "e3ccdcadb3123465f7822abce38e54c2962f6aa6ac5485d5f23a2d61bdd57abd"
+        },
+        {
+          "id": "forward_test_0002_3",
+          "path": "forward_test_0002/4.png",
+          "sha256": "b4f136f35865878952862dccebebbc0734282618cca6703c79cc85f601360f15"
+        }
+      ],
+      "phase_path": "forward_test_0002/phase.png",
+      "phase_sha256": "ea6870368d9944485ee74a93e2ac97bd4dc6fefd53a8b904a4c8d1829a0da281",
+      "parent_sample_id": "test_0020",
+      "parent_phase_path": "outputs/test/test_0020/phase.png",
+      "parent_phase_sha256": "ea6870368d9944485ee74a93e2ac97bd4dc6fefd53a8b904a4c8d1829a0da281",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0003",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "forward_test_0003_0",
+          "path": "forward_test_0003/1.png",
+          "sha256": "ad258fbd034f6ca50e1bf6b7ad8707edc82e7ec8e4bc803d6e6347a32fd73c8d"
+        },
+        {
+          "id": "forward_test_0003_1",
+          "path": "forward_test_0003/2.png",
+          "sha256": "cc816523abbb8bb703a724e3ff7124e8c557efad696043f1e5a50fe4f49cf93e"
+        },
+        {
+          "id": "forward_test_0003_2",
+          "path": "forward_test_0003/3.png",
+          "sha256": "ada650bacbfd6dca521423c9a2718ecfb13f0e8ea001d5edb162939733f7b945"
+        },
+        {
+          "id": "forward_test_0003_3",
+          "path": "forward_test_0003/4.png",
+          "sha256": "0998b6db8a82d770fca8ae8de661ee574dfd711e23ce822b99daaa1c110bf5e9"
+        }
+      ],
+      "phase_path": "forward_test_0003/phase.png",
+      "phase_sha256": "4a823785f87904371c7a1d0366c96f1ba6b52698da3c5f77a0fd8fc43ea3d0ad",
+      "parent_sample_id": "test_0000",
+      "parent_phase_path": "outputs/test/test_0000/phase.png",
+      "parent_phase_sha256": "4a823785f87904371c7a1d0366c96f1ba6b52698da3c5f77a0fd8fc43ea3d0ad",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0004",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_test_0004_0",
+          "path": "forward_test_0004/1.png",
+          "sha256": "16846e05c3df7151969df45b18000754761ec76b1c14dc27c8249a058e9ad420"
+        },
+        {
+          "id": "forward_test_0004_1",
+          "path": "forward_test_0004/2.png",
+          "sha256": "732ac833522a988102b08c754f05841126fac7f9ebd162a8b70adf67604df535"
+        },
+        {
+          "id": "forward_test_0004_2",
+          "path": "forward_test_0004/3.png",
+          "sha256": "552ab4f49b7e888e96ed9567370b4f5a562237903d6e8ca9502e47f2e6be7cb3"
+        },
+        {
+          "id": "forward_test_0004_3",
+          "path": "forward_test_0004/4.png",
+          "sha256": "5d43f32b55225796c93232cc2a925b10f99c8767092bfa0e3bbfde6b50c6c3d9"
+        }
+      ],
+      "phase_path": "forward_test_0004/phase.png",
+      "phase_sha256": "8e50cc979cfff246c3ed21aac7749c40f027fce7400b21075287b54ad9fb196f",
+      "parent_sample_id": "examples_0006",
+      "parent_phase_path": "outputs/examples/examples_0006/phase.png",
+      "parent_phase_sha256": "8e50cc979cfff246c3ed21aac7749c40f027fce7400b21075287b54ad9fb196f",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0005",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_test_0005_0",
+          "path": "forward_test_0005/1.png",
+          "sha256": "9b400c54ea2cac0a794148f73c581e85ff4104ee970af1a6c60a3992642614da"
+        },
+        {
+          "id": "forward_test_0005_1",
+          "path": "forward_test_0005/2.png",
+          "sha256": "cd2a05f61b557d7b14fe7e34239eb464855ec00c68cccd6776e48befc6c2e60a"
+        },
+        {
+          "id": "forward_test_0005_2",
+          "path": "forward_test_0005/3.png",
+          "sha256": "3a099509a55c312603406b2dbb7e57716d7ddd14efa3c521fe8c930400dec0e4"
+        },
+        {
+          "id": "forward_test_0005_3",
+          "path": "forward_test_0005/4.png",
+          "sha256": "8fec045041d4ff397371af7463584459a75f766e5b6f4f896d30105cab73985e"
+        }
+      ],
+      "phase_path": "forward_test_0005/phase.png",
+      "phase_sha256": "3ba80e44571d20a5c0adba0e920a60eb914e0693d03878e012dd58bebcda2a33",
+      "parent_sample_id": "test_0022",
+      "parent_phase_path": "outputs/test/test_0022/phase.png",
+      "parent_phase_sha256": "3ba80e44571d20a5c0adba0e920a60eb914e0693d03878e012dd58bebcda2a33",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0006",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_test_0006_0",
+          "path": "forward_test_0006/1.png",
+          "sha256": "d521f350ad14e8aaf78deb71e68477aa7e4b56011fa49abfbc3e0316ca685475"
+        },
+        {
+          "id": "forward_test_0006_1",
+          "path": "forward_test_0006/2.png",
+          "sha256": "7db1173cb8db6c98b168c95259f8e80f16095db28fbed32776d2b87bd0d77725"
+        },
+        {
+          "id": "forward_test_0006_2",
+          "path": "forward_test_0006/3.png",
+          "sha256": "3abfbf78c59526321111b00fea7b842c1e7507eeef5aeef62df8a4e3c0c6e1d7"
+        },
+        {
+          "id": "forward_test_0006_3",
+          "path": "forward_test_0006/4.png",
+          "sha256": "da536134a32ef216844614b6d5cd1b35dd8dcb0bd66c4d19e149a6b2affdebe0"
+        }
+      ],
+      "phase_path": "forward_test_0006/phase.png",
+      "phase_sha256": "cea5e238c282f181efe739341e54467c8c5ac9bbf4e8c54c17410c6b16d63347",
+      "parent_sample_id": "test_0058",
+      "parent_phase_path": "outputs/test/test_0058/phase.png",
+      "parent_phase_sha256": "cea5e238c282f181efe739341e54467c8c5ac9bbf4e8c54c17410c6b16d63347",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0007",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "forward_test_0007_0",
+          "path": "forward_test_0007/1.png",
+          "sha256": "fac4e255fa4901d4cebd2796279c516ea5e41c3a425dfe92637ff81316136369"
+        },
+        {
+          "id": "forward_test_0007_1",
+          "path": "forward_test_0007/2.png",
+          "sha256": "33351360f594a2f2b1f1ecbd61d2c8795c27fc605b4c96a39bb382c009ef09d4"
+        },
+        {
+          "id": "forward_test_0007_2",
+          "path": "forward_test_0007/3.png",
+          "sha256": "f10aaa57c3138ff0dd6ed4eff141b00bf7956abb0a37ce1eb2b370ebaa630325"
+        },
+        {
+          "id": "forward_test_0007_3",
+          "path": "forward_test_0007/4.png",
+          "sha256": "69eb86476b9200fd7e7bfeab535944c4b5435a747d8afdfcb348a0605811cdc4"
+        }
+      ],
+      "phase_path": "forward_test_0007/phase.png",
+      "phase_sha256": "e1bece4dd1faa75dad4d29a0eaea603e8dc76239d7e07439d3534ad2974214e9",
+      "parent_sample_id": "test_0038",
+      "parent_phase_path": "outputs/test/test_0038/phase.png",
+      "parent_phase_sha256": "e1bece4dd1faa75dad4d29a0eaea603e8dc76239d7e07439d3534ad2974214e9",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0008",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_test_0008_0",
+          "path": "forward_test_0008/1.png",
+          "sha256": "d98aace5b7f741ad0ffe8a8ff1ccea08a95a4efc8cd48ad7103f53aad615c452"
+        },
+        {
+          "id": "forward_test_0008_1",
+          "path": "forward_test_0008/2.png",
+          "sha256": "be60a6915db3aaa93055ad7e7fa2274a1c3e001ee0f1adca1a685b8582575010"
+        },
+        {
+          "id": "forward_test_0008_2",
+          "path": "forward_test_0008/3.png",
+          "sha256": "4fa91d622b38b8bdad22942df05dfeb568c477a7fa291bee0044af16a4ecbcf1"
+        },
+        {
+          "id": "forward_test_0008_3",
+          "path": "forward_test_0008/4.png",
+          "sha256": "f5adf0054d431ab0c07f87a0936f1904c7f92d5629a30b346af8cb45122cee6b"
+        }
+      ],
+      "phase_path": "forward_test_0008/phase.png",
+      "phase_sha256": "1e497a181659aa5833b7cc8bb1c92ed57cec53719c7a1507ccfd25f83d48f600",
+      "parent_sample_id": "test_0027",
+      "parent_phase_path": "outputs/test/test_0027/phase.png",
+      "parent_phase_sha256": "1e497a181659aa5833b7cc8bb1c92ed57cec53719c7a1507ccfd25f83d48f600",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0009",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_test_0009_0",
+          "path": "forward_test_0009/1.png",
+          "sha256": "04a6a75904eab96699600a23fd48a3d6f5ac005e6675ef3c28e6b3c0e231b00e"
+        },
+        {
+          "id": "forward_test_0009_1",
+          "path": "forward_test_0009/2.png",
+          "sha256": "36f8957052377051765fa32b9a4801778d0ae2f0b3d9af0752658af2788094d6"
+        },
+        {
+          "id": "forward_test_0009_2",
+          "path": "forward_test_0009/3.png",
+          "sha256": "294d34f5f72eb7b1ae799d12338f7be06d3873fd3478d22c1b803b15d33703a9"
+        },
+        {
+          "id": "forward_test_0009_3",
+          "path": "forward_test_0009/4.png",
+          "sha256": "27e013b33cea14cadb4b7a6af499770fe121c89283de3a94d214e262d788ec90"
+        }
+      ],
+      "phase_path": "forward_test_0009/phase.png",
+      "phase_sha256": "e9b1eff8c2d3db62046ecfaf6ee983323e94fe43719b3865d5661c81baf6a508",
+      "parent_sample_id": "test_0051",
+      "parent_phase_path": "outputs/test/test_0051/phase.png",
+      "parent_phase_sha256": "e9b1eff8c2d3db62046ecfaf6ee983323e94fe43719b3865d5661c81baf6a508",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0010",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_test_0010_0",
+          "path": "forward_test_0010/1.png",
+          "sha256": "a32145a33221d76668a8b7c16f6c50fba06ba4746297d5ef994288f8fd5f0176"
+        },
+        {
+          "id": "forward_test_0010_1",
+          "path": "forward_test_0010/2.png",
+          "sha256": "f5ac90155caceafe25869493cae8619ba8eae16765f5b785869e82904706bfad"
+        },
+        {
+          "id": "forward_test_0010_2",
+          "path": "forward_test_0010/3.png",
+          "sha256": "2ac4bc22df6d2d38682d6462565ab592b5879b896dd636dd2749af13b0f347bf"
+        },
+        {
+          "id": "forward_test_0010_3",
+          "path": "forward_test_0010/4.png",
+          "sha256": "d6ae80732b861f24e7dc5f065c9f1c8fc97de44d4147cceef2a0dfaceca0850d"
+        }
+      ],
+      "phase_path": "forward_test_0010/phase.png",
+      "phase_sha256": "0c66d293230792e418e96f7742e2dfeeeedff4b79b764ca1f1a1d38b8a760f0b",
+      "parent_sample_id": "test_0047",
+      "parent_phase_path": "outputs/test/test_0047/phase.png",
+      "parent_phase_sha256": "0c66d293230792e418e96f7742e2dfeeeedff4b79b764ca1f1a1d38b8a760f0b",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0011",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "forward_test_0011_0",
+          "path": "forward_test_0011/1.png",
+          "sha256": "5fa88ab364edd3b98fe36e913d26c31c5d9b0feca241be3c70996f0df705eede"
+        },
+        {
+          "id": "forward_test_0011_1",
+          "path": "forward_test_0011/2.png",
+          "sha256": "3ccfb0d7694634265f31a09b4cdda7b605cf8b26e3d4dfd92e758fc8e51ad6a7"
+        },
+        {
+          "id": "forward_test_0011_2",
+          "path": "forward_test_0011/3.png",
+          "sha256": "4436b5dd28a857f511167472236302cef7b5c02a218701664004ea5ee50274a9"
+        },
+        {
+          "id": "forward_test_0011_3",
+          "path": "forward_test_0011/4.png",
+          "sha256": "8089299b8693f35177d5a505cc181742259bc28eb71b5c47299b5ccf7a80ed5c"
+        }
+      ],
+      "phase_path": "forward_test_0011/phase.png",
+      "phase_sha256": "80d6c60580b67826ff9a31c7ce239325b060d4fcb017dec06a0948f413e03680",
+      "parent_sample_id": "test_0015",
+      "parent_phase_path": "outputs/test/test_0015/phase.png",
+      "parent_phase_sha256": "80d6c60580b67826ff9a31c7ce239325b060d4fcb017dec06a0948f413e03680",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0012",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_test_0012_0",
+          "path": "forward_test_0012/1.png",
+          "sha256": "bda4bc9f421e1765ee823a1ed359a66b265338fde5cd377ef1c8ac5faa6da014"
+        },
+        {
+          "id": "forward_test_0012_1",
+          "path": "forward_test_0012/2.png",
+          "sha256": "5faf2eecff1953ec2832bfefc23326e1f9ba4ab93e52a73c249cc180c40656f6"
+        },
+        {
+          "id": "forward_test_0012_2",
+          "path": "forward_test_0012/3.png",
+          "sha256": "593f754c9d439557c75cdbbe2e6386718b5b68348d6006f3027712d3825b7a4b"
+        },
+        {
+          "id": "forward_test_0012_3",
+          "path": "forward_test_0012/4.png",
+          "sha256": "e35907fe910b218daa7aa0996d75808d09d2b144bbdf31c4f920da0ffc8a6239"
+        }
+      ],
+      "phase_path": "forward_test_0012/phase.png",
+      "phase_sha256": "a4cc52fb942e1d11f118760f44a1c16d8ce951b76f55ec7cff53fb35666b3c45",
+      "parent_sample_id": "test_0057",
+      "parent_phase_path": "outputs/test/test_0057/phase.png",
+      "parent_phase_sha256": "a4cc52fb942e1d11f118760f44a1c16d8ce951b76f55ec7cff53fb35666b3c45",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0013",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_test_0013_0",
+          "path": "forward_test_0013/1.png",
+          "sha256": "152e2a61ccd2fe5d90a2100dfc68412e5cbeb1e96091c04fabacb1714f65cb0c"
+        },
+        {
+          "id": "forward_test_0013_1",
+          "path": "forward_test_0013/2.png",
+          "sha256": "7e293f961139a5a55a0e7bfc058eac3376793b4b7a82fbb7e0eae6feb7133328"
+        },
+        {
+          "id": "forward_test_0013_2",
+          "path": "forward_test_0013/3.png",
+          "sha256": "cf90c2d7ca6cdbe96ef5013bb60c158b61c2f448ee69ff27d191dc6eeae84ff7"
+        },
+        {
+          "id": "forward_test_0013_3",
+          "path": "forward_test_0013/4.png",
+          "sha256": "268179007ee89354107cc66efd6deb5ace27e393436405cf324b83f796c75e59"
+        }
+      ],
+      "phase_path": "forward_test_0013/phase.png",
+      "phase_sha256": "73b5bb4ebaf58e5ab7bcdff0bfcd3a3a210d74935a56858cf4d52da1566f5925",
+      "parent_sample_id": "test_0009",
+      "parent_phase_path": "outputs/test/test_0009/phase.png",
+      "parent_phase_sha256": "73b5bb4ebaf58e5ab7bcdff0bfcd3a3a210d74935a56858cf4d52da1566f5925",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0014",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_test_0014_0",
+          "path": "forward_test_0014/1.png",
+          "sha256": "cd80e873181bf5d60ecc8dfc0e4f1cf9cc80e06318ce32decc1f5d774e83f97f"
+        },
+        {
+          "id": "forward_test_0014_1",
+          "path": "forward_test_0014/2.png",
+          "sha256": "de7cbe7625877fb49277167577aff114d42a8f3affb54db004eafd7e95fbd4f4"
+        },
+        {
+          "id": "forward_test_0014_2",
+          "path": "forward_test_0014/3.png",
+          "sha256": "8ae411197f83215e587902d9d8f046eb781b0b748df6248c8dac090080c56e06"
+        },
+        {
+          "id": "forward_test_0014_3",
+          "path": "forward_test_0014/4.png",
+          "sha256": "92669bb29ce315a002c22cf08224fd2ca362b796cf8129165752f2a4625b1a4a"
+        }
+      ],
+      "phase_path": "forward_test_0014/phase.png",
+      "phase_sha256": "f45829701a7a3996b7503be8617b80dde263ed7971a10f56355ecb3087ee6c9f",
+      "parent_sample_id": "test_0049",
+      "parent_phase_path": "outputs/test/test_0049/phase.png",
+      "parent_phase_sha256": "f45829701a7a3996b7503be8617b80dde263ed7971a10f56355ecb3087ee6c9f",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    },
+    {
+      "id": "forward_test_0015",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "forward_test_0015_0",
+          "path": "forward_test_0015/1.png",
+          "sha256": "19c496c1630f01367e6cc2a4e5946b6a757cdc7a0fb3192bc199e80f95190c01"
+        },
+        {
+          "id": "forward_test_0015_1",
+          "path": "forward_test_0015/2.png",
+          "sha256": "7a2cc791b7b4a8b66b23960229f835727d5c0649314eb85424de63d9b44a44aa"
+        },
+        {
+          "id": "forward_test_0015_2",
+          "path": "forward_test_0015/3.png",
+          "sha256": "f1629ff3daaaa29776aecaefbee052c5c3c04befbc82dad622f211844aa3fad4"
+        },
+        {
+          "id": "forward_test_0015_3",
+          "path": "forward_test_0015/4.png",
+          "sha256": "baedb3eea28e6973ce181209e8657125652bea191d9254105cc66211f494d204"
+        }
+      ],
+      "phase_path": "forward_test_0015/phase.png",
+      "phase_sha256": "409b923b697bad04cbb867fbcbe7da10038ea6c6d3043d6dccd8dbe31b31236a",
+      "parent_sample_id": "test_0053",
+      "parent_phase_path": "outputs/test/test_0053/phase.png",
+      "parent_phase_sha256": "409b923b697bad04cbb867fbcbe7da10038ea6c6d3043d6dccd8dbe31b31236a",
+      "parent_checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c"
+    }
+  ]
+}

@@ -313,6 +313,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--checkpoint-dir", type=Path, default=Path("checkpoints"))
     parser.add_argument("--run-dir", type=Path, default=Path("runs/mvp"))
     parser.add_argument("--resume", type=Path, help="resume optimizer/RNG; --steps is additional updates")
+    parser.add_argument("--train-manifest", type=Path, help="fixed training targets instead of the synthetic stream")
     parser.add_argument("--val-manifest", type=Path, default=Path("data/val/manifest.json"))
     parser.add_argument("--val-every", type=_positive_int, default=50)
     return parser
@@ -327,7 +328,8 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--ssim-weight must be finite and nonnegative")
     try:
         from config import DEFAULT_CONFIG
-        from src.data import load_manifest, make_train_loader
+        from src.data import load_manifest, make_manifest_loader, make_train_loader
+        from src.io import file_hash
         from src.reconstruction import normalize_recons, reconstruct_four
     except ImportError as error:
         parser.error(f"A/C dependencies are not ready: {error}; no stub training is allowed")
@@ -340,6 +342,9 @@ def main(argv: list[str] | None = None) -> int:
     protocol = current_protocol()
     settings = {key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()}
     settings["device"] = str(device)
+    settings["train_manifest_sha256"] = file_hash(args.train_manifest) if args.train_manifest else None
+    if args.train_manifest is not None and args.overfit_samples is not None:
+        parser.error("--train-manifest and --overfit-samples cannot be combined")
     from importlib.metadata import version
     settings["versions"] = {
         "python": platform.python_version(), "torch": str(torch.__version__),
@@ -360,6 +365,8 @@ def main(argv: list[str] | None = None) -> int:
             previous = resumed["training_config"].get(name, 1 if name == "interleave_factor" else None)
             if previous != settings[name]:
                 parser.error(f"resume requires the same {name}: saved={previous}, requested={settings[name]}")
+        if resumed["training_config"].get("train_manifest_sha256") != settings["train_manifest_sha256"]:
+            parser.error("resume requires the same training manifest")
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         if resumed.get("optimizer_state_dict") is None:
             parser.error("checkpoint has no optimizer state; resume from last.pt")
@@ -368,7 +375,8 @@ def main(argv: list[str] | None = None) -> int:
             group["lr"] = args.lr
         start_step = resumed["step"]
         start_samples = resumed.get("samples_seen", start_step * (args.overfit_samples or args.batch_size))
-    batches = make_train_loader(args.overfit_samples or args.batch_size, args.seed)
+    batches = (make_manifest_loader(args.train_manifest, args.batch_size, args.seed) if args.train_manifest
+               else make_train_loader(args.overfit_samples or args.batch_size, args.seed))
     if args.overfit_samples:
         batches = itertools.repeat(next(iter(batches)))
     else:

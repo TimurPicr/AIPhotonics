@@ -114,6 +114,26 @@ def load_manifest(path: str | Path, *, verify: bool = True) -> tuple[dict, list[
     return manifest, samples
 
 
+def make_manifest_loader(path: str | Path, batch_size: int, seed: int):
+    from config import CONFIG
+
+    manifest, samples = load_manifest(path)
+    if batch_size < 1 or not samples or manifest['split'] != 'train':
+        raise ValueError('A nonempty train manifest and positive batch size are required')
+    if manifest['z_m'] != list(CONFIG.z_m) or manifest.get('protocol', CONFIG.snapshot()) != CONFIG.snapshot():
+        raise ValueError('Training manifest optical protocol mismatch')
+    images = torch.cat([target for _, target in samples])
+
+    def batches():
+        rng = np.random.default_rng(seed)
+        while True:
+            order = rng.permutation(len(images))
+            for start in range(0, len(images), batch_size):
+                yield images[order[start:start+batch_size].tolist()]
+
+    return batches()
+
+
 def verify_disjoint(manifests: list[dict]) -> None:
     seen_ids, seen_hashes = set(), set()
     for manifest in manifests:
