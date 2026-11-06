@@ -11,8 +11,10 @@
 
 C2.1/C2.2 завершены: подключён current_protocol() B, CLI проверен с initial.pt и реальным Френелем A. Два запуска дали побайтно одинаковые PNG и одинаковые метрики. Тест независимо распространяет перечитанную phase.png, квантует recon и сверяет их с файлами. Несовместимый протокол intensity отклоняется.
 
-- Полный suite: 41 passed, 1 skipped (Metal недоступен в среде C).
+- Полный suite: 42 passed, 1 skipped (Metal недоступен в среде C).
 - Результаты C2: outputs/c2_initial/; verification.json содержит хеши повторных PNG и отдельно float-фазу/PNG-фазу/PNG-реконструкции.
 - 8 examples, initial network: mean Pearson=0.0267693, SSIM=0.0289239, worst-plane mean SSIM=0.0231847, 32/32 валидных пар, ошибок нет.
 - C3 ожидает обученный best.pt B и результаты сравнения A3. Test/OOD не оценены.
 - README обновлён реальными командами и ограничениями. C3 не объявляется завершённым.
+
+Для A3 зафиксирован data/val/comparison_manifest.json: первые 8 validation-четвёрок (по две каждой категории, включает val_0000/val_0001 baseline A). Initial network оценена на этой подвыборке: outputs/comparison/initial/summary.json; mean Pearson=0.0335856, SSIM=0.0402451, worst-plane SSIM=0.0364030. Все 32 пары валидны, ошибок нет. A/B могут использовать тот же manifest для итогового сравнения. Summary теперь содержит manifest SHA256/seed и список ошибок с sample ID.

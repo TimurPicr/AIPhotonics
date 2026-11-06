@@ -74,21 +74,26 @@ def main():
     parser.add_argument('--device', default='cpu')
     parser.add_argument('--threads', type=int, default=2)
     args = parser.parse_args()
+    if args.threads < 1:
+        parser.error('--threads must be positive')
     torch.set_num_threads(args.threads)
     model, metadata = load_predictor(args.checkpoint, args.device)
     manifest, samples = load_manifest(args.manifest)
     from config import CONFIG
     if list(CONFIG.z_m) != manifest['z_m']:
         raise ValueError('Manifest distances differ from active protocol')
-    results, categories = [], {}
+    metadata.update(run_id=args.out.name, split=manifest['split'], dataset_seed=manifest['seed'],
+                    manifest_sha256=file_hash(args.manifest))
+    results, categories, errors = [], {}, []
     for sample, targets in samples:
         result = infer_sample(model, targets, args.out / sample['id'],
                               metadata={**metadata, 'sample_id': sample['id'],
                                         'split': manifest['split'], 'category': sample['category'],
-                                        'manifest_sha256': file_hash(args.manifest)})
+                                        'inputs': sample['sources']})
         results.append(result)
+        errors.extend({'sample_id': sample['id'], **error} for error in result['errors'])
         categories.setdefault(sample['category'], []).append(result)
-    summary = {'metadata': metadata, 'split': manifest['split'], 'aggregate': aggregate_results(results),
+    summary = {'metadata': metadata, 'split': manifest['split'], 'aggregate': aggregate_results(results), 'errors': errors,
                'categories': {name: aggregate_results(group) for name, group in categories.items()}}
     write_json(args.out / 'summary.json', summary)
     print(summary['aggregate'])

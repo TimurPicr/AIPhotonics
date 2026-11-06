@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "checkpoint_sha256": "02f68d809496ee9c404ee4ebf4f894c306b98084a7e98d4c763d0ee714b8fd17",
+    "checkpoint_step": 0,
+    "method": "initial_network",
+    "protocol": {
+      "wavelength_m": 5.32e-07,
+      "slm_pitch_m": 1e-05,
+      "distances_m": [
+        0.0241,
+        0.0253,
+        0.0265,
+        0.0277
+      ],
+      "image_size": 128,
+      "reconstruction_value": "amplitude",
+      "normalization": "per_plane_max",
+      "normalization_eps": 1e-08
+    },
+    "dx_out_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ],
+    "device": "cpu",
+    "threads": 2,
+    "seed": 42,
+    "versions": {
+      "python": "3.13.18",
+      "torch": "2.15.0",
+      "numpy": "2.5.4",
+      "pillow": "13.0.0"
+    },
+    "git_revision": "c9f6f10db5562aeddec08123ce08c6301593abf0",
+    "run_id": "initial",
+    "split": "val",
+    "dataset_seed": 42001,
+    "manifest_sha256": "9d6e7a70acc06be7ffc3ee36ba8781c916d44b7afc8f9aef2627806b2c497f29",
+    "sample_id": "val_0004",
+    "category": "geometry",
+    "inputs": [
+      {
+        "id": "val_0004_0",
+        "path": "val_0004/1.png",
+        "seed": 2089611366919813397,
+        "sha256": "85ffa71be0c759eee35359f1b03f7c98f81e69fd5c6393c5ae3ea41d56c03225"
+      },
+      {
+        "id": "val_0004_1",
+        "path": "val_0004/2.png",
+        "seed": 4072190542959211498,
+        "sha256": "129919f37b1a0d3ea162bb81e8799329701fa140816d3387020fe231dcf8d2cd"
+      },
+      {
+        "id": "val_0004_2",
+        "path": "val_0004/3.png",
+        "seed": 25309596712609357,
+        "sha256": "78e76bd23513065169d008abdbbc73a4f79d62fc603af43eec8c3a75927c26cd"
+      },
+      {
+        "id": "val_0004_3",
+        "path": "val_0004/4.png",
+        "seed": 8467011068823072342,
+        "sha256": "e3a7f5ba1311ea65dad606bfd73505bd7fb53748fd0bf8c9304c2a8045f28eba"
+      }
+    ],
+    "timing": {
+      "forward_seconds": 0.006803000000218162,
+      "warmup_passes": 2,
+      "refinement_seconds": 0.0,
+      "pipeline_seconds": 0.01368854099928285
+    },
+    "phase_png_quantized": true
+  },
+  "planes": [
+    {
+      "plane": 1,
+      "pearson": -0.01289272666329843,
+      "pearson_reason": null,
+      "ssim": 0.009329656454115142
+    },
+    {
+      "plane": 2,
+      "pearson": 0.04007789928301865,
+      "pearson_reason": null,
+      "ssim": 0.005801490136446069
+    },
+    {
+      "plane": 3,
+      "pearson": -0.08969210235834552,
+      "pearson_reason": null,
+      "ssim": -0.006043861428994836
+    },
+    {
+      "plane": 4,
+      "pearson": 0.08756852618791755,
+      "pearson_reason": null,
+      "ssim": 0.013117283684677855
+    }
+  ],
+  "mean": {
+    "pearson": 0.006265399112323065,
+    "ssim": 0.005551142211561057
+  },
+  "worst_plane": {
+    "pearson": -0.08969210235834552,
+    "ssim": -0.006043861428994836
+  },
+  "valid_pearson_pairs": 4,
+  "total_pairs": 4,
+  "failure_count": 0,
+  "errors": [],
+  "ssim_parameters": {
+    "data_range": 1.0,
+    "win_size": 7,
+    "gaussian_weights": false,
+    "use_sample_covariance": true,
+    "K1": 0.01,
+    "K2": 0.03
+  },
+  "skimage_version": "0.26.0"
+}

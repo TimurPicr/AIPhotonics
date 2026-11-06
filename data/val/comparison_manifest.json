@@ -1,0 +1,259 @@
+{
+  "split": "val",
+  "seed": 42001,
+  "generator": "synthetic-v1",
+  "size": 8,
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "samples": [
+    {
+      "id": "val_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0000_0",
+          "path": "val_0000/1.png",
+          "seed": 5843716721122447297,
+          "sha256": "373bb50e097c4fab6b81d4dc80b574bc2a6c35da830ff2e23682e50e1a6d130c"
+        },
+        {
+          "id": "val_0000_1",
+          "path": "val_0000/2.png",
+          "seed": 2430938852292572718,
+          "sha256": "d4c7fc1af423e1ff6287b0c342ee22e35d34f981c8e291248b759bdcacb0d05b"
+        },
+        {
+          "id": "val_0000_2",
+          "path": "val_0000/3.png",
+          "seed": 1727303799277725980,
+          "sha256": "f8824db9eb008e6e81e21de320f4907db4a64aa5c2408f46631e1bcdc92a4a4b"
+        },
+        {
+          "id": "val_0000_3",
+          "path": "val_0000/4.png",
+          "seed": 3474710579849498348,
+          "sha256": "b8230a3d722e08681038a7088ef9ca3bb2f45f51f0dc7c719557cb6a68ce4861"
+        }
+      ]
+    },
+    {
+      "id": "val_0001",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0001_0",
+          "path": "val_0001/1.png",
+          "seed": 520278435379646256,
+          "sha256": "b0dfe073aa0b71505170077fe2c4a231c68f602757f25012b59271866cc5cf0f"
+        },
+        {
+          "id": "val_0001_1",
+          "path": "val_0001/2.png",
+          "seed": 9200158464920520560,
+          "sha256": "3317d3481db1f473af988c645f9316d9531f951aed76ed19e474fa883494fdfc"
+        },
+        {
+          "id": "val_0001_2",
+          "path": "val_0001/3.png",
+          "seed": 6633514620719796654,
+          "sha256": "aa8988b1a1b8a103be5dcef14e325d4322bef42cca7145bc384648fded3903f5"
+        },
+        {
+          "id": "val_0001_3",
+          "path": "val_0001/4.png",
+          "seed": 8587426021283896717,
+          "sha256": "3843163e8f9c5ea42e504ec3ec0bd515a20f67905a5bd3fa3c0a437607e5eb24"
+        }
+      ]
+    },
+    {
+      "id": "val_0002",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0002_0",
+          "path": "val_0002/1.png",
+          "seed": 4270457511122848645,
+          "sha256": "d9952b7a2713e4e91c2810356aff3537b99deba0f126245fc92a5462c2b3e976"
+        },
+        {
+          "id": "val_0002_1",
+          "path": "val_0002/2.png",
+          "seed": 6752118896728201694,
+          "sha256": "da1a7f875a153141a98fbc2a5a4271763755f0e709481a02872bebe31e4542eb"
+        },
+        {
+          "id": "val_0002_2",
+          "path": "val_0002/3.png",
+          "seed": 5431051150365057165,
+          "sha256": "6e3756d314f7a4ecaa045a31e9d5a2fc96b47035a1e92b986eda091fab3e38f2"
+        },
+        {
+          "id": "val_0002_3",
+          "path": "val_0002/4.png",
+          "seed": 4989341933850407235,
+          "sha256": "7ebedf968b6fdf09db17a79e58e4857e0e2987521bc2c62500d08bfcd1c0c80e"
+        }
+      ]
+    },
+    {
+      "id": "val_0003",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0003_0",
+          "path": "val_0003/1.png",
+          "seed": 4764688972504888587,
+          "sha256": "104be7edc26feaf5ae84c81ebf0190ee019326b96530ed7c415d0862c23487bc"
+        },
+        {
+          "id": "val_0003_1",
+          "path": "val_0003/2.png",
+          "seed": 4603049829290843877,
+          "sha256": "8b47415ffbbea4c1e96c29f1b8045d3fabb693cdf65233b6beb73f72d99c5063"
+        },
+        {
+          "id": "val_0003_2",
+          "path": "val_0003/3.png",
+          "seed": 3761609238354091677,
+          "sha256": "69cbf4e2fa5793ee292fed58461a26fe50f6ed3205300a656e43659915b4eebd"
+        },
+        {
+          "id": "val_0003_3",
+          "path": "val_0003/4.png",
+          "seed": 1262472581789004109,
+          "sha256": "85711c25683609e2b1b849dab79a291dcabfdfbe2a7c0711085d1574a52f4705"
+        }
+      ]
+    },
+    {
+      "id": "val_0004",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0004_0",
+          "path": "val_0004/1.png",
+          "seed": 2089611366919813397,
+          "sha256": "85ffa71be0c759eee35359f1b03f7c98f81e69fd5c6393c5ae3ea41d56c03225"
+        },
+        {
+          "id": "val_0004_1",
+          "path": "val_0004/2.png",
+          "seed": 4072190542959211498,
+          "sha256": "129919f37b1a0d3ea162bb81e8799329701fa140816d3387020fe231dcf8d2cd"
+        },
+        {
+          "id": "val_0004_2",
+          "path": "val_0004/3.png",
+          "seed": 25309596712609357,
+          "sha256": "78e76bd23513065169d008abdbbc73a4f79d62fc603af43eec8c3a75927c26cd"
+        },
+        {
+          "id": "val_0004_3",
+          "path": "val_0004/4.png",
+          "seed": 8467011068823072342,
+          "sha256": "e3a7f5ba1311ea65dad606bfd73505bd7fb53748fd0bf8c9304c2a8045f28eba"
+        }
+      ]
+    },
+    {
+      "id": "val_0005",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0005_0",
+          "path": "val_0005/1.png",
+          "seed": 5394481292515567654,
+          "sha256": "cd7d4816fcac3a56ad7dea48f18f1525ae08a91498b1955fe448a009d0abe1e4"
+        },
+        {
+          "id": "val_0005_1",
+          "path": "val_0005/2.png",
+          "seed": 2622229990718602460,
+          "sha256": "84312bec266039cca34081c7c188fb04c20e57a666b240827cde7e091e62d90e"
+        },
+        {
+          "id": "val_0005_2",
+          "path": "val_0005/3.png",
+          "seed": 4683615898257333435,
+          "sha256": "fb4a90a88c7c61af4869337e0bb42991ab011c3c679056843c6771ce316a9d54"
+        },
+        {
+          "id": "val_0005_3",
+          "path": "val_0005/4.png",
+          "seed": 6619676865667360246,
+          "sha256": "79b169f3bd0de80933ab2ba7678631520c7f02e1287e588f80ade3ae3aa7b461"
+        }
+      ]
+    },
+    {
+      "id": "val_0006",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0006_0",
+          "path": "val_0006/1.png",
+          "seed": 4098059113676084746,
+          "sha256": "ca79ea23f23e07b5112a8568d6948c65f79b1faeb322d9d56f95a4415a23cc1a"
+        },
+        {
+          "id": "val_0006_1",
+          "path": "val_0006/2.png",
+          "seed": 7101772838995730781,
+          "sha256": "a7a0d925c49508e4836fac6c2ffb6c7d7f947686fb5f68ad3c1f90f0864f12f9"
+        },
+        {
+          "id": "val_0006_2",
+          "path": "val_0006/3.png",
+          "seed": 2101959635335503728,
+          "sha256": "fb12add89b74818369e3f4112b05350c6557c55d9657842dbbbea0a6fbca2014"
+        },
+        {
+          "id": "val_0006_3",
+          "path": "val_0006/4.png",
+          "seed": 285081841777754666,
+          "sha256": "34b6aeda11c4d68b3c72752ceacc89554bf72de3f2ed3f650ae149a5601b6d5d"
+        }
+      ]
+    },
+    {
+      "id": "val_0007",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0007_0",
+          "path": "val_0007/1.png",
+          "seed": 8334178608409454092,
+          "sha256": "3d85e2f4030ebb3d773a8e2b0eeca00655896564d440fdd92013bf29e165683b"
+        },
+        {
+          "id": "val_0007_1",
+          "path": "val_0007/2.png",
+          "seed": 7412068952785349067,
+          "sha256": "9ca79b9e05ed8bb56d20472612a57275b5cb9a7eb6d6ba110841d5a74aba5fe2"
+        },
+        {
+          "id": "val_0007_2",
+          "path": "val_0007/3.png",
+          "seed": 5401591070627426001,
+          "sha256": "56653a02b05e6ade852be657d27c29ef0e61166255bfa033d2cecfd9f444c0a5"
+        },
+        {
+          "id": "val_0007_3",
+          "path": "val_0007/4.png",
+          "seed": 6740700065011426293,
+          "sha256": "173d1343a268749411b9b9617826d4a2deac07ef7c9168a4ea056bb2a7a01dde"
+        }
+      ]
+    }
+  ],
+  "versions": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0"
+  },
+  "selection": "First eight validation samples; two per category, fixed before B3 checkpoint selection"
+}

@@ -76,7 +76,7 @@ Checkpoint проверяется API B `load_checkpoint(..., expected_protocol=
 
 Проверено на macOS arm64, Python 3.13, CPU; комплексный FFT/backward доступен.
 Точные версии установленных пакетов: requirements-lock.txt (`pip install -r requirements-lock.txt`).
-Полный suite: 41 passed, 1 skipped (Metal недоступен в среде C); C1: 7 passed. Проверены PNG/фаза, RNG, manifests,
+Полный suite: 42 passed, 1 skipped (Metal недоступен в среде C); C1: 7 passed. Проверены PNG/фаза, RNG, manifests,
 известные Pearson/SSIM, вырожденные пары, JSON и путь экспорта на искусственном операторе.
 Проверка искусственного оператора тестирует только IO; физическую корректность проверяет A.
 C2 проверен с реальным Френелем A и `initial.pt` B: два CLI-запуска дали побайтно
@@ -99,4 +99,13 @@ DeepCGH 2020, PyTorch-оптика и Adam baseline — Peng 2020; незави�
 ```bash
 python -m src.infer --images examples/examples_0000/1.png examples/examples_0000/2.png examples/examples_0000/3.png examples/examples_0000/4.png --checkpoint checkpoints/initial.pt --out outputs/reproduce_initial
 python -m src.evaluate --manifest examples/manifest.json --checkpoint checkpoints/initial.pt --out outputs/reproduce_examples
+```
+
+Общая подвыборка A3: `data/val/comparison_manifest.json`, первые 8 val (две четвёрки
+каждой категории). Начальная сеть уже оценена: `outputs/comparison/initial/summary.json`;
+mean Pearson=0.0335856, SSIM=0.0402451, worst-plane mean SSIM=0.0364030, ошибок 0/32.
+После фиксации best.pt обученная сеть оценивается на тех же целях:
+
+```bash
+python -m src.evaluate --manifest data/val/comparison_manifest.json --checkpoint checkpoints/best.pt --out outputs/comparison/network
 ```
