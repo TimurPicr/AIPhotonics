@@ -113,3 +113,19 @@ def test_export_uses_quantized_phase_and_saved_recons(tmp_path, monkeypatch):
     recon = load_four_png([str(tmp_path / f'recon_{i}.png') for i in range(1, 5)])
     assert result['planes'] == evaluate_four(target, recon)['planes']
     assert json.loads((tmp_path / 'metrics.json').read_text()) == result
+
+
+def test_export_records_actual_protocol_and_rejects_a_different_wavelength(tmp_path):
+    from config import DEFAULT_CONFIG
+    from src.io import export_result
+    from src.physics import output_pitch_m
+
+    targets = torch.rand(1, 4, 128, 128)
+    phase = torch.zeros(1, 1, 128, 128)
+    result = export_result(targets, phase, tmp_path / 'valid')
+    assert result['metadata']['protocol'] == DEFAULT_CONFIG.snapshot()
+    assert result['metadata']['dx_out_m'] == [output_pitch_m(z, 128) for z in DEFAULT_CONFIG.distances_m]
+    incompatible = {**DEFAULT_CONFIG.snapshot(), 'wavelength_m': 638e-9}
+    with pytest.raises(ValueError, match='protocol mismatch'):
+        export_result(targets, phase, tmp_path / 'invalid', metadata={'protocol': incompatible})
+    assert not (tmp_path / 'invalid').exists()

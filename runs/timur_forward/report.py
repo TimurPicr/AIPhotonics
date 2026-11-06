@@ -24,6 +24,7 @@ def picture(path: Path, label: str, caption: str) -> str:
 def main():
     manifest = json.loads((ROOT / 'manifest.json').read_text())
     summary = json.loads((RESULTS / 'summary.json').read_text())
+    assert manifest['protocol'] == summary['protocol']
     aggregate = summary['methods']['forward_model']
     cases, options = [], []
     for index, sample in enumerate(manifest['samples']):
@@ -31,6 +32,7 @@ def main():
         directory = RESULTS / 'forward_model' / sample_id
         metrics = json.loads((directory / 'metrics.json').read_text())
         assert metrics['metadata']['checkpoint_sha256'] == summary['checkpoint_sha256']
+        assert metrics['metadata']['protocol'] == manifest['protocol']
         assert metrics['metadata']['sample_id'] == sample_id
         assert metrics['metadata']['phase_png_quantized']
         inputs, recons = [], []
@@ -74,7 +76,8 @@ def main():
                  '<button type="button" id="previous">Назад</button><span id="counter" role="status" aria-live="polite"></span>'
                  '<button type="button" id="next">Далее</button></nav>')
     document += ''.join(cases)
-    document += (f'<footer>PNG L · 128×128 · амплитуда · нормировка по максимуму каждой плоскости. '
+    wavelength_nm = manifest['protocol']['wavelength_m'] * 1e9
+    document += (f'<footer>λ = {wavelength_nm:g} нм · PNG L · 128×128 · амплитуда · нормировка по максимуму каждой плоскости. '
                  f'Фаза: 0 → −π, 255 → +π. Checkpoint: шаг {summary["selected_step"]}, '
                  f'SHA256 {summary["checkpoint_sha256"][:16]}…</footer>')
     document += '''<script>

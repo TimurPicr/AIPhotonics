@@ -99,8 +99,12 @@ def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None,
 
 def load_manifest(path: str | Path, *, verify: bool = True) -> tuple[dict, list[tuple[dict, torch.Tensor]]]:
     import json
+    from config import DEFAULT_CONFIG
+
     path = Path(path)
     manifest = json.loads(path.read_text())
+    if 'protocol' in manifest and manifest['protocol'] != DEFAULT_CONFIG.snapshot():
+        raise ValueError(f'{path}: optical protocol mismatch; expected wavelength {DEFAULT_CONFIG.wavelength_m:g} m')
     if manifest['size'] != len(manifest['samples']):
         raise ValueError('Manifest size mismatch')
     samples = []
@@ -120,7 +124,7 @@ def make_manifest_loader(path: str | Path, batch_size: int, seed: int):
     manifest, samples = load_manifest(path)
     if batch_size < 1 or not samples or manifest['split'] != 'train':
         raise ValueError('A nonempty train manifest and positive batch size are required')
-    if manifest['z_m'] != list(CONFIG.z_m) or manifest.get('protocol', CONFIG.snapshot()) != CONFIG.snapshot():
+    if manifest['z_m'] != list(CONFIG.z_m):
         raise ValueError('Training manifest optical protocol mismatch')
     images = torch.cat([target for _, target in samples])
 

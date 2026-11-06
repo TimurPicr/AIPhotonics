@@ -53,7 +53,8 @@ def prepare_forward_dataset(paths: list[Path], root: Path, *, train_size=64, val
             directory.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, directory / 'phase.png')
             with torch.no_grad():
-                values = normalize_recons(reconstruct_four(load_phase_png(str(directory / 'phase.png'))))
+                phase = load_phase_png(str(directory / 'phase.png'))
+                values = normalize_recons(reconstruct_four(phase, config=CONFIG), config=CONFIG)
             inputs = []
             for plane in range(4):
                 target = directory / f'{plane+1}.png'

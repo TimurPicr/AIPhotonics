@@ -58,9 +58,16 @@ def write_json(path: str | Path, value: dict) -> None:
 
 def export_result(targets: torch.Tensor, phase: torch.Tensor, out: str | Path,
                   *, metadata: dict | None = None) -> dict:
+    from config import DEFAULT_CONFIG
+    from src.physics import output_pitch_m
     from src.reconstruction import reconstruct_four, normalize_recons
     from src.evaluate import evaluate_four
 
+    metadata = dict(metadata or {})
+    protocol = DEFAULT_CONFIG.snapshot()
+    if metadata.get('protocol', protocol) != protocol:
+        raise ValueError('Export optical protocol mismatch')
+    metadata.update(protocol=protocol, dx_out_m=[output_pitch_m(z, SIZE) for z in DEFAULT_CONFIG.distances_m])
     _array(targets, (1, 4, SIZE, SIZE))
     out = Path(out)
     export_phase_png(phase, str(out / 'phase.png'))

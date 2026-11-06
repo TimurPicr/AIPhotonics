@@ -7,7 +7,27 @@
     "method": "nearest_train_mask",
     "source_phase_sha256": "f873862b66c47da2b3948ecf9fb297a50969d577c2d64d88cb1fdfcc48fc3575",
     "neighbor_parent_id": "test_0025",
-    "phase_png_quantized": true
+    "phase_png_quantized": true,
+    "protocol": {
+      "wavelength_m": 5.32e-07,
+      "slm_pitch_m": 1e-05,
+      "distances_m": [
+        0.0241,
+        0.0253,
+        0.0265,
+        0.0277
+      ],
+      "image_size": 128,
+      "reconstruction_value": "amplitude",
+      "normalization": "per_plane_max",
+      "normalization_eps": 1e-08
+    },
+    "dx_out_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ]
   },
   "planes": [
     {

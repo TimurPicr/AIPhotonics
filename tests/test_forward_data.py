@@ -68,3 +68,14 @@ def test_manifest_stream_is_seeded_covers_each_epoch_and_rejects_validation(tmp_
     write_json(path, manifest)
     with pytest.raises(ValueError, match='protocol'):
         make_manifest_loader(path, 2, 42)
+
+
+def test_manifest_rejects_a_different_wavelength_even_without_hash_checks(tmp_path):
+    root = tmp_path / 'forward'
+    prepare_forward_dataset(source_masks(tmp_path), root, train_size=4, val_size=2, test_size=2)
+    path = root / 'val/manifest.json'
+    manifest = json.loads(path.read_text())
+    manifest['protocol']['wavelength_m'] = 638e-9
+    write_json(path, manifest)
+    with pytest.raises(ValueError, match='protocol mismatch'):
+        load_manifest(path, verify=False)
