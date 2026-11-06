@@ -1,0 +1,96 @@
+{
+  "source_revision": "05eecd393eda2fae336b2ce78ac7a6b57e321c02",
+  "clean_extract_root": "/private/tmp/photonics-release-yojtn6fd",
+  "python_executable": "/Users/user/Desktop/Code/AIPhotonics/AIPhotonics/.venv/bin/python",
+  "source_import": "/private/tmp/photonics-release-yojtn6fd/src/__init__.py",
+  "commands": [
+    {
+      "args": [
+        "src.data",
+        "--prepare-eval",
+        "--val-size",
+        "64",
+        "--test-size",
+        "64",
+        "--ood-size",
+        "16"
+      ],
+      "exit_code": 0,
+      "seconds": 0.8994268749993353,
+      "stdout": "Prepared: val=64, test=64, ood=16, train_diagnostic=4, examples=8"
+    },
+    {
+      "args": [
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2208131659972423,
+      "stdout": ".........s.........................................                      [100%]\n50 passed, 1 skipped in 1.74s"
+    },
+    {
+      "args": [
+        "src.infer",
+        "--images",
+        "examples/examples_0000/1.png",
+        "examples/examples_0000/2.png",
+        "examples/examples_0000/3.png",
+        "examples/examples_0000/4.png",
+        "--checkpoint",
+        "checkpoints/best.pt",
+        "--out",
+        "outputs/reproduce_example"
+      ],
+      "exit_code": 0,
+      "seconds": 0.8126438750005036,
+      "stdout": "{'pearson': 0.11033420474051454, 'ssim': 0.020316609281560635}"
+    },
+    {
+      "args": [
+        "src.evaluate",
+        "--manifest",
+        "data/test/manifest.json",
+        "--checkpoint",
+        "checkpoints/best.pt",
+        "--out",
+        "outputs/reproduce_test"
+      ],
+      "exit_code": 0,
+      "seconds": 2.5843775829998776,
+      "stdout": "{'samples': 64, 'total_pairs': 256, 'planes': [{'plane': 1, 'pearson': 0.16849207489407902, 'ssim': 0.141103205194743, 'valid_pearson_pairs': 64, 'total_pairs': 64}, {'plane': 2, 'pearson': 0.1254922874860242, 'ssim': 0.12095520387039718, 'valid_pearson_pairs': 64, 'total_pairs': 64}, {'plane': 3, 'pearson': 0.15873228075603557, 'ssim': 0.11052169757813295, 'valid_pearson_pairs': 64, 'total_pairs': 64}, {'plane': 4, 'pearson': 0.12582999560144692, 'ssim': 0.10197712947397694, 'valid_pearson_pairs': 64, 'total_pairs': 64}], 'mean': {'pearson': 0.14463665968439643, 'ssim': 0.11863930902931252}, 'worst_plane_mean': {'pearson': 0.1254922874860242, 'ssim': 0.10197712947397694}, 'valid_pearson_pairs': 256, 'failure_count': 0, 'diagnostic_pairs': 0}"
+    },
+    {
+      "args": [
+        "src.evaluate",
+        "--manifest",
+        "data/ood/manifest.json",
+        "--checkpoint",
+        "checkpoints/best.pt",
+        "--out",
+        "outputs/reproduce_ood"
+      ],
+      "exit_code": 0,
+      "seconds": 1.2517057500008377,
+      "stdout": "{'samples': 16, 'total_pairs': 64, 'planes': [{'plane': 1, 'pearson': 0.06531543003693824, 'ssim': 0.023079890524043394, 'valid_pearson_pairs': 16, 'total_pairs': 16}, {'plane': 2, 'pearson': 0.0727015875656932, 'ssim': 0.021156677202491474, 'valid_pearson_pairs': 16, 'total_pairs': 16}, {'plane': 3, 'pearson': 0.10318199076643944, 'ssim': 0.03237664832929592, 'valid_pearson_pairs': 16, 'total_pairs': 16}, {'plane': 4, 'pearson': 0.08990164155851685, 'ssim': 0.019735513017135442, 'valid_pearson_pairs': 16, 'total_pairs': 16}], 'mean': {'pearson': 0.08277516248189694, 'ssim': 0.024087182268241556}, 'worst_plane_mean': {'pearson': 0.06531543003693824, 'ssim': 0.019735513017135442}, 'valid_pearson_pairs': 64, 'failure_count': 0, 'diagnostic_pairs': 0}"
+    },
+    {
+      "args": [
+        "src.evaluate",
+        "--manifest",
+        "examples/manifest.json",
+        "--checkpoint",
+        "checkpoints/best.pt",
+        "--out",
+        "outputs/reproduce_examples"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0141044160009187,
+      "stdout": "{'samples': 8, 'total_pairs': 32, 'planes': [{'plane': 1, 'pearson': 0.2932275331993145, 'ssim': 0.22887279262424232, 'valid_pearson_pairs': 8, 'total_pairs': 8}, {'plane': 2, 'pearson': 0.15469819750502775, 'ssim': 0.12732220809737588, 'valid_pearson_pairs': 8, 'total_pairs': 8}, {'plane': 3, 'pearson': 0.1420729064452661, 'ssim': 0.1181768458083905, 'valid_pearson_pairs': 8, 'total_pairs': 8}, {'plane': 4, 'pearson': 0.133998565760218, 'ssim': 0.11249810377855995, 'valid_pearson_pairs': 8, 'total_pairs': 8}], 'mean': {'pearson': 0.1809993007274566, 'ssim': 0.14671748757714215}, 'worst_plane_mean': {'pearson': 0.133998565760218, 'ssim': 0.11249810377855995}, 'valid_pearson_pairs': 32, 'failure_count': 0, 'diagnostic_pairs': 0}"
+    }
+  ],
+  "regenerated_manifests_identical": true,
+  "identical_pngs": 445,
+  "identical_sample_metrics": 89,
+  "identical_dataset_aggregates_and_categories": 3,
+  "archive_sha256": "cb6c14302ae2c0349f24493434f779ee294142b424b5ccff9089779ce71b35da"
+}

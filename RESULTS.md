@@ -76,3 +76,5 @@ Checkpoint: `best.pt`, шаг 1400, SHA256 `55ad50208b7545c1ea3f14485148fba089e6
 Исходный A3: [отчёт A](outputs/comparison/a_summary.json). Локальное воспроизведение C: [отчёт и все PNG](outputs/comparison/final/summary.json). Числа Adam и время различаются между платформами; сравнение выше использует один локальный запуск C для всех методов.
 
 Подробные отчёты: [test](outputs/test/summary.json), [OOD](outputs/ood/summary.json), [examples](outputs/examples/summary.json), [аудит PNG](outputs/final_verification.json). Настройки SSIM и версия scikit-image записаны в каждом metrics.json.
+
+Финальная проверка чистого извлечения: 50 passed, 1 skipped; 445 PNG и метрики 89 запусков совпали. [Журнал воспроизведения](outputs/release_verification.json).
