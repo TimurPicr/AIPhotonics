@@ -1,0 +1,1422 @@
+{
+  "checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c",
+  "protocol": {
+    "wavelength_m": 5.32e-07,
+    "slm_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "image_size": 128,
+    "reconstruction_value": "amplitude",
+    "normalization": "per_plane_max",
+    "normalization_eps": 1e-08
+  },
+  "manifest_sha256": "d768de859775cf639d7348536e456090c0abdb4e6f3d97baa39bee2a67f89fb1",
+  "split": "val",
+  "samples": 64,
+  "metric_domain": "float reconstructions; quantized phase is labelled separately",
+  "network_float": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.20694134669486114,
+          "ssim": 0.15065992497441147,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": 0.18892327514343135,
+          "ssim": 0.11888410859099477,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": 0.16040630178263296,
+          "ssim": 0.1262822196265898,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": 0.11191318685614687,
+          "ssim": 0.1088304470282809,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": 0.16704602761926807,
+        "ssim": 0.12616417505506922
+      },
+      "worst_plane_mean": {
+        "pearson": 0.11191318685614687,
+        "ssim": 0.1088304470282809
+      },
+      "valid_pearson_pairs": 256,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.11511127797930171,
+            "ssim": 0.013971885370610872,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.1729209486025151,
+            "ssim": 0.019869858925473473,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.1492614612707881,
+            "ssim": 0.015073129006979045,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.0818143321496473,
+            "ssim": 0.012761136015967314,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.12977700500056305,
+          "ssim": 0.015419002329757677
+        },
+        "worst_plane_mean": {
+          "pearson": 0.0818143321496473,
+          "ssim": 0.012761136015967314
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.04386727420555086,
+            "ssim": 0.006552192625904942,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.055221336089023396,
+            "ssim": 0.007820637628611803,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.08568297669174665,
+            "ssim": 0.008968709773371258,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.054043084895411174,
+            "ssim": 0.00794675864093853,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.05970366797043302,
+          "ssim": 0.007822074667206634
+        },
+        "worst_plane_mean": {
+          "pearson": 0.04386727420555086,
+          "ssim": 0.006552192625904942
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.4267500572835864,
+            "ssim": 0.4084399832045923,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3138976446696574,
+            "ssim": 0.3064897385607416,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.23817364496543292,
+            "ssim": 0.30256391520648795,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.1989586920939832,
+            "ssim": 0.31262560304984166,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.294445009753165,
+          "ssim": 0.33252981000541587
+        },
+        "worst_plane_mean": {
+          "pearson": 0.1989586920939832,
+          "ssim": 0.30256391520648795
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.2420367773110055,
+            "ssim": 0.17367563869653765,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.21365317121252955,
+            "ssim": 0.14135619924915224,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.16850712420256417,
+            "ssim": 0.17852312451952113,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.11283663828554585,
+            "ssim": 0.1019882904063761,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.18425842775291126,
+          "ssim": 0.14888581321789676
+        },
+        "worst_plane_mean": {
+          "pearson": 0.11283663828554585,
+          "ssim": 0.1019882904063761
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      }
+    }
+  },
+  "network_png_phase_float_recons": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.2069623353189887,
+          "ssim": 0.15062253262985686,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": 0.18890741751202017,
+          "ssim": 0.11883714270091746,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": 0.16039065317816803,
+          "ssim": 0.12625716933738626,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": 0.11191461089453958,
+          "ssim": 0.10879834449987447,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": 0.1670437542259291,
+        "ssim": 0.12612879729200877
+      },
+      "worst_plane_mean": {
+        "pearson": 0.11191461089453958,
+        "ssim": 0.10879834449987447
+      },
+      "valid_pearson_pairs": 256,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.11522499144884797,
+            "ssim": 0.01398172350451233,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.17296127125590835,
+            "ssim": 0.01987096386928046,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.14927989423755128,
+            "ssim": 0.015079679660477355,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.08181909922744571,
+            "ssim": 0.012767255963806443,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.12982131404243832,
+          "ssim": 0.015424905749519146
+        },
+        "worst_plane_mean": {
+          "pearson": 0.08181909922744571,
+          "ssim": 0.012767255963806443
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.04394177260763164,
+            "ssim": 0.006554299998510884,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.05523830837383832,
+            "ssim": 0.00781686559231766,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.08562310041340186,
+            "ssim": 0.008964994874391053,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.05407948151743683,
+            "ssim": 0.007948241480239315,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.05972066572807716,
+          "ssim": 0.007821100486364727
+        },
+        "worst_plane_mean": {
+          "pearson": 0.04394177260763164,
+          "ssim": 0.006554299998510884
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.42667756731378575,
+            "ssim": 0.40834578988390835,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3138200346290629,
+            "ssim": 0.30634821697722836,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.23814549239121285,
+            "ssim": 0.3024287407770685,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.19892126186206688,
+            "ssim": 0.31247693921025865,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.2943910890490321,
+          "ssim": 0.33239992171211596
+        },
+        "worst_plane_mean": {
+          "pearson": 0.19892126186206688,
+          "ssim": 0.3024287407770685
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.24200500990568932,
+            "ssim": 0.173608317132496,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.2136100557892711,
+            "ssim": 0.14131252436484337,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.16851412567050608,
+            "ssim": 0.17855526203760808,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.11283860097120892,
+            "ssim": 0.1020009413451935,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.18424194808416886,
+          "ssim": 0.14886926122003524
+        },
+        "worst_plane_mean": {
+          "pearson": 0.11283860097120892,
+          "ssim": 0.1020009413451935
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      }
+    }
+  },
+  "diagnostic_only_squared_amplitude": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.2036208983521956,
+          "ssim": 0.21856670503778508,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": 0.1331428704132768,
+          "ssim": 0.21139417919169615,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": 0.1282930401216064,
+          "ssim": 0.2364407057891558,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": 0.073150976901558,
+          "ssim": 0.26234260900624606,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": 0.1345519464471592,
+        "ssim": 0.23218604975622076
+      },
+      "worst_plane_mean": {
+        "pearson": 0.073150976901558,
+        "ssim": 0.21139417919169615
+      },
+      "valid_pearson_pairs": 256,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.17406596305549388,
+            "ssim": 0.25172091141925557,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.12116112907906981,
+            "ssim": 0.2634237207028364,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.12272999037179541,
+            "ssim": 0.2854303792328422,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.03998615154831599,
+            "ssim": 0.31032077542298986,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.11448580851366878,
+          "ssim": 0.27772394669448097
+        },
+        "worst_plane_mean": {
+          "pearson": 0.03998615154831599,
+          "ssim": 0.25172091141925557
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.11156661307954716,
+            "ssim": 0.20792151142887258,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.04852196275755796,
+            "ssim": 0.2295327815019001,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.0815902725808306,
+            "ssim": 0.2492413783704395,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.025852609292738183,
+            "ssim": 0.2884071180950369,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.06688286442766847,
+          "ssim": 0.24377569734906226
+        },
+        "worst_plane_mean": {
+          "pearson": 0.025852609292738183,
+          "ssim": 0.20792151142887258
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.3184103981594899,
+            "ssim": 0.19879341825299213,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.21743970771876578,
+            "ssim": 0.14217662756987,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.18508068191765742,
+            "ssim": 0.18986381137771713,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.15184341518659752,
+            "ssim": 0.18522722267640176,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.21819355074562763,
+          "ssim": 0.17901526996924527
+        },
+        "worst_plane_mean": {
+          "pearson": 0.15184341518659752,
+          "ssim": 0.14217662756987
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.2104406191142515,
+            "ssim": 0.21583097905002008,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.1454486820977136,
+            "ssim": 0.21044358699217808,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.12377121561614213,
+            "ssim": 0.2212272541756244,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.07492173157858027,
+            "ssim": 0.2654153198305557,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.1386455621016719,
+          "ssim": 0.22822928501209455
+        },
+        "worst_plane_mean": {
+          "pearson": 0.07492173157858027,
+          "ssim": 0.21044358699217808
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      }
+    }
+  },
+  "diagnostic_only_zero_reconstruction": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": null,
+          "ssim": 0.592662407857395,
+          "valid_pearson_pairs": 0,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": null,
+          "ssim": 0.5878227875273226,
+          "valid_pearson_pairs": 0,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": null,
+          "ssim": 0.5710945457921695,
+          "valid_pearson_pairs": 0,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": null,
+          "ssim": 0.6134009103808538,
+          "valid_pearson_pairs": 0,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": null,
+        "ssim": 0.5912451628894352
+      },
+      "worst_plane_mean": {
+        "pearson": null,
+        "ssim": 0.5710945457921695
+      },
+      "valid_pearson_pairs": 0,
+      "failure_count": 256,
+      "diagnostic_pairs": 256
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": null,
+            "ssim": 0.8796987978717452,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": null,
+            "ssim": 0.8467045794653129,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": null,
+            "ssim": 0.8852719661060235,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": null,
+            "ssim": 0.8844795089246626,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": null,
+          "ssim": 0.874038713091936
+        },
+        "worst_plane_mean": {
+          "pearson": null,
+          "ssim": 0.8467045794653129
+        },
+        "valid_pearson_pairs": 0,
+        "failure_count": 64,
+        "diagnostic_pairs": 64
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": null,
+            "ssim": 0.9231476819458126,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": null,
+            "ssim": 0.9261019609013545,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": null,
+            "ssim": 0.9046086616305518,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": null,
+            "ssim": 0.9335550998554233,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": null,
+          "ssim": 0.9218533510832856
+        },
+        "worst_plane_mean": {
+          "pearson": null,
+          "ssim": 0.9046086616305518
+        },
+        "valid_pearson_pairs": 0,
+        "failure_count": 64,
+        "diagnostic_pairs": 64
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": null,
+            "ssim": 0.008888007810592161,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": null,
+            "ssim": 0.010786933778178598,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": null,
+            "ssim": 0.024069996255308715,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": null,
+            "ssim": 0.01154935214380522,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": null,
+          "ssim": 0.013823572496971172
+        },
+        "worst_plane_mean": {
+          "pearson": null,
+          "ssim": 0.008888007810592161
+        },
+        "valid_pearson_pairs": 0,
+        "failure_count": 64,
+        "diagnostic_pairs": 64
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": null,
+            "ssim": 0.5589151438014301,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": null,
+            "ssim": 0.5676976759644445,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": null,
+            "ssim": 0.4704275591767937,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": null,
+            "ssim": 0.624019680599524,
+            "valid_pearson_pairs": 0,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": null,
+          "ssim": 0.555265014885548
+        },
+        "worst_plane_mean": {
+          "pearson": null,
+          "ssim": 0.4704275591767937
+        },
+        "valid_pearson_pairs": 0,
+        "failure_count": 64,
+        "diagnostic_pairs": 64
+      }
+    }
+  },
+  "diagnostic_only_same_phase_for_all_inputs": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": 0.003088727022925928,
+          "ssim": 0.045313034005133965,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": 0.12310549324586043,
+          "ssim": 0.054202014853787346,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": 0.13611866325655508,
+          "ssim": 0.05302114127923194,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": 0.1413340558885668,
+          "ssim": 0.054145921991673396,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": 0.10091173485347706,
+        "ssim": 0.05167052803245666
+      },
+      "worst_plane_mean": {
+        "pearson": 0.003088727022925928,
+        "ssim": 0.045313034005133965
+      },
+      "valid_pearson_pairs": 256,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.003613339066034849,
+            "ssim": 0.008106985308794432,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.13100954219977579,
+            "ssim": 0.014562668424730774,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.1277874845315335,
+            "ssim": 0.00824415676822539,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.12909648190692985,
+            "ssim": 0.00779065686634766,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.0978767119260685,
+          "ssim": 0.009676116842024563
+        },
+        "worst_plane_mean": {
+          "pearson": 0.003613339066034849,
+          "ssim": 0.00779065686634766
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.0007361326947677997,
+            "ssim": 0.0007896916724569268,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.07706894184167692,
+            "ssim": 0.0007828951952353282,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.10928106287948337,
+            "ssim": 0.0011135612789245756,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.07494712186654347,
+            "ssim": 0.0010016279445328753,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.06550831482061789,
+          "ssim": 0.0009219440227874265
+        },
+        "worst_plane_mean": {
+          "pearson": 0.0007361326947677997,
+          "ssim": 0.0007828951952353282
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.01551706486480528,
+            "ssim": 0.1244284408398674,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.19140979642923822,
+            "ssim": 0.15337188175768257,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.17936483221678085,
+            "ssim": 0.1430581811562983,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.22821510287371688,
+            "ssim": 0.15750688550357936,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.1536266990961353,
+          "ssim": 0.1445913473143569
+        },
+        "worst_plane_mean": {
+          "pearson": 0.01551706486480528,
+          "ssim": 0.1244284408398674
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": -0.007511628533904216,
+            "ssim": 0.04792701819941711,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.09293369251275073,
+            "ssim": 0.04809061403750074,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.12804127339842264,
+            "ssim": 0.059668665913479496,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.133077516907077,
+            "ssim": 0.05028451765223368,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.08663521357108653,
+          "ssim": 0.051492703950657755
+        },
+        "worst_plane_mean": {
+          "pearson": -0.007511628533904216,
+          "ssim": 0.04792701819941711
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      }
+    }
+  },
+  "diagnostic_only_wrong_target_within_category": {
+    "aggregate": {
+      "samples": 64,
+      "total_pairs": 256,
+      "planes": [
+        {
+          "plane": 1,
+          "pearson": -0.00901124058070192,
+          "ssim": 0.07413012108064657,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 2,
+          "pearson": 0.018779024757904647,
+          "ssim": 0.07194492134730313,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 3,
+          "pearson": 0.052632401682843444,
+          "ssim": 0.09577510845543988,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        },
+        {
+          "plane": 4,
+          "pearson": 0.07989572824323969,
+          "ssim": 0.09961207072980592,
+          "valid_pearson_pairs": 64,
+          "total_pairs": 64
+        }
+      ],
+      "mean": {
+        "pearson": 0.03557397852582147,
+        "ssim": 0.08536555540329888
+      },
+      "worst_plane_mean": {
+        "pearson": -0.00901124058070192,
+        "ssim": 0.07194492134730313
+      },
+      "valid_pearson_pairs": 256,
+      "failure_count": 0,
+      "diagnostic_pairs": 0
+    },
+    "categories": {
+      "geometry": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": -0.022759378207207834,
+            "ssim": 0.00964276120894161,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.027526332326981633,
+            "ssim": 0.0136337311729779,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.049574400705929715,
+            "ssim": 0.010659987356677784,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.05166177791404797,
+            "ssim": 0.01164880729406102,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.026500783184937864,
+          "ssim": 0.011396321758164577
+        },
+        "worst_plane_mean": {
+          "pearson": -0.022759378207207834,
+          "ssim": 0.00964276120894161
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "symbols": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": -0.011238598023988003,
+            "ssim": 0.0054688597819544885,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": -0.001548598234842236,
+            "ssim": 0.0057700585419091,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.009467007418566617,
+            "ssim": 0.006405666421336097,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.04082506043750703,
+            "ssim": 0.007637726887477896,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.009376217899310852,
+          "ssim": 0.0063205779081693956
+        },
+        "worst_plane_mean": {
+          "pearson": -0.011238598023988003,
+          "ssim": 0.0054688597819544885
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "grayscale": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.002689544609821636,
+            "ssim": 0.21535340857230556,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.03263431599406938,
+            "ssim": 0.19326186382538743,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.10404696809534793,
+            "ssim": 0.2541469909656073,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.15427527237736546,
+            "ssim": 0.2970783563464535,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.0734115252691511,
+          "ssim": 0.23996015492743844
+        },
+        "worst_plane_mean": {
+          "pearson": 0.002689544609821636,
+          "ssim": 0.19326186382538743
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      },
+      "mixed": {
+        "samples": 16,
+        "total_pairs": 64,
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": -0.004736530701433478,
+            "ssim": 0.06605545475938458,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 2,
+            "pearson": 0.016504048945409817,
+            "ssim": 0.07511403184893804,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 3,
+            "pearson": 0.04744123051152954,
+            "ssim": 0.11188778907813837,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          },
+          {
+            "plane": 4,
+            "pearson": 0.07282080224403832,
+            "ssim": 0.08208339239123122,
+            "valid_pearson_pairs": 16,
+            "total_pairs": 16
+          }
+        ],
+        "mean": {
+          "pearson": 0.033007387749886055,
+          "ssim": 0.08378516701942307
+        },
+        "worst_plane_mean": {
+          "pearson": -0.004736530701433478,
+          "ssim": 0.06605545475938458
+        },
+        "valid_pearson_pairs": 64,
+        "failure_count": 0,
+        "diagnostic_pairs": 0
+      }
+    }
+  },
+  "volume_amplitude_cosine_mean": 0.4401467442512512,
+  "phase_saturated_fraction": 0.04676628112792969,
+  "phase_coherence_between_inputs_same_category": 0.6066991686820984,
+  "recon_correlation_between_inputs_same_category": 0.1738429280484151,
+  "target_correlation_between_inputs_same_category": 0.04387221436827689,
+  "recon_correlation_between_planes": 0.629095800378253,
+  "target_correlation_between_planes": 0.04871592714324907,
+  "sparse_targets": {
+    "support_fraction": 0.038118839263916016,
+    "reconstruction_energy_on_support": 0.06208325922489166,
+    "background_amplitude_mean": 0.1303853541612625,
+    "foreground_amplitude_mean": 0.1549779176712036
+  },
+  "normalization_diagnostic": {
+    "current_mse": 0.03151906281709671,
+    "target_fitted_gain_mse_not_official": 0.018628187477588654,
+    "gain_mean": 0.6091083884239197,
+    "gain_min": 0.013577651232481003,
+    "gain_max": 2.456749439239502
+  },
+  "category_mixture": {
+    "train_quadruples": 1024,
+    "train_all_four_same_category": 35,
+    "validation_quadruples": 64,
+    "validation_all_four_same_category": 50,
+    "expected_training_same_category_fraction": 0.037037037037037035
+  }
+}

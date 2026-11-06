@@ -1,0 +1,639 @@
+{
+  "metric_domain": "float phase and reconstruction",
+  "experiments": [
+    {
+      "sample_id": "val_0000",
+      "category": "geometry",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 3.0407781670000986,
+      "float_mse": 0.010795057751238346,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.910041919728633,
+            "pearson_reason": null,
+            "ssim": 0.12476668149948135
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3424824457829541,
+            "pearson_reason": null,
+            "ssim": 0.1406712261924958
+          },
+          {
+            "plane": 3,
+            "pearson": 0.21628981805777925,
+            "pearson_reason": null,
+            "ssim": 0.185595617280929
+          },
+          {
+            "plane": 4,
+            "pearson": 0.20251445104515717,
+            "pearson_reason": null,
+            "ssim": 0.24480866769187046
+          }
+        ],
+        "mean": {
+          "pearson": 0.4178321586536309,
+          "ssim": 0.17396054816619416
+        },
+        "worst_plane": {
+          "pearson": 0.20251445104515717,
+          "ssim": 0.12476668149948135
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0000",
+      "category": "geometry",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 43,
+      "steps": 1000,
+      "seconds": 2.5046849999998813,
+      "float_mse": 0.010603481903672218,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.929692691454362,
+            "pearson_reason": null,
+            "ssim": 0.1277738569866786
+          },
+          {
+            "plane": 2,
+            "pearson": 0.2701993091006464,
+            "pearson_reason": null,
+            "ssim": 0.15904364083859976
+          },
+          {
+            "plane": 3,
+            "pearson": 0.20507045010185118,
+            "pearson_reason": null,
+            "ssim": 0.18670532451626717
+          },
+          {
+            "plane": 4,
+            "pearson": 0.18504985559516576,
+            "pearson_reason": null,
+            "ssim": 0.32520691613116176
+          }
+        ],
+        "mean": {
+          "pearson": 0.3975030765630063,
+          "ssim": 0.1996824346181768
+        },
+        "worst_plane": {
+          "pearson": 0.18504985559516576,
+          "ssim": 0.1277738569866786
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0000",
+      "category": "geometry",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 44,
+      "steps": 1000,
+      "seconds": 2.4632542500003183,
+      "float_mse": 0.01106218807399273,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.9125612631495161,
+            "pearson_reason": null,
+            "ssim": 0.12642627833665462
+          },
+          {
+            "plane": 2,
+            "pearson": 0.27847524791246153,
+            "pearson_reason": null,
+            "ssim": 0.15356973731634246
+          },
+          {
+            "plane": 3,
+            "pearson": 0.21921014384783385,
+            "pearson_reason": null,
+            "ssim": 0.17658670842857283
+          },
+          {
+            "plane": 4,
+            "pearson": 0.19169974297564324,
+            "pearson_reason": null,
+            "ssim": 0.21043961086230403
+          }
+        ],
+        "mean": {
+          "pearson": 0.40048659947136367,
+          "ssim": 0.1667555837359685
+        },
+        "worst_plane": {
+          "pearson": 0.19169974297564324,
+          "ssim": 0.12642627833665462
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0000",
+      "category": "geometry",
+      "planes_fitted": [
+        1
+      ],
+      "initialization": "random",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 0.6743499160002102,
+      "float_mse": 0.016012609004974365,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.9766748897671779,
+            "pearson_reason": null,
+            "ssim": 0.14120831530688563
+          },
+          {
+            "plane": 2,
+            "pearson": 0.06303926389968331,
+            "pearson_reason": null,
+            "ssim": 0.06958636798614044
+          },
+          {
+            "plane": 3,
+            "pearson": 0.03148900229500794,
+            "pearson_reason": null,
+            "ssim": 0.07736966428408647
+          },
+          {
+            "plane": 4,
+            "pearson": 0.0417184298879424,
+            "pearson_reason": null,
+            "ssim": 0.04755530193531856
+          }
+        ],
+        "mean": {
+          "pearson": 0.2782303964624529,
+          "ssim": 0.08392991237810778
+        },
+        "worst_plane": {
+          "pearson": 0.03148900229500794,
+          "ssim": 0.04755530193531856
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0000",
+      "category": "geometry",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "network",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 2.4760956249992887,
+      "float_mse": 0.009578930214047432,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.9643360042134945,
+            "pearson_reason": null,
+            "ssim": 0.14126093848378604
+          },
+          {
+            "plane": 2,
+            "pearson": 0.23902559029329679,
+            "pearson_reason": null,
+            "ssim": 0.3100883360794317
+          },
+          {
+            "plane": 3,
+            "pearson": 0.1391482106471636,
+            "pearson_reason": null,
+            "ssim": 0.4179132282956067
+          },
+          {
+            "plane": 4,
+            "pearson": 0.16307601857046441,
+            "pearson_reason": null,
+            "ssim": 0.4864556418155727
+          }
+        ],
+        "mean": {
+          "pearson": 0.3763964559311048,
+          "ssim": 0.3389295361685993
+        },
+        "worst_plane": {
+          "pearson": 0.1391482106471636,
+          "ssim": 0.14126093848378604
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0002",
+      "category": "grayscale",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 2.512750166999467,
+      "float_mse": 0.024329006671905518,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.7328427675716851,
+            "pearson_reason": null,
+            "ssim": 0.4542179586881333
+          },
+          {
+            "plane": 2,
+            "pearson": 0.34857269422905135,
+            "pearson_reason": null,
+            "ssim": 0.23573419288923622
+          },
+          {
+            "plane": 3,
+            "pearson": 0.5915123685181718,
+            "pearson_reason": null,
+            "ssim": 0.2352090337991489
+          },
+          {
+            "plane": 4,
+            "pearson": 0.6047280065079671,
+            "pearson_reason": null,
+            "ssim": 0.14655321859631898
+          }
+        ],
+        "mean": {
+          "pearson": 0.5694139592067189,
+          "ssim": 0.26792860099320936
+        },
+        "worst_plane": {
+          "pearson": 0.34857269422905135,
+          "ssim": 0.14655321859631898
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0002",
+      "category": "grayscale",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 43,
+      "steps": 1000,
+      "seconds": 2.5411015409990796,
+      "float_mse": 0.023497803136706352,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.741260761412985,
+            "pearson_reason": null,
+            "ssim": 0.46514799355459574
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3517701610573367,
+            "pearson_reason": null,
+            "ssim": 0.23250813604781728
+          },
+          {
+            "plane": 3,
+            "pearson": 0.5888168069138235,
+            "pearson_reason": null,
+            "ssim": 0.23914737447454293
+          },
+          {
+            "plane": 4,
+            "pearson": 0.6098630933120285,
+            "pearson_reason": null,
+            "ssim": 0.1362173255669795
+          }
+        ],
+        "mean": {
+          "pearson": 0.5729277056740434,
+          "ssim": 0.26825520741098385
+        },
+        "worst_plane": {
+          "pearson": 0.3517701610573367,
+          "ssim": 0.1362173255669795
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0002",
+      "category": "grayscale",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "random",
+      "seed": 44,
+      "steps": 1000,
+      "seconds": 2.4840549590007868,
+      "float_mse": 0.023985516279935837,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.7456811025579448,
+            "pearson_reason": null,
+            "ssim": 0.4640095751476722
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3489524885281623,
+            "pearson_reason": null,
+            "ssim": 0.23537385707073868
+          },
+          {
+            "plane": 3,
+            "pearson": 0.5823490405929196,
+            "pearson_reason": null,
+            "ssim": 0.21977698363394085
+          },
+          {
+            "plane": 4,
+            "pearson": 0.6177766657336219,
+            "pearson_reason": null,
+            "ssim": 0.13168841335316214
+          }
+        ],
+        "mean": {
+          "pearson": 0.5736898243531621,
+          "ssim": 0.26271220730137845
+        },
+        "worst_plane": {
+          "pearson": 0.3489524885281623,
+          "ssim": 0.13168841335316214
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0002",
+      "category": "grayscale",
+      "planes_fitted": [
+        1
+      ],
+      "initialization": "random",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 0.6680066670014639,
+      "float_mse": 0.05015195161104202,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.9888873081515828,
+            "pearson_reason": null,
+            "ssim": 0.9119024166409758
+          },
+          {
+            "plane": 2,
+            "pearson": 0.19982959077859738,
+            "pearson_reason": null,
+            "ssim": 0.17073732000838626
+          },
+          {
+            "plane": 3,
+            "pearson": 0.0867509901065419,
+            "pearson_reason": null,
+            "ssim": 0.04196016809666893
+          },
+          {
+            "plane": 4,
+            "pearson": 0.08300305732834859,
+            "pearson_reason": null,
+            "ssim": 0.054945602175973586
+          }
+        ],
+        "mean": {
+          "pearson": 0.3396177365912677,
+          "ssim": 0.29488637673050117
+        },
+        "worst_plane": {
+          "pearson": 0.08300305732834859,
+          "ssim": 0.04196016809666893
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    },
+    {
+      "sample_id": "val_0002",
+      "category": "grayscale",
+      "planes_fitted": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "initialization": "network",
+      "seed": 42,
+      "steps": 1000,
+      "seconds": 2.4202608750019863,
+      "float_mse": 0.024642562493681908,
+      "metrics": {
+        "planes": [
+          {
+            "plane": 1,
+            "pearson": 0.653963913487025,
+            "pearson_reason": null,
+            "ssim": 0.37587234617146026
+          },
+          {
+            "plane": 2,
+            "pearson": 0.3248907571359439,
+            "pearson_reason": null,
+            "ssim": 0.26272411128947126
+          },
+          {
+            "plane": 3,
+            "pearson": 0.597360801638572,
+            "pearson_reason": null,
+            "ssim": 0.24799553290859905
+          },
+          {
+            "plane": 4,
+            "pearson": 0.6094018050026443,
+            "pearson_reason": null,
+            "ssim": 0.19581416045165284
+          }
+        ],
+        "mean": {
+          "pearson": 0.5464043193160463,
+          "ssim": 0.2706015377052958
+        },
+        "worst_plane": {
+          "pearson": 0.3248907571359439,
+          "ssim": 0.19581416045165284
+        },
+        "valid_pearson_pairs": 4,
+        "total_pairs": 4,
+        "failure_count": 0,
+        "errors": [],
+        "ssim_parameters": {
+          "data_range": 1.0,
+          "win_size": 7,
+          "gaussian_weights": false,
+          "use_sample_covariance": true,
+          "K1": 0.01,
+          "K2": 0.03
+        },
+        "skimage_version": "0.26.0"
+      }
+    }
+  ]
+}
