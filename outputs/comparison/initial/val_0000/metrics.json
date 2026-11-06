@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "checkpoint_sha256": "02f68d809496ee9c404ee4ebf4f894c306b98084a7e98d4c763d0ee714b8fd17",
+    "checkpoint_sha256": "ef7c96a764823aa9b8ee8520ffe2bdedfbc28824952889582dd807a8f69cc58b",
     "checkpoint_step": 0,
     "method": "initial_network",
     "protocol": {
@@ -32,7 +32,7 @@
       "numpy": "2.5.4",
       "pillow": "13.0.0"
     },
-    "git_revision": "c9f6f10db5562aeddec08123ce08c6301593abf0",
+    "git_revision": "c50bc9a6d1097310f989c28440568d6b08ef0a63",
     "run_id": "initial",
     "split": "val",
     "dataset_seed": 42001,
@@ -66,46 +66,46 @@
       }
     ],
     "timing": {
-      "forward_seconds": 0.007110957998520462,
+      "forward_seconds": 0.006582750000234228,
       "warmup_passes": 2,
       "refinement_seconds": 0.0,
-      "pipeline_seconds": 0.01516220800112933
+      "pipeline_seconds": 0.01829104200078291
     },
     "phase_png_quantized": true
   },
   "planes": [
     {
       "plane": 1,
-      "pearson": -0.028706764054673664,
+      "pearson": 0.09709483983194205,
       "pearson_reason": null,
-      "ssim": 0.013899272926564432
+      "ssim": 0.016161850396975645
     },
     {
       "plane": 2,
-      "pearson": -0.025979401951907746,
+      "pearson": 0.09464573851433146,
       "pearson_reason": null,
-      "ssim": -0.0013648852928117045
+      "ssim": 0.012084770968931952
     },
     {
       "plane": 3,
-      "pearson": -0.1044710021249222,
+      "pearson": 0.0913915356070248,
       "pearson_reason": null,
-      "ssim": -0.002247269671815164
+      "ssim": 0.005895606100742834
     },
     {
       "plane": 4,
-      "pearson": 0.005400607424692046,
+      "pearson": 0.058940808637961084,
       "pearson_reason": null,
-      "ssim": -0.00042812278047160164
+      "ssim": 0.0017684439166244772
     }
   ],
   "mean": {
-    "pearson": -0.03843914017670289,
-    "ssim": 0.0024647487953664902
+    "pearson": 0.08551823064781484,
+    "ssim": 0.008977667845818727
   },
   "worst_plane": {
-    "pearson": -0.1044710021249222,
-    "ssim": -0.002247269671815164
+    "pearson": 0.058940808637961084,
+    "ssim": 0.0017684439166244772
   },
   "valid_pearson_pairs": 4,
   "total_pairs": 4,
