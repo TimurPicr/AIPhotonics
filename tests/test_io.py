@@ -71,3 +71,21 @@ def test_train_stream():
     assert torch.equal(second, next(b)) and not torch.equal(first, second)
     assert not torch.equal(first[:, 0], first[:, 1])
     assert 0 <= first.min() <= first.max() <= 1
+
+
+def test_manifests_reproducible_disjoint_and_verified(tmp_path):
+    from src.data import prepare_split, load_manifest, verify_disjoint
+    distances = [0.0241, 0.0253, 0.0265, 0.0277]
+    val = prepare_split(tmp_path, 'val', 4, z_m=distances)
+    assert val == prepare_split(tmp_path, 'val', 4, z_m=distances)
+    test = prepare_split(tmp_path, 'test', 4, z_m=distances)
+    verify_disjoint([val, test])
+    with pytest.raises(ValueError, match='Shared sources'):
+        verify_disjoint([val, val])
+    manifest, samples = load_manifest(tmp_path / 'val/manifest.json')
+    assert manifest['z_m'] == distances and len(samples) == 4
+    assert {s['category'] for s, _ in samples} == {'geometry', 'symbols', 'grayscale', 'mixed'}
+    path = tmp_path / 'val' / val['samples'][0]['sources'][0]['path']
+    write_png(torch.zeros(128, 128), path)
+    with pytest.raises(ValueError, match='hash mismatch'):
+        load_manifest(tmp_path / 'val/manifest.json')

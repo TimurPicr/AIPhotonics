@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, __version__ as pillow_version
 import torch
 
 from src.io import SIZE, file_hash, load_four_png, write_json, write_png
@@ -65,8 +65,13 @@ def make_train_loader(batch_size: int, seed: int) -> TrainStream:
     return TrainStream(batch_size, seed)
 
 
-def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None) -> dict:
-    from config import CONFIG
+def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None,
+                  z_m: list[float] | None = None) -> dict:
+    if z_m is None:
+        from config import CONFIG
+        z_m = list(CONFIG.z_m)
+    if len(z_m) != 4 or any(not np.isfinite(z) or z <= 0 for z in z_m):
+        raise ValueError("Expected four positive finite distances")
 
     if size < 1:
         raise ValueError('Split size must be positive')
@@ -86,7 +91,8 @@ def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None)
                             'seed': source_seed, 'sha256': file_hash(path)})
         samples.append({'id': sample_id, 'category': category, 'sources': sources})
     manifest = {'split': split, 'seed': seed, 'generator': 'synthetic-v1',
-                'size': size, 'z_m': list(CONFIG.z_m), 'samples': samples}
+                'size': size, 'z_m': list(z_m), 'samples': samples,
+                'versions': {'numpy': np.__version__, 'pillow': pillow_version}}
     write_json(root / split / 'manifest.json', manifest)
     return manifest
 

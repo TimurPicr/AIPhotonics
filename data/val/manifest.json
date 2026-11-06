@@ -1,0 +1,1938 @@
+{
+  "split": "val",
+  "seed": 42001,
+  "generator": "synthetic-v1",
+  "size": 64,
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "samples": [
+    {
+      "id": "val_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0000_0",
+          "path": "val_0000/1.png",
+          "seed": 5843716721122447297,
+          "sha256": "373bb50e097c4fab6b81d4dc80b574bc2a6c35da830ff2e23682e50e1a6d130c"
+        },
+        {
+          "id": "val_0000_1",
+          "path": "val_0000/2.png",
+          "seed": 2430938852292572718,
+          "sha256": "d4c7fc1af423e1ff6287b0c342ee22e35d34f981c8e291248b759bdcacb0d05b"
+        },
+        {
+          "id": "val_0000_2",
+          "path": "val_0000/3.png",
+          "seed": 1727303799277725980,
+          "sha256": "f8824db9eb008e6e81e21de320f4907db4a64aa5c2408f46631e1bcdc92a4a4b"
+        },
+        {
+          "id": "val_0000_3",
+          "path": "val_0000/4.png",
+          "seed": 3474710579849498348,
+          "sha256": "b8230a3d722e08681038a7088ef9ca3bb2f45f51f0dc7c719557cb6a68ce4861"
+        }
+      ]
+    },
+    {
+      "id": "val_0001",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0001_0",
+          "path": "val_0001/1.png",
+          "seed": 520278435379646256,
+          "sha256": "b0dfe073aa0b71505170077fe2c4a231c68f602757f25012b59271866cc5cf0f"
+        },
+        {
+          "id": "val_0001_1",
+          "path": "val_0001/2.png",
+          "seed": 9200158464920520560,
+          "sha256": "3317d3481db1f473af988c645f9316d9531f951aed76ed19e474fa883494fdfc"
+        },
+        {
+          "id": "val_0001_2",
+          "path": "val_0001/3.png",
+          "seed": 6633514620719796654,
+          "sha256": "aa8988b1a1b8a103be5dcef14e325d4322bef42cca7145bc384648fded3903f5"
+        },
+        {
+          "id": "val_0001_3",
+          "path": "val_0001/4.png",
+          "seed": 8587426021283896717,
+          "sha256": "3843163e8f9c5ea42e504ec3ec0bd515a20f67905a5bd3fa3c0a437607e5eb24"
+        }
+      ]
+    },
+    {
+      "id": "val_0002",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0002_0",
+          "path": "val_0002/1.png",
+          "seed": 4270457511122848645,
+          "sha256": "d9952b7a2713e4e91c2810356aff3537b99deba0f126245fc92a5462c2b3e976"
+        },
+        {
+          "id": "val_0002_1",
+          "path": "val_0002/2.png",
+          "seed": 6752118896728201694,
+          "sha256": "da1a7f875a153141a98fbc2a5a4271763755f0e709481a02872bebe31e4542eb"
+        },
+        {
+          "id": "val_0002_2",
+          "path": "val_0002/3.png",
+          "seed": 5431051150365057165,
+          "sha256": "6e3756d314f7a4ecaa045a31e9d5a2fc96b47035a1e92b986eda091fab3e38f2"
+        },
+        {
+          "id": "val_0002_3",
+          "path": "val_0002/4.png",
+          "seed": 4989341933850407235,
+          "sha256": "7ebedf968b6fdf09db17a79e58e4857e0e2987521bc2c62500d08bfcd1c0c80e"
+        }
+      ]
+    },
+    {
+      "id": "val_0003",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0003_0",
+          "path": "val_0003/1.png",
+          "seed": 4764688972504888587,
+          "sha256": "104be7edc26feaf5ae84c81ebf0190ee019326b96530ed7c415d0862c23487bc"
+        },
+        {
+          "id": "val_0003_1",
+          "path": "val_0003/2.png",
+          "seed": 4603049829290843877,
+          "sha256": "8b47415ffbbea4c1e96c29f1b8045d3fabb693cdf65233b6beb73f72d99c5063"
+        },
+        {
+          "id": "val_0003_2",
+          "path": "val_0003/3.png",
+          "seed": 3761609238354091677,
+          "sha256": "69cbf4e2fa5793ee292fed58461a26fe50f6ed3205300a656e43659915b4eebd"
+        },
+        {
+          "id": "val_0003_3",
+          "path": "val_0003/4.png",
+          "seed": 1262472581789004109,
+          "sha256": "85711c25683609e2b1b849dab79a291dcabfdfbe2a7c0711085d1574a52f4705"
+        }
+      ]
+    },
+    {
+      "id": "val_0004",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0004_0",
+          "path": "val_0004/1.png",
+          "seed": 2089611366919813397,
+          "sha256": "85ffa71be0c759eee35359f1b03f7c98f81e69fd5c6393c5ae3ea41d56c03225"
+        },
+        {
+          "id": "val_0004_1",
+          "path": "val_0004/2.png",
+          "seed": 4072190542959211498,
+          "sha256": "129919f37b1a0d3ea162bb81e8799329701fa140816d3387020fe231dcf8d2cd"
+        },
+        {
+          "id": "val_0004_2",
+          "path": "val_0004/3.png",
+          "seed": 25309596712609357,
+          "sha256": "78e76bd23513065169d008abdbbc73a4f79d62fc603af43eec8c3a75927c26cd"
+        },
+        {
+          "id": "val_0004_3",
+          "path": "val_0004/4.png",
+          "seed": 8467011068823072342,
+          "sha256": "e3a7f5ba1311ea65dad606bfd73505bd7fb53748fd0bf8c9304c2a8045f28eba"
+        }
+      ]
+    },
+    {
+      "id": "val_0005",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0005_0",
+          "path": "val_0005/1.png",
+          "seed": 5394481292515567654,
+          "sha256": "cd7d4816fcac3a56ad7dea48f18f1525ae08a91498b1955fe448a009d0abe1e4"
+        },
+        {
+          "id": "val_0005_1",
+          "path": "val_0005/2.png",
+          "seed": 2622229990718602460,
+          "sha256": "84312bec266039cca34081c7c188fb04c20e57a666b240827cde7e091e62d90e"
+        },
+        {
+          "id": "val_0005_2",
+          "path": "val_0005/3.png",
+          "seed": 4683615898257333435,
+          "sha256": "fb4a90a88c7c61af4869337e0bb42991ab011c3c679056843c6771ce316a9d54"
+        },
+        {
+          "id": "val_0005_3",
+          "path": "val_0005/4.png",
+          "seed": 6619676865667360246,
+          "sha256": "79b169f3bd0de80933ab2ba7678631520c7f02e1287e588f80ade3ae3aa7b461"
+        }
+      ]
+    },
+    {
+      "id": "val_0006",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0006_0",
+          "path": "val_0006/1.png",
+          "seed": 4098059113676084746,
+          "sha256": "ca79ea23f23e07b5112a8568d6948c65f79b1faeb322d9d56f95a4415a23cc1a"
+        },
+        {
+          "id": "val_0006_1",
+          "path": "val_0006/2.png",
+          "seed": 7101772838995730781,
+          "sha256": "a7a0d925c49508e4836fac6c2ffb6c7d7f947686fb5f68ad3c1f90f0864f12f9"
+        },
+        {
+          "id": "val_0006_2",
+          "path": "val_0006/3.png",
+          "seed": 2101959635335503728,
+          "sha256": "fb12add89b74818369e3f4112b05350c6557c55d9657842dbbbea0a6fbca2014"
+        },
+        {
+          "id": "val_0006_3",
+          "path": "val_0006/4.png",
+          "seed": 285081841777754666,
+          "sha256": "34b6aeda11c4d68b3c72752ceacc89554bf72de3f2ed3f650ae149a5601b6d5d"
+        }
+      ]
+    },
+    {
+      "id": "val_0007",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0007_0",
+          "path": "val_0007/1.png",
+          "seed": 8334178608409454092,
+          "sha256": "3d85e2f4030ebb3d773a8e2b0eeca00655896564d440fdd92013bf29e165683b"
+        },
+        {
+          "id": "val_0007_1",
+          "path": "val_0007/2.png",
+          "seed": 7412068952785349067,
+          "sha256": "9ca79b9e05ed8bb56d20472612a57275b5cb9a7eb6d6ba110841d5a74aba5fe2"
+        },
+        {
+          "id": "val_0007_2",
+          "path": "val_0007/3.png",
+          "seed": 5401591070627426001,
+          "sha256": "56653a02b05e6ade852be657d27c29ef0e61166255bfa033d2cecfd9f444c0a5"
+        },
+        {
+          "id": "val_0007_3",
+          "path": "val_0007/4.png",
+          "seed": 6740700065011426293,
+          "sha256": "173d1343a268749411b9b9617826d4a2deac07ef7c9168a4ea056bb2a7a01dde"
+        }
+      ]
+    },
+    {
+      "id": "val_0008",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0008_0",
+          "path": "val_0008/1.png",
+          "seed": 6958473095145477944,
+          "sha256": "271dfda58ecc1599912bd547da2d9f4935c5a8c80937c6aa92c02947eb50ef5d"
+        },
+        {
+          "id": "val_0008_1",
+          "path": "val_0008/2.png",
+          "seed": 4657033992001615023,
+          "sha256": "211244759abfde8403952db9e19c3b1dc8e5b63521a0c4e8ff584c441a12cf19"
+        },
+        {
+          "id": "val_0008_2",
+          "path": "val_0008/3.png",
+          "seed": 8516404450486126774,
+          "sha256": "1d964cfa92d41cad1ea465f4aefa045526888b63a2ee8d70cf20da14b8ffe779"
+        },
+        {
+          "id": "val_0008_3",
+          "path": "val_0008/4.png",
+          "seed": 4868423671809704379,
+          "sha256": "630619a69a82dd483e6f98850ef3c605ad0ef5f05ae3cc10d10de133649939bd"
+        }
+      ]
+    },
+    {
+      "id": "val_0009",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0009_0",
+          "path": "val_0009/1.png",
+          "seed": 5028437228196216019,
+          "sha256": "0875ef211967c977457d32715a57f019974c04941fe0128cc7ffc5edb7d21cf8"
+        },
+        {
+          "id": "val_0009_1",
+          "path": "val_0009/2.png",
+          "seed": 6807227749887819175,
+          "sha256": "d7dc7ff7e93aa1ea448f9badae8c18d8bbf42b21400dd1965fc8352438ef13fc"
+        },
+        {
+          "id": "val_0009_2",
+          "path": "val_0009/3.png",
+          "seed": 6496159381130684745,
+          "sha256": "d33736f97b95953e9c0fded4c2d92c56842181ef5ecc07db11c63764d1f1b87e"
+        },
+        {
+          "id": "val_0009_3",
+          "path": "val_0009/4.png",
+          "seed": 5698051368882372081,
+          "sha256": "31c43d1b7d99a82118febe511d0398259f52b39eb846ddcb97e8e2bd5cbf716f"
+        }
+      ]
+    },
+    {
+      "id": "val_0010",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0010_0",
+          "path": "val_0010/1.png",
+          "seed": 9007096540896609418,
+          "sha256": "8ef1e40a3bb24b15d77d49da1f33c3f3a023210f24ca828722833ce9ef61645c"
+        },
+        {
+          "id": "val_0010_1",
+          "path": "val_0010/2.png",
+          "seed": 4244226536733046215,
+          "sha256": "8a69bbb643b5afc866d8d767de597622f61c3e418bef73565158af9227e5d93e"
+        },
+        {
+          "id": "val_0010_2",
+          "path": "val_0010/3.png",
+          "seed": 8278381280316248100,
+          "sha256": "e73b8bdfde2431037f16f426379c50212f95d6ff0ad67f7bc39da732a3a6a96d"
+        },
+        {
+          "id": "val_0010_3",
+          "path": "val_0010/4.png",
+          "seed": 4256894211388081823,
+          "sha256": "26a68fc97b61ec7339b7c9c2c2e85c0d67f1ca82b17c0c0141c4346ed78ff44a"
+        }
+      ]
+    },
+    {
+      "id": "val_0011",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0011_0",
+          "path": "val_0011/1.png",
+          "seed": 5338726460697848884,
+          "sha256": "ab4a8d1aa0546e35328176592195cd34ac0403103525073a331d82f993d71554"
+        },
+        {
+          "id": "val_0011_1",
+          "path": "val_0011/2.png",
+          "seed": 8199524345191865795,
+          "sha256": "65d7d264c533739ea22dfdc803cb2abb55fc5fc46c5a6929b157acb8bf4ec856"
+        },
+        {
+          "id": "val_0011_2",
+          "path": "val_0011/3.png",
+          "seed": 129805461996926616,
+          "sha256": "425dddf75bfca6ceca3a60125b8089bd511f6ff0f73e659dd51a0f51bf17bc66"
+        },
+        {
+          "id": "val_0011_3",
+          "path": "val_0011/4.png",
+          "seed": 2351805839458470766,
+          "sha256": "980403e458df8fc03514d7238f00225bcae4b0ea1e85d57315a194a6ccbe0d15"
+        }
+      ]
+    },
+    {
+      "id": "val_0012",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0012_0",
+          "path": "val_0012/1.png",
+          "seed": 2841330113944384350,
+          "sha256": "9ccc6a13168e98af5e79a35199b58ce3e3dd8ad7444078fb9e63f6d7c4ba3b31"
+        },
+        {
+          "id": "val_0012_1",
+          "path": "val_0012/2.png",
+          "seed": 1852490296788840011,
+          "sha256": "3307be5502818ad9d3098e749eae10ff1db9e7568c7c74a72b2195b796f21359"
+        },
+        {
+          "id": "val_0012_2",
+          "path": "val_0012/3.png",
+          "seed": 1469283379642062999,
+          "sha256": "152f954afc36d63c856105a2aea0430733535a64202064be196233e6ae865ae1"
+        },
+        {
+          "id": "val_0012_3",
+          "path": "val_0012/4.png",
+          "seed": 6481278566604782130,
+          "sha256": "1ebb80741e207a932ff4dbbfd173e5870584a3e6cea6341ba6be52e3766676b6"
+        }
+      ]
+    },
+    {
+      "id": "val_0013",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0013_0",
+          "path": "val_0013/1.png",
+          "seed": 2150666351688492351,
+          "sha256": "41af02213f51e432297eac9511838b2af4a904ba012e46570a862464ba1df7a3"
+        },
+        {
+          "id": "val_0013_1",
+          "path": "val_0013/2.png",
+          "seed": 3898524420658355459,
+          "sha256": "fa3a0db80ea0b3c55c72357a694bb9a0920a0a0ae6a504d7d8844f1e58e628ab"
+        },
+        {
+          "id": "val_0013_2",
+          "path": "val_0013/3.png",
+          "seed": 4539243079645727087,
+          "sha256": "46e6eb8e80b18e0e6171f031df3ba9c609516f075c34e073a0d27cc1405ed2a0"
+        },
+        {
+          "id": "val_0013_3",
+          "path": "val_0013/4.png",
+          "seed": 6077868821849613352,
+          "sha256": "495f4a634a653098fb57e2f4a6c88a2b0576e6c49dfc7f31119fa84e9ee663f5"
+        }
+      ]
+    },
+    {
+      "id": "val_0014",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0014_0",
+          "path": "val_0014/1.png",
+          "seed": 83011372833687790,
+          "sha256": "988c8def303fe2b418eadf89bb718a9549e791cebd05a58506ad5ca43f88c59a"
+        },
+        {
+          "id": "val_0014_1",
+          "path": "val_0014/2.png",
+          "seed": 4030635675364430297,
+          "sha256": "05632c23f9251055b5e8a895962b930f66a112a43f053b6cf3b5eff9d71483e2"
+        },
+        {
+          "id": "val_0014_2",
+          "path": "val_0014/3.png",
+          "seed": 9073281143500683689,
+          "sha256": "c97149634f732c66ce11e7d4aa5abb61e392e0017d7f8bb712a777aea79e8aa0"
+        },
+        {
+          "id": "val_0014_3",
+          "path": "val_0014/4.png",
+          "seed": 7076441797922892045,
+          "sha256": "605c90c174f44a7628e045174308fd574056822de9f36126665270a686c8ac3d"
+        }
+      ]
+    },
+    {
+      "id": "val_0015",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0015_0",
+          "path": "val_0015/1.png",
+          "seed": 6518613848494532429,
+          "sha256": "b31a6a77f9b1869f4a55e647e46d4b0e80913f0315852d0cb650e1fbfa050df1"
+        },
+        {
+          "id": "val_0015_1",
+          "path": "val_0015/2.png",
+          "seed": 2242417992258018928,
+          "sha256": "454bcc3f4d64cab0dca204acfe863358b30e628522fd4173e359ca18b8edc63d"
+        },
+        {
+          "id": "val_0015_2",
+          "path": "val_0015/3.png",
+          "seed": 5699308308550429423,
+          "sha256": "cec6c4d906c662d980c42f47c4b45cca89f3da09bbd27b50dddd863c9d22ad93"
+        },
+        {
+          "id": "val_0015_3",
+          "path": "val_0015/4.png",
+          "seed": 2963686304015358857,
+          "sha256": "bf3ca4319d88f7ab1fe1e8dfeac6cbaa644f71364e48e1da9acfa9ae2e93177d"
+        }
+      ]
+    },
+    {
+      "id": "val_0016",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0016_0",
+          "path": "val_0016/1.png",
+          "seed": 6584472264930351791,
+          "sha256": "3b172f90fd01dd503b6927b61ba737615328206df9ac72d9b1113191d3631ce7"
+        },
+        {
+          "id": "val_0016_1",
+          "path": "val_0016/2.png",
+          "seed": 1815901427395067952,
+          "sha256": "f8785aaf03e578e9720c93400e52d78054a85d8924137456e1c5fe010b50e189"
+        },
+        {
+          "id": "val_0016_2",
+          "path": "val_0016/3.png",
+          "seed": 2290406206617733530,
+          "sha256": "d1ecf5694923608f4b0cf94efa8310f14e873f8e48d7b97f20125562a7ff8910"
+        },
+        {
+          "id": "val_0016_3",
+          "path": "val_0016/4.png",
+          "seed": 7019700795137089887,
+          "sha256": "92211a089f5aeac7f0c19e772c8fd25d31f10498f0411565573baa21a98af65f"
+        }
+      ]
+    },
+    {
+      "id": "val_0017",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0017_0",
+          "path": "val_0017/1.png",
+          "seed": 4446827890039135269,
+          "sha256": "da566a0583a8eccc854c0d8b216165ea988bb5423258e4df6ca00c52095a3ed2"
+        },
+        {
+          "id": "val_0017_1",
+          "path": "val_0017/2.png",
+          "seed": 8605123845312220363,
+          "sha256": "90cd07072859394b5e8d6e9b636b3c183031e2ef09fc140bb378b6eb3809c5f5"
+        },
+        {
+          "id": "val_0017_2",
+          "path": "val_0017/3.png",
+          "seed": 2118613303938404695,
+          "sha256": "f089ac64666db231038f333357d4609797c19d74395d98e5182b531371d1704b"
+        },
+        {
+          "id": "val_0017_3",
+          "path": "val_0017/4.png",
+          "seed": 1609982266138358659,
+          "sha256": "31a06e2d8dbc1899a39472292fc19fd515f7b4d41e01268adcd3039f56998bf3"
+        }
+      ]
+    },
+    {
+      "id": "val_0018",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0018_0",
+          "path": "val_0018/1.png",
+          "seed": 6445653351844158967,
+          "sha256": "b6f41e67545cf48c1fbf7433272bc05c07a314219203ffa00d96e1c06f425e95"
+        },
+        {
+          "id": "val_0018_1",
+          "path": "val_0018/2.png",
+          "seed": 958832034920631161,
+          "sha256": "ab78710e8b1eb6e183b533aaacb28f7eb2650fca5f3bc721d968696fc88c21b9"
+        },
+        {
+          "id": "val_0018_2",
+          "path": "val_0018/3.png",
+          "seed": 2117730064856844687,
+          "sha256": "7d3e291f59402ec39c0f5b9b1bc3ab8dc81adae43cd12ac17ce18a31de416a61"
+        },
+        {
+          "id": "val_0018_3",
+          "path": "val_0018/4.png",
+          "seed": 4866330645497994643,
+          "sha256": "b8ea5bfaaf2bb7fe04ed941a367d7ec5f749a1e63a68326eabf85d9feba174f8"
+        }
+      ]
+    },
+    {
+      "id": "val_0019",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0019_0",
+          "path": "val_0019/1.png",
+          "seed": 8141439157386315359,
+          "sha256": "bb5d6d3ef1f73f63719545afe2da8dc6e7eebfdffa19a199c431a509184b9adc"
+        },
+        {
+          "id": "val_0019_1",
+          "path": "val_0019/2.png",
+          "seed": 8787489276152049835,
+          "sha256": "cc1a89d8b276b8bc02354a055c0b4a4948aa8c593633319ec7dc2794a484556f"
+        },
+        {
+          "id": "val_0019_2",
+          "path": "val_0019/3.png",
+          "seed": 7568525462608189537,
+          "sha256": "a17c4bda208bf89a9cb3e2af0d7c95c4335eac4d5a8efbbbbb8155e43ee865e7"
+        },
+        {
+          "id": "val_0019_3",
+          "path": "val_0019/4.png",
+          "seed": 4431114977278096483,
+          "sha256": "3f92a0282e4548452237ebe50d3d0f486db61a90ee1bcbcbccf9db0ef4e335d5"
+        }
+      ]
+    },
+    {
+      "id": "val_0020",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0020_0",
+          "path": "val_0020/1.png",
+          "seed": 2141520899620374170,
+          "sha256": "c19715fb1815471bb45fed258271db65c53814e2c9c988c250ffbe7495d4c745"
+        },
+        {
+          "id": "val_0020_1",
+          "path": "val_0020/2.png",
+          "seed": 2436255156523013767,
+          "sha256": "56e8f90a2e8fb3c7ff3dc1c79a9d841694b77ca0566f1b2339264ce3323762e4"
+        },
+        {
+          "id": "val_0020_2",
+          "path": "val_0020/3.png",
+          "seed": 7057840204209958046,
+          "sha256": "d6060707b93e37606600a4bb131a4f633a2d4e81db8dd28c702d8b1b736f00a5"
+        },
+        {
+          "id": "val_0020_3",
+          "path": "val_0020/4.png",
+          "seed": 4375636833988556817,
+          "sha256": "1fda2b149d1a8e2ffd8a8057dce624cbfb0b4633b77cabe62a674ee1ab2721b5"
+        }
+      ]
+    },
+    {
+      "id": "val_0021",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0021_0",
+          "path": "val_0021/1.png",
+          "seed": 1425779783487199126,
+          "sha256": "a02b5d24d2c6fff2bfc35a537f2fa63deeb3ea97890ea13b1a93a16b63e99586"
+        },
+        {
+          "id": "val_0021_1",
+          "path": "val_0021/2.png",
+          "seed": 7028532633325366941,
+          "sha256": "8949eaae7519856ab6742c40d4cc97e8e137490a9a9cfbd5bd125118285b36f5"
+        },
+        {
+          "id": "val_0021_2",
+          "path": "val_0021/3.png",
+          "seed": 2995082293166327181,
+          "sha256": "274191571b2c23b182d234262b9af03e2a30f2ee1fb268c70c2048a114ae1540"
+        },
+        {
+          "id": "val_0021_3",
+          "path": "val_0021/4.png",
+          "seed": 4921181177136375774,
+          "sha256": "8537151a7ae305d29482a361d96d945a0720866aebbf5b2b496a5d59ef28a587"
+        }
+      ]
+    },
+    {
+      "id": "val_0022",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0022_0",
+          "path": "val_0022/1.png",
+          "seed": 4330508701507896167,
+          "sha256": "08565888a28cbb96382de30c1dd28d38597e3990447317507a7b82759146324f"
+        },
+        {
+          "id": "val_0022_1",
+          "path": "val_0022/2.png",
+          "seed": 8635208532071085040,
+          "sha256": "8b6822151edbfbf5a0ea4c918b7ede91d5b6555ba25a8b57a8c56cd698c54d75"
+        },
+        {
+          "id": "val_0022_2",
+          "path": "val_0022/3.png",
+          "seed": 2989071818903017819,
+          "sha256": "492c95e70979f25f868a1d9e087f61de938fa27cdc1bc149803bbbb0d46eaccd"
+        },
+        {
+          "id": "val_0022_3",
+          "path": "val_0022/4.png",
+          "seed": 6890585255544498641,
+          "sha256": "ddb0988f440eb0a71ae662771a9125a3f76cc139771494c1e8e2a8fd241ff893"
+        }
+      ]
+    },
+    {
+      "id": "val_0023",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0023_0",
+          "path": "val_0023/1.png",
+          "seed": 6986111264193964973,
+          "sha256": "d725621dc32c885d006a4159eff767e2408d5c36e99cdf65ca4efba57e0297bf"
+        },
+        {
+          "id": "val_0023_1",
+          "path": "val_0023/2.png",
+          "seed": 3337931732149505695,
+          "sha256": "5e2cbd34c9c17e1c287bd0b700cb2cc96956a5ef3f93829ee8981fe04cbf7060"
+        },
+        {
+          "id": "val_0023_2",
+          "path": "val_0023/3.png",
+          "seed": 5474225357281955692,
+          "sha256": "da70f26f22c0a5980c6c1c33714dbe84c50fbbbd7a49bc625fc7ec579254fbaf"
+        },
+        {
+          "id": "val_0023_3",
+          "path": "val_0023/4.png",
+          "seed": 2973473351722374546,
+          "sha256": "95fa8ba4638d820ab7f87ea6e3e5abf2b6ba358cfb8caa5b9292d3b5e360e896"
+        }
+      ]
+    },
+    {
+      "id": "val_0024",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0024_0",
+          "path": "val_0024/1.png",
+          "seed": 7820033635583220394,
+          "sha256": "c219a3d0e3ba316614ed9b775ec21efb8120943bd9003d994d5fa7bade290fac"
+        },
+        {
+          "id": "val_0024_1",
+          "path": "val_0024/2.png",
+          "seed": 1510687052925760964,
+          "sha256": "323727de47f949a5fffd1c50283ce8e9dec9cc5af97179d4cd97378189611010"
+        },
+        {
+          "id": "val_0024_2",
+          "path": "val_0024/3.png",
+          "seed": 780030842148186921,
+          "sha256": "e150b754b51007dd22fa1e1083600fd456db4fa4f3e04d836585c06507f9146e"
+        },
+        {
+          "id": "val_0024_3",
+          "path": "val_0024/4.png",
+          "seed": 6391569063579806816,
+          "sha256": "637360d8672a733647e91280fb851fdc0b6ca6665332d7e33d3297c6a11c325f"
+        }
+      ]
+    },
+    {
+      "id": "val_0025",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0025_0",
+          "path": "val_0025/1.png",
+          "seed": 2154789668445290576,
+          "sha256": "57b0a919c4fd35741e667b142a5458a0b3f92e09f2673c8550a712ca44ecaffe"
+        },
+        {
+          "id": "val_0025_1",
+          "path": "val_0025/2.png",
+          "seed": 8129424139031465376,
+          "sha256": "7256ea420650e422f021d26ebb47466b18439db5afbfae7fce84b63f390bb1e1"
+        },
+        {
+          "id": "val_0025_2",
+          "path": "val_0025/3.png",
+          "seed": 6916763960919193788,
+          "sha256": "9910f3a430730aba1d28416ed80ce57ead350475f38954d391334cfedd3c64d2"
+        },
+        {
+          "id": "val_0025_3",
+          "path": "val_0025/4.png",
+          "seed": 2752053905637654602,
+          "sha256": "bd064cf6aeb7697c32e5ff35cd1a7536c0fd80589936b4a7dce06c9582e1e48b"
+        }
+      ]
+    },
+    {
+      "id": "val_0026",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0026_0",
+          "path": "val_0026/1.png",
+          "seed": 1638342580395062362,
+          "sha256": "dacda1d700f877e46640ff36c57348cb379c67194144009bebd4c3dcb6b8732f"
+        },
+        {
+          "id": "val_0026_1",
+          "path": "val_0026/2.png",
+          "seed": 8609148533991970854,
+          "sha256": "12040ddd4bcb6527dafc6cb267259b1321d337cc75845b48169e1c4b5138a77f"
+        },
+        {
+          "id": "val_0026_2",
+          "path": "val_0026/3.png",
+          "seed": 6137405261231480939,
+          "sha256": "b798900c8a035bed81116eeb7cc35cd0c113af92aa47dfde741c6eae7893ed9a"
+        },
+        {
+          "id": "val_0026_3",
+          "path": "val_0026/4.png",
+          "seed": 1673859901410039324,
+          "sha256": "8f9b988b90890acf58360c893bb2769f0a13b326799ee9e62068cb845f5ba1f0"
+        }
+      ]
+    },
+    {
+      "id": "val_0027",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0027_0",
+          "path": "val_0027/1.png",
+          "seed": 3605880327947037057,
+          "sha256": "2ad7e4225898d5f14893a1c5680aef97906d7492961214910f096fda68e86f75"
+        },
+        {
+          "id": "val_0027_1",
+          "path": "val_0027/2.png",
+          "seed": 3918092204522877533,
+          "sha256": "9d7cced29e080a147cda2463476eb1697b70d947e0fc2d6ff68e779dfb689642"
+        },
+        {
+          "id": "val_0027_2",
+          "path": "val_0027/3.png",
+          "seed": 7466956110129432218,
+          "sha256": "ea7b8e82713d3f5112e2f5d912e85c9dea514f53dda05a70940bc4391151f07c"
+        },
+        {
+          "id": "val_0027_3",
+          "path": "val_0027/4.png",
+          "seed": 3382011281783672789,
+          "sha256": "d66d8bf35c857f7bd1ce970e0e5332f1999ec57abc8a7af8c53e56331d1691f2"
+        }
+      ]
+    },
+    {
+      "id": "val_0028",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0028_0",
+          "path": "val_0028/1.png",
+          "seed": 7961354135828687510,
+          "sha256": "0ede25aca26f63fb2e271e7a8ba63f5e258c1aa877e04eac38d0108c6d52615f"
+        },
+        {
+          "id": "val_0028_1",
+          "path": "val_0028/2.png",
+          "seed": 3493427369423295433,
+          "sha256": "12c84409865ee7c8bb1e5fc76cbe345a429496f39029b7bdd062a0832dd7160a"
+        },
+        {
+          "id": "val_0028_2",
+          "path": "val_0028/3.png",
+          "seed": 8683550711312348600,
+          "sha256": "120b265f9b7c5614201f42ebb6e3a9b84e7ac5d9072cffe21afd753ae6bc7ab8"
+        },
+        {
+          "id": "val_0028_3",
+          "path": "val_0028/4.png",
+          "seed": 1561227035783250359,
+          "sha256": "947af75a7a9e4e15e2a1a5d222d4eb4bd894b7c9fa4db79287178490feee01f0"
+        }
+      ]
+    },
+    {
+      "id": "val_0029",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0029_0",
+          "path": "val_0029/1.png",
+          "seed": 6659942463432804483,
+          "sha256": "5b486c4031cc80d82552a81768592bcfecf1cd317e7b5e357a906862f8fb12a9"
+        },
+        {
+          "id": "val_0029_1",
+          "path": "val_0029/2.png",
+          "seed": 9217996799984000104,
+          "sha256": "9554fcdd212e7c72669caba0c00c146a2dfdd6ccd02e6814a4c33647d0fa261e"
+        },
+        {
+          "id": "val_0029_2",
+          "path": "val_0029/3.png",
+          "seed": 1052479970073438606,
+          "sha256": "a6bba35061a32bf983e9eb1f117848e36087d1812fb5f75da0183e37e26f729f"
+        },
+        {
+          "id": "val_0029_3",
+          "path": "val_0029/4.png",
+          "seed": 7536842283134330255,
+          "sha256": "50e77dc88c71edafca4e35ed6957659f480d60f0f05b9bfa181a698b5db7049a"
+        }
+      ]
+    },
+    {
+      "id": "val_0030",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0030_0",
+          "path": "val_0030/1.png",
+          "seed": 5377372547333649029,
+          "sha256": "7051b52ed317f556a271b9cbc6b05d6e7f1097b551c65725d6f4d7582dda4c27"
+        },
+        {
+          "id": "val_0030_1",
+          "path": "val_0030/2.png",
+          "seed": 6658483620106903440,
+          "sha256": "4d91184a829db6bb3c81dfe1ae9e9c628608e4d1f8c422a92626e831a43f415c"
+        },
+        {
+          "id": "val_0030_2",
+          "path": "val_0030/3.png",
+          "seed": 1748748026456312904,
+          "sha256": "22ef02f71c8480d3c1fb0f6f7b96f318cf57c8af7632bba38d84e2f5a5f3f0f7"
+        },
+        {
+          "id": "val_0030_3",
+          "path": "val_0030/4.png",
+          "seed": 133834671650104988,
+          "sha256": "00d6d094001944be5235fc95dc2949c8a36103d73eaa2e77276468c91e219fef"
+        }
+      ]
+    },
+    {
+      "id": "val_0031",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0031_0",
+          "path": "val_0031/1.png",
+          "seed": 6040205594458619703,
+          "sha256": "c7ea791dfbb7cbeed37654b41f5169d8b37b9509faaf5310f64687a0214682ad"
+        },
+        {
+          "id": "val_0031_1",
+          "path": "val_0031/2.png",
+          "seed": 9046785283859867913,
+          "sha256": "0d58e741f9688c351e1dfc42d46f6b709355b1a8e234a50655a6dd020442dda0"
+        },
+        {
+          "id": "val_0031_2",
+          "path": "val_0031/3.png",
+          "seed": 2078790052480842466,
+          "sha256": "7ec46a5e53c6093d682859612bf713aa820ef07a1632debf24ccce650b2c2beb"
+        },
+        {
+          "id": "val_0031_3",
+          "path": "val_0031/4.png",
+          "seed": 4188993381153091582,
+          "sha256": "7823e76824f54cb955d071e352ff8575e66b61fa5827882b99e31279d76aeea7"
+        }
+      ]
+    },
+    {
+      "id": "val_0032",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0032_0",
+          "path": "val_0032/1.png",
+          "seed": 438007375354964474,
+          "sha256": "e13351607422abb988f74fcc874a1868a4a1ac7eddddc124dd8f33cb13385c0d"
+        },
+        {
+          "id": "val_0032_1",
+          "path": "val_0032/2.png",
+          "seed": 5022346974805279144,
+          "sha256": "e00b128f5482350231d3f51b6e5b894fdbd1ffe348a2a6ba13307bc46d3488fe"
+        },
+        {
+          "id": "val_0032_2",
+          "path": "val_0032/3.png",
+          "seed": 5237860636006591253,
+          "sha256": "16b90a435b8daa78de378eaf4d3c2549878bfb607c83d82ea0029c565a9b4733"
+        },
+        {
+          "id": "val_0032_3",
+          "path": "val_0032/4.png",
+          "seed": 5380094250937787703,
+          "sha256": "60cb311f33bafd984042f9f8b64a1622c5a609e84e9050e122e4454ec1c4aa42"
+        }
+      ]
+    },
+    {
+      "id": "val_0033",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0033_0",
+          "path": "val_0033/1.png",
+          "seed": 7787641648962035110,
+          "sha256": "c4301649b9b309d146d32d1ced0e4766f5a42e2f2eb3146fe2910a4ce97225ba"
+        },
+        {
+          "id": "val_0033_1",
+          "path": "val_0033/2.png",
+          "seed": 2864011675606624589,
+          "sha256": "46eea7c83285000c7437b6c4259720a29f805a43c9d7f9413d767d96849c80db"
+        },
+        {
+          "id": "val_0033_2",
+          "path": "val_0033/3.png",
+          "seed": 1780032050708312789,
+          "sha256": "4add35738be2087f6697f99c84c691730e2614115c03098b501d5e70de258fad"
+        },
+        {
+          "id": "val_0033_3",
+          "path": "val_0033/4.png",
+          "seed": 6608744189989257332,
+          "sha256": "066b0acf767416820dc0dd6177ded0bd1f7ff2e10bded543d1461924cc4e9cd4"
+        }
+      ]
+    },
+    {
+      "id": "val_0034",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0034_0",
+          "path": "val_0034/1.png",
+          "seed": 6141788185821474657,
+          "sha256": "95073aa76ddd0cf0b6a540152ab071a335a12b9dc6d47b1ea38f2138057a3fe4"
+        },
+        {
+          "id": "val_0034_1",
+          "path": "val_0034/2.png",
+          "seed": 6032681635010556195,
+          "sha256": "ea3ea947949bbd684cbca0c230979f05aebdb236c484f763869e23fca3488a2d"
+        },
+        {
+          "id": "val_0034_2",
+          "path": "val_0034/3.png",
+          "seed": 509262448893810289,
+          "sha256": "09d60960bd558c69276f63f90475929b1fd2c89c26ad40d0baac19c6d8eb64e7"
+        },
+        {
+          "id": "val_0034_3",
+          "path": "val_0034/4.png",
+          "seed": 6977723358999452243,
+          "sha256": "5508ef73a56d26cafecdfaa813525215bd759680e029962c52f4524a746e218f"
+        }
+      ]
+    },
+    {
+      "id": "val_0035",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0035_0",
+          "path": "val_0035/1.png",
+          "seed": 4125953739715358026,
+          "sha256": "23ea6670e938d0b89476c887a2c098858d50a9de9a6e444b72c7b4f6b4a7d5f6"
+        },
+        {
+          "id": "val_0035_1",
+          "path": "val_0035/2.png",
+          "seed": 1959098664871758236,
+          "sha256": "2b018d4aa4cd7eb25e9285ff2c0be6bd79ef5813190c00f72d3e0f45998ab4a8"
+        },
+        {
+          "id": "val_0035_2",
+          "path": "val_0035/3.png",
+          "seed": 7011003609502125103,
+          "sha256": "263a8d4964c310e92bc90a6eb8272cca694c5bd6059c61f9e69ac4e43e5dd198"
+        },
+        {
+          "id": "val_0035_3",
+          "path": "val_0035/4.png",
+          "seed": 3732715578111059229,
+          "sha256": "f1679ca90f4f2a57c9df32f512bbb4fc0d0b9493de1024868b1d18bc469dbbef"
+        }
+      ]
+    },
+    {
+      "id": "val_0036",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0036_0",
+          "path": "val_0036/1.png",
+          "seed": 5450980113965378105,
+          "sha256": "db376df5c668eb0c2b2cb564dde41e1e38f1ee928a6bf349e3081ada4383a94d"
+        },
+        {
+          "id": "val_0036_1",
+          "path": "val_0036/2.png",
+          "seed": 8347735442227030083,
+          "sha256": "71932d9ce9b85f4b3095a71bfcd5261f89b0f54d64501e28cf024dd53a76e125"
+        },
+        {
+          "id": "val_0036_2",
+          "path": "val_0036/3.png",
+          "seed": 3224171956331585715,
+          "sha256": "dd355638f958b55e6de753e09ee014c3f2419b55c121f8acedcfaf746ac37454"
+        },
+        {
+          "id": "val_0036_3",
+          "path": "val_0036/4.png",
+          "seed": 4609753098312427352,
+          "sha256": "8735c839c0290e81cabe9188071aebaebc2f4872955ce2edc1fff10ae29a1382"
+        }
+      ]
+    },
+    {
+      "id": "val_0037",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0037_0",
+          "path": "val_0037/1.png",
+          "seed": 934466277272671867,
+          "sha256": "f3d2821ea5733a4ef68f1b92050ff8a73dc734576fe6698894b2fdbfd512f68c"
+        },
+        {
+          "id": "val_0037_1",
+          "path": "val_0037/2.png",
+          "seed": 660141404846561491,
+          "sha256": "16771a8754f8560efda4d48c012a8affba5ff6d0a6136aa03e5175978bbc4bb0"
+        },
+        {
+          "id": "val_0037_2",
+          "path": "val_0037/3.png",
+          "seed": 1092885432356563176,
+          "sha256": "effdf1012437524e150abe22629c47bbb22d5e76ded0f6ef657d9d28a51a9316"
+        },
+        {
+          "id": "val_0037_3",
+          "path": "val_0037/4.png",
+          "seed": 8136441629961965181,
+          "sha256": "39c590810e9c22549b0d60d4bc71928ca31419c98d87c64cd6c0743bf0d5417d"
+        }
+      ]
+    },
+    {
+      "id": "val_0038",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0038_0",
+          "path": "val_0038/1.png",
+          "seed": 2532858101156534297,
+          "sha256": "c7c3950119f88bdd2eec34cef0d89a2a3ab9475e5d59f725e03a6d70c2996c4e"
+        },
+        {
+          "id": "val_0038_1",
+          "path": "val_0038/2.png",
+          "seed": 5833355690877633106,
+          "sha256": "5392468b321dd461b14b68597e556973558c93df17c55cee681aadd9a73bec23"
+        },
+        {
+          "id": "val_0038_2",
+          "path": "val_0038/3.png",
+          "seed": 8714816710653752775,
+          "sha256": "1f7aba15e8305fece88b2ed501e376875164d3bb4717d10eccb41f08ddf65efa"
+        },
+        {
+          "id": "val_0038_3",
+          "path": "val_0038/4.png",
+          "seed": 6679034466441138047,
+          "sha256": "375ff6f5e7c4669ad6c1d8c6e8ca825cf9d2f71af1329ec9f60263c447c1511f"
+        }
+      ]
+    },
+    {
+      "id": "val_0039",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0039_0",
+          "path": "val_0039/1.png",
+          "seed": 4719706654255406967,
+          "sha256": "6abb774ba6fe890ed569fba6af91fdde1c10d94c3edb8e27bd07658975c2b91d"
+        },
+        {
+          "id": "val_0039_1",
+          "path": "val_0039/2.png",
+          "seed": 8471474497982125861,
+          "sha256": "fc04914328aa19ba8e07bc83cea9e6785b00c91e75764ff901c89e996ca28590"
+        },
+        {
+          "id": "val_0039_2",
+          "path": "val_0039/3.png",
+          "seed": 7293028575745618436,
+          "sha256": "3819957bcecc9140a9da76c78c4bd3e0546f03fb33c022d3c4d5613264612839"
+        },
+        {
+          "id": "val_0039_3",
+          "path": "val_0039/4.png",
+          "seed": 7767639286138089213,
+          "sha256": "787f13931bf97e9f425e3579d9a7e107f8558ddbde70c419fcfc7f389fe8e642"
+        }
+      ]
+    },
+    {
+      "id": "val_0040",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0040_0",
+          "path": "val_0040/1.png",
+          "seed": 6926309523799407078,
+          "sha256": "ba864a05fb73ab16c783b40d40305c97600560a67a210afb201c0d26b8a967e4"
+        },
+        {
+          "id": "val_0040_1",
+          "path": "val_0040/2.png",
+          "seed": 5167702542005237995,
+          "sha256": "a03e9365226c48b11d4d6b64bcac710c6af94a5c901d2698580207ed49df9406"
+        },
+        {
+          "id": "val_0040_2",
+          "path": "val_0040/3.png",
+          "seed": 6658904291656947012,
+          "sha256": "5ee56fb779ef3779d0a3a6e492d19f6e86eb84d2cc05747af3ea681731a7abc6"
+        },
+        {
+          "id": "val_0040_3",
+          "path": "val_0040/4.png",
+          "seed": 1670925738412846719,
+          "sha256": "597afdf8961c14b991c8d13ef4bcb18c06ec798f2cb921df3298479726ceb98b"
+        }
+      ]
+    },
+    {
+      "id": "val_0041",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0041_0",
+          "path": "val_0041/1.png",
+          "seed": 6068133278428841998,
+          "sha256": "b9110311d8b1515cd51f15deec6ee753ac36ab643903b37e55d59f1c89e8a7d2"
+        },
+        {
+          "id": "val_0041_1",
+          "path": "val_0041/2.png",
+          "seed": 866344319574228119,
+          "sha256": "08f67172f88aa77ea1cfdb3ab09b6d2cab2d62f2ab926aa249fa736c9a970cdd"
+        },
+        {
+          "id": "val_0041_2",
+          "path": "val_0041/3.png",
+          "seed": 8546282830777031883,
+          "sha256": "83b541ffcbffde7a702dfa188a3313c93ceaf28e7112cc77bd3af2780626d51d"
+        },
+        {
+          "id": "val_0041_3",
+          "path": "val_0041/4.png",
+          "seed": 3145923783339915468,
+          "sha256": "4f8d5b677b18d1fa8be95a4801a646d1c7aa5979d3f2db1c64b2fa012636dc02"
+        }
+      ]
+    },
+    {
+      "id": "val_0042",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0042_0",
+          "path": "val_0042/1.png",
+          "seed": 3900946451250059023,
+          "sha256": "b1076e3ba5772e2ac20a2505876556c66a98c9f7362828571142657b6ee02aec"
+        },
+        {
+          "id": "val_0042_1",
+          "path": "val_0042/2.png",
+          "seed": 931453670661756163,
+          "sha256": "4cfd7b47273a39a9ac4955c8f6b646c1bf8b50a8d882fee53a9983a3bcc6e613"
+        },
+        {
+          "id": "val_0042_2",
+          "path": "val_0042/3.png",
+          "seed": 5921129228062741142,
+          "sha256": "26ef64bcd4843a158b22db65f74eded22a08194bcf2eb5f1cb14bb9ad77719d1"
+        },
+        {
+          "id": "val_0042_3",
+          "path": "val_0042/4.png",
+          "seed": 162482054009113658,
+          "sha256": "eb86400c85b9a0570e787e0587205d473a919172ba0cbbfad5af3c8e391487c1"
+        }
+      ]
+    },
+    {
+      "id": "val_0043",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0043_0",
+          "path": "val_0043/1.png",
+          "seed": 385445283087073135,
+          "sha256": "ac6e21316abcf51b855d87d9b72b906d5df39532e1e4fd564c10baac08452966"
+        },
+        {
+          "id": "val_0043_1",
+          "path": "val_0043/2.png",
+          "seed": 4113788209174329016,
+          "sha256": "5cd440134dce579b68574bfbd90343a03ada83b768cc873fa3f459f93730fa72"
+        },
+        {
+          "id": "val_0043_2",
+          "path": "val_0043/3.png",
+          "seed": 7488799194580857525,
+          "sha256": "3c1beebe7e7227b95bee17efa7e2835d5270a9096ee01975023431e4254fdd8a"
+        },
+        {
+          "id": "val_0043_3",
+          "path": "val_0043/4.png",
+          "seed": 5137154650908255457,
+          "sha256": "01c7dee88767cdf54408108314b28fafd6412ce766cbc91cdb57508a8473eda0"
+        }
+      ]
+    },
+    {
+      "id": "val_0044",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0044_0",
+          "path": "val_0044/1.png",
+          "seed": 3931105404537928186,
+          "sha256": "a6d7ecf59c674159331e745bd91c5177aad7a5dd592dbe2e7e907d6707c379e3"
+        },
+        {
+          "id": "val_0044_1",
+          "path": "val_0044/2.png",
+          "seed": 7205816522160154336,
+          "sha256": "3c4d804d046a9b8fba33ee2058ce746ca5b9d67cab3e855290d1cf9a2d4fc2e2"
+        },
+        {
+          "id": "val_0044_2",
+          "path": "val_0044/3.png",
+          "seed": 2618085279961001398,
+          "sha256": "143f5f7afc9ef5437ed6b35e58a2eecf91b66e88321026c905700fac8de56dbd"
+        },
+        {
+          "id": "val_0044_3",
+          "path": "val_0044/4.png",
+          "seed": 8323073264021122548,
+          "sha256": "8a1811abaadf29b0653edfc98be6bbf600e8d532cbd913a1fd06612c40a68d78"
+        }
+      ]
+    },
+    {
+      "id": "val_0045",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0045_0",
+          "path": "val_0045/1.png",
+          "seed": 2116033868192003212,
+          "sha256": "0d7eff84795da558d9f0dc6e1175fad6f0d417f2babdf0d9c17d2b693336ffe8"
+        },
+        {
+          "id": "val_0045_1",
+          "path": "val_0045/2.png",
+          "seed": 559073686467879784,
+          "sha256": "d35daa16c54d3e300fe64e8c0896d6e670696631f6775c4ff34b761657689c1c"
+        },
+        {
+          "id": "val_0045_2",
+          "path": "val_0045/3.png",
+          "seed": 7526959602203732441,
+          "sha256": "79d31eb14d9065dda67d4da6b76517fc42e9a33bea4ddfeea476a24a66ccb56a"
+        },
+        {
+          "id": "val_0045_3",
+          "path": "val_0045/4.png",
+          "seed": 6084171428374058754,
+          "sha256": "6b414ab9a202f1cae3f22f8b6cc40676e1dd663e1fe601d64eb1e6c58b2bdfe6"
+        }
+      ]
+    },
+    {
+      "id": "val_0046",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0046_0",
+          "path": "val_0046/1.png",
+          "seed": 5758470753559844226,
+          "sha256": "ac28e2680fab78e3dd7f58383a3b4df2ea295ca11e5c87a527fdb6f9da15be07"
+        },
+        {
+          "id": "val_0046_1",
+          "path": "val_0046/2.png",
+          "seed": 8351897881002943943,
+          "sha256": "4bd7dab1b58cc9580078be9ca3e3a0315ee1b7eb202cf184a5229d6649bf9e77"
+        },
+        {
+          "id": "val_0046_2",
+          "path": "val_0046/3.png",
+          "seed": 3468309968700575789,
+          "sha256": "31909db99d8a104115dcf3500f1506c941c02d06eb4f361457b6fce203096d01"
+        },
+        {
+          "id": "val_0046_3",
+          "path": "val_0046/4.png",
+          "seed": 1266807546746353096,
+          "sha256": "31bfc47614c57ab99185aab9c01323947070910476e0feefe0007b0da7ac38ef"
+        }
+      ]
+    },
+    {
+      "id": "val_0047",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0047_0",
+          "path": "val_0047/1.png",
+          "seed": 3214816666845206831,
+          "sha256": "72c28f80495331ee7ee3aedd16cc91dd06e675cebfae07d67684a8c64d5a2175"
+        },
+        {
+          "id": "val_0047_1",
+          "path": "val_0047/2.png",
+          "seed": 5980075839339123014,
+          "sha256": "33e2ce0b14e7a38b48c939e61ac05e7a241723385653eb8f8c0dee68436120a0"
+        },
+        {
+          "id": "val_0047_2",
+          "path": "val_0047/3.png",
+          "seed": 3321884377583507071,
+          "sha256": "171631ec114bf03e9758eff6eafda17527f84e69120e8a74cbd0a14ec85e86ae"
+        },
+        {
+          "id": "val_0047_3",
+          "path": "val_0047/4.png",
+          "seed": 8191131451521042795,
+          "sha256": "037908bbd2016ddd776cf290435e06701cef737780c7dbde8c13eb30cc69a376"
+        }
+      ]
+    },
+    {
+      "id": "val_0048",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0048_0",
+          "path": "val_0048/1.png",
+          "seed": 6371652595225103568,
+          "sha256": "a01d8e7037cc7ab8bedbe941d32eaf3e93f98dfd24e70e687ddb6c5e62aa6dbc"
+        },
+        {
+          "id": "val_0048_1",
+          "path": "val_0048/2.png",
+          "seed": 26038076631509859,
+          "sha256": "e394b3b0c88b57fbe8429c7e8fd4661ae6b2a52c3e169e1fd8fe3c9d6288bf00"
+        },
+        {
+          "id": "val_0048_2",
+          "path": "val_0048/3.png",
+          "seed": 3694968005149794843,
+          "sha256": "b851042d5791460a9af67210eb0be9bb301d5247fe793a9442c8a446fea75192"
+        },
+        {
+          "id": "val_0048_3",
+          "path": "val_0048/4.png",
+          "seed": 6796886198885147098,
+          "sha256": "9e45d9b01c50ebd432673b537dca82d5cbe8b837dde69919447fe14ca10daa85"
+        }
+      ]
+    },
+    {
+      "id": "val_0049",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0049_0",
+          "path": "val_0049/1.png",
+          "seed": 7545703399765016435,
+          "sha256": "32807f64db8ffd906c9190c47a709356d09243eab35ecbe9cfe66eba377bd687"
+        },
+        {
+          "id": "val_0049_1",
+          "path": "val_0049/2.png",
+          "seed": 9159451373473713429,
+          "sha256": "f5bc5db082c394f29c3121bd9c9919ef7cefe6865ada9c04aa931a340ed8d90a"
+        },
+        {
+          "id": "val_0049_2",
+          "path": "val_0049/3.png",
+          "seed": 8457117030227620723,
+          "sha256": "b007b62f6689b5fa09b98be2accf45f54d97d01116e664a4b3542e54d950775a"
+        },
+        {
+          "id": "val_0049_3",
+          "path": "val_0049/4.png",
+          "seed": 8207709323765695917,
+          "sha256": "0b6b2391a439a9d9d557f338afa458eda35e8c218cd871b5d706282cd0949a96"
+        }
+      ]
+    },
+    {
+      "id": "val_0050",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0050_0",
+          "path": "val_0050/1.png",
+          "seed": 5695169974395685776,
+          "sha256": "d34b87fa1f90e5cba2bb12c6718de972620f23eaf691b13884df1171429b9f02"
+        },
+        {
+          "id": "val_0050_1",
+          "path": "val_0050/2.png",
+          "seed": 798437344854114862,
+          "sha256": "ba0c6d810d19af6cf464103924b36dea649a87d9c040400ba4a463cf544ccf96"
+        },
+        {
+          "id": "val_0050_2",
+          "path": "val_0050/3.png",
+          "seed": 9040186624279591347,
+          "sha256": "2db8e00b59bae4887ac398df0016c1befdebcc283af45aa3308aa47bc93bbebc"
+        },
+        {
+          "id": "val_0050_3",
+          "path": "val_0050/4.png",
+          "seed": 1115441739669978728,
+          "sha256": "d4c5f5c0649fcfb8a00981c01e633c74c727b94f6abcd214e44d4fb70fcb568c"
+        }
+      ]
+    },
+    {
+      "id": "val_0051",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0051_0",
+          "path": "val_0051/1.png",
+          "seed": 8802183791764884423,
+          "sha256": "7eac0de2750db33ebac20fc04f245b4eda8638ad9d5c750c911d27d46a80311d"
+        },
+        {
+          "id": "val_0051_1",
+          "path": "val_0051/2.png",
+          "seed": 524793411600893488,
+          "sha256": "1bf606df3677bddbdf10753f7f048b3e059f967302a17860216e7f8448963dbf"
+        },
+        {
+          "id": "val_0051_2",
+          "path": "val_0051/3.png",
+          "seed": 3208372725210953417,
+          "sha256": "1722e9c28f8c6db0fc06ffded495031a2361a0fa2bfbfb72ceb24dd7126fa32f"
+        },
+        {
+          "id": "val_0051_3",
+          "path": "val_0051/4.png",
+          "seed": 3071241901757462447,
+          "sha256": "73f126007a1508b1a9f47ef466245faa5be2d0be7e2dfd3131f64e225e9988ea"
+        }
+      ]
+    },
+    {
+      "id": "val_0052",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0052_0",
+          "path": "val_0052/1.png",
+          "seed": 8942442679365022855,
+          "sha256": "0f954cb2c7cdbfbee1a771d7f72e74c8b82cabecab49f1efa1ab08ff25a998cd"
+        },
+        {
+          "id": "val_0052_1",
+          "path": "val_0052/2.png",
+          "seed": 7277582941351198111,
+          "sha256": "7cf070834f149f175ecacc217603e390cb4f1416fdca12a58825af40e0cce662"
+        },
+        {
+          "id": "val_0052_2",
+          "path": "val_0052/3.png",
+          "seed": 1872324507811032573,
+          "sha256": "da0307cd5ac2ee07ebe3ef0d930d4ce9b29dbb2a43feb101e4c18ad0e935f1a0"
+        },
+        {
+          "id": "val_0052_3",
+          "path": "val_0052/4.png",
+          "seed": 1243260729501011584,
+          "sha256": "9e4bc00fbe0bce5fdb3e1f665292509e2ff33d7ceeb815546e1313887fbcaed6"
+        }
+      ]
+    },
+    {
+      "id": "val_0053",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0053_0",
+          "path": "val_0053/1.png",
+          "seed": 7673810326251165837,
+          "sha256": "52e05ea88d8a0f4e8f2dffb17f97698f62ed3543bc5758952a7bca5569e382ef"
+        },
+        {
+          "id": "val_0053_1",
+          "path": "val_0053/2.png",
+          "seed": 3039994080076193701,
+          "sha256": "e199d20f14dc0722df32cfc708d44f23660945e9833c7bb041057c9c0dd72165"
+        },
+        {
+          "id": "val_0053_2",
+          "path": "val_0053/3.png",
+          "seed": 7738293282799583534,
+          "sha256": "01e41da6de7de80e213992187ca385b47a90505fef4732a62efe85d817db8802"
+        },
+        {
+          "id": "val_0053_3",
+          "path": "val_0053/4.png",
+          "seed": 6407036132535747937,
+          "sha256": "5c215d17a9ba128d0d30008ad3fec6f596c5b7fc3341772964a22d7b736768de"
+        }
+      ]
+    },
+    {
+      "id": "val_0054",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0054_0",
+          "path": "val_0054/1.png",
+          "seed": 6514499167387940383,
+          "sha256": "c812cddf9d1fea3868a74dc76a670c97afb38aa67f6965a66bdb71829ed35258"
+        },
+        {
+          "id": "val_0054_1",
+          "path": "val_0054/2.png",
+          "seed": 1821082332459812394,
+          "sha256": "94ea9e9984d5a8dff91f165df37572bdc91be0ce8b14f7d115494da66ab11d34"
+        },
+        {
+          "id": "val_0054_2",
+          "path": "val_0054/3.png",
+          "seed": 8847919899635353081,
+          "sha256": "38420a2fae056dd9e926601cb780e248b23fbfff4c173195e4a69a81782b61bc"
+        },
+        {
+          "id": "val_0054_3",
+          "path": "val_0054/4.png",
+          "seed": 8670493655491804183,
+          "sha256": "9af43a7f0c82395c9523bb28c39dfa1bd05337b557bb7905465e7819b7f756cd"
+        }
+      ]
+    },
+    {
+      "id": "val_0055",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0055_0",
+          "path": "val_0055/1.png",
+          "seed": 6528541095308598168,
+          "sha256": "c52d99698ab0900dcfac8e9b248493297dbb386c37db30eb6c578edbcc370ff8"
+        },
+        {
+          "id": "val_0055_1",
+          "path": "val_0055/2.png",
+          "seed": 5946918673072319981,
+          "sha256": "95c17ad149fea7f99bcd60d4daab379a78638da62585968854826f96f28a7865"
+        },
+        {
+          "id": "val_0055_2",
+          "path": "val_0055/3.png",
+          "seed": 5940994771747363376,
+          "sha256": "e1bb642e5110b58770d407426f784ae47818d08d327769e209b49c94c42344d4"
+        },
+        {
+          "id": "val_0055_3",
+          "path": "val_0055/4.png",
+          "seed": 1011235509093597098,
+          "sha256": "734cf6459caf2def605e3e81c5ed4750b91121025a0185d9377729240b6206bc"
+        }
+      ]
+    },
+    {
+      "id": "val_0056",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0056_0",
+          "path": "val_0056/1.png",
+          "seed": 4392323295478558540,
+          "sha256": "7e9b48ad04b3d05b433a8f3feea65b8d23a5cbb54f8d741085e8fc55d9c8bcf0"
+        },
+        {
+          "id": "val_0056_1",
+          "path": "val_0056/2.png",
+          "seed": 7730250045059623250,
+          "sha256": "56ccce0c15147bd46298e86b306aa1973893d3001ca21c72479580d71757d5f3"
+        },
+        {
+          "id": "val_0056_2",
+          "path": "val_0056/3.png",
+          "seed": 8600770192228427833,
+          "sha256": "4b989113606b16b154803ff1a39dea9d57caca5b19ead4482fb30aa8629d33eb"
+        },
+        {
+          "id": "val_0056_3",
+          "path": "val_0056/4.png",
+          "seed": 2765837315741497304,
+          "sha256": "31279db2229753a1f2980fb3bae73cfec3a6d53667bc5cc55153af71d072f4f6"
+        }
+      ]
+    },
+    {
+      "id": "val_0057",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0057_0",
+          "path": "val_0057/1.png",
+          "seed": 1028506286465204343,
+          "sha256": "de763c81b9ec60641b57bb9531661bd70d1d5094055158f04f262c9da7b7ba3c"
+        },
+        {
+          "id": "val_0057_1",
+          "path": "val_0057/2.png",
+          "seed": 5350745744098622141,
+          "sha256": "9e210a4f769b3b2c5d7148dd9cd7cee9661fea39fbd5dfbfef9653b20fb92c8e"
+        },
+        {
+          "id": "val_0057_2",
+          "path": "val_0057/3.png",
+          "seed": 5458713675318326550,
+          "sha256": "5ad98288fba65bb121cb544a5d84d7cc652d9b71491a7a050bdcd323aaf2b637"
+        },
+        {
+          "id": "val_0057_3",
+          "path": "val_0057/4.png",
+          "seed": 359948895499004823,
+          "sha256": "cc5150e97aedb7808596edf5b241ef15bf51a35b9648f71ff260065513d8e3c8"
+        }
+      ]
+    },
+    {
+      "id": "val_0058",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0058_0",
+          "path": "val_0058/1.png",
+          "seed": 7404031268103478167,
+          "sha256": "3c410ad46b041184a165db2dc5540a816daeeac363280c7e99e9f5252f014748"
+        },
+        {
+          "id": "val_0058_1",
+          "path": "val_0058/2.png",
+          "seed": 4040876575295124736,
+          "sha256": "d5418bf6d1df2db1aa56692e16d7c15ca35aeea165de0323d684e7dcbda5953a"
+        },
+        {
+          "id": "val_0058_2",
+          "path": "val_0058/3.png",
+          "seed": 5254643784355400136,
+          "sha256": "8a418664cf9d958419fba5d7f06bfb42b788266c6dd9ed9f9ca8b9d81151d241"
+        },
+        {
+          "id": "val_0058_3",
+          "path": "val_0058/4.png",
+          "seed": 5160411490901785382,
+          "sha256": "8682bbbf84bbeee1bd5195a0263935625a3d4e167dbf0760c0158479c86159b6"
+        }
+      ]
+    },
+    {
+      "id": "val_0059",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0059_0",
+          "path": "val_0059/1.png",
+          "seed": 7859121233144209261,
+          "sha256": "f088eb47bde163ce1a0cc9f59f96765cdefcb24e688af779d34873780b20896f"
+        },
+        {
+          "id": "val_0059_1",
+          "path": "val_0059/2.png",
+          "seed": 8245961541576082816,
+          "sha256": "cd2059b1e4be00dd315586006310eb13c9279717bd30d9068121454c4193c29b"
+        },
+        {
+          "id": "val_0059_2",
+          "path": "val_0059/3.png",
+          "seed": 2730686880968334109,
+          "sha256": "10cc3383650e8b789e69fc632a0bc0967c14d76977870f818f3a0622347cc2ab"
+        },
+        {
+          "id": "val_0059_3",
+          "path": "val_0059/4.png",
+          "seed": 2155242679444878975,
+          "sha256": "b37f01b4c07442195326a0799db454a274b6d99a2e32650587e71dc5773def75"
+        }
+      ]
+    },
+    {
+      "id": "val_0060",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "val_0060_0",
+          "path": "val_0060/1.png",
+          "seed": 1980656815330213527,
+          "sha256": "cae214b74c78a6ca97ec000b1f356e6ab3baea49cf40f7f800ce8999a8e0d117"
+        },
+        {
+          "id": "val_0060_1",
+          "path": "val_0060/2.png",
+          "seed": 1843464210081733646,
+          "sha256": "21fc096e42694bda7864acfc6b8af13d9848c612b2fc90b2de0d88a6bc63e2d0"
+        },
+        {
+          "id": "val_0060_2",
+          "path": "val_0060/3.png",
+          "seed": 3290851627622761977,
+          "sha256": "04cd9725d98a882edd364cd02688f3de5441002678552525154bac2171e499a4"
+        },
+        {
+          "id": "val_0060_3",
+          "path": "val_0060/4.png",
+          "seed": 5493137748621477723,
+          "sha256": "9369bb190fb118a8ef7ecbe0da97083037848b94e433dc1b33c80df7f5a72e57"
+        }
+      ]
+    },
+    {
+      "id": "val_0061",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "val_0061_0",
+          "path": "val_0061/1.png",
+          "seed": 2513834207948682711,
+          "sha256": "8c72e25f9a86eb5cdc9a51046a7f9a0afec6031678ce69ae922a9b0e4950d3e9"
+        },
+        {
+          "id": "val_0061_1",
+          "path": "val_0061/2.png",
+          "seed": 5160584597292911773,
+          "sha256": "66930bad3e7569345f4c40ff9eea790397f8e07b6632205ce78394de73fe2d80"
+        },
+        {
+          "id": "val_0061_2",
+          "path": "val_0061/3.png",
+          "seed": 2606897488733477297,
+          "sha256": "612857eaa75c64a3f678db715ee4bb2a66b2cd5cb1a14050133db2c7e5205439"
+        },
+        {
+          "id": "val_0061_3",
+          "path": "val_0061/4.png",
+          "seed": 4613234208042495009,
+          "sha256": "e7bdae15bfb0bf6192f03d7e45fbc432b53be925431c02ca1474361524bb5758"
+        }
+      ]
+    },
+    {
+      "id": "val_0062",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "val_0062_0",
+          "path": "val_0062/1.png",
+          "seed": 3484788193437226052,
+          "sha256": "09b113c63c7ffaa1c456b211c40c4c8c1b93a18a7f300e60375822ef8ea9d7ba"
+        },
+        {
+          "id": "val_0062_1",
+          "path": "val_0062/2.png",
+          "seed": 2267565190872886554,
+          "sha256": "df69057c569834b81efc332d844ae5dcc653d9deee2c82730492078213a028c3"
+        },
+        {
+          "id": "val_0062_2",
+          "path": "val_0062/3.png",
+          "seed": 5721614311474213685,
+          "sha256": "a3950f6cd1aa8dd0a0b266cf5e8b144727d077cb2aa6b792054a85aefcea61df"
+        },
+        {
+          "id": "val_0062_3",
+          "path": "val_0062/4.png",
+          "seed": 7022983543166387470,
+          "sha256": "866abf9a65545ab4ee98f7aba6d3b3b4fa943f65e9a76a496f8b8b9c73df78ff"
+        }
+      ]
+    },
+    {
+      "id": "val_0063",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "val_0063_0",
+          "path": "val_0063/1.png",
+          "seed": 3264780558156933191,
+          "sha256": "58c559181a0e7b2c579e11eba98b4d2149ad5fe9bfba079566711daa28d0476d"
+        },
+        {
+          "id": "val_0063_1",
+          "path": "val_0063/2.png",
+          "seed": 5139152570412102031,
+          "sha256": "a9859cf9203dfdb7ba721eaf3aa3d087a327d241d1a99220198dc1b9a80e691a"
+        },
+        {
+          "id": "val_0063_2",
+          "path": "val_0063/3.png",
+          "seed": 4106647595582024144,
+          "sha256": "c1e5099ca67ffda7b612cf34303699430beeac632c962aaa24bcbe69dd23caaa"
+        },
+        {
+          "id": "val_0063_3",
+          "path": "val_0063/4.png",
+          "seed": 7905701689529394169,
+          "sha256": "274818fadb0cb69d896d71596be01d6cfa6743085f3372d7a6f8d590fd9f9657"
+        }
+      ]
+    }
+  ],
+  "versions": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0"
+  }
+}

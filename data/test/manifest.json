@@ -1,0 +1,1938 @@
+{
+  "split": "test",
+  "seed": 42002,
+  "generator": "synthetic-v1",
+  "size": 64,
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "samples": [
+    {
+      "id": "test_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0000_0",
+          "path": "test_0000/1.png",
+          "seed": 5581868679295937646,
+          "sha256": "c54d0de2e4253b7581e10f0fc6121e4ddfae834ee15b354975ec94deafd378d3"
+        },
+        {
+          "id": "test_0000_1",
+          "path": "test_0000/2.png",
+          "seed": 7306017240627106419,
+          "sha256": "8ef7cf17713ddd39fa4899c752d5513a9926c6cc60ee02ac46a2076a7fc26247"
+        },
+        {
+          "id": "test_0000_2",
+          "path": "test_0000/3.png",
+          "seed": 575705394696709547,
+          "sha256": "689d19a9fbb46cdb8be1da55fc671981a151c36c1aaf25df013602c9fcad5e3c"
+        },
+        {
+          "id": "test_0000_3",
+          "path": "test_0000/4.png",
+          "seed": 9016546925892501877,
+          "sha256": "6b4ccb2815bf63d223bbb8807a5d732642fac2b8b163fcd3ee6ae2a7f2f89663"
+        }
+      ]
+    },
+    {
+      "id": "test_0001",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0001_0",
+          "path": "test_0001/1.png",
+          "seed": 3174708055301222412,
+          "sha256": "88706423d3fb71a353d48873a876c7aab70f5fa6ab50867e3660b9c0cd053890"
+        },
+        {
+          "id": "test_0001_1",
+          "path": "test_0001/2.png",
+          "seed": 5115047216202673448,
+          "sha256": "270e03b8c8ed20663d4bab93b355efba048ebaac08a250f28b4eacb936437d84"
+        },
+        {
+          "id": "test_0001_2",
+          "path": "test_0001/3.png",
+          "seed": 1520517711583763326,
+          "sha256": "8bbf25710d56fbc690cb84822bdd126c0b3eced9d0a4ab0af72cbde6629932e7"
+        },
+        {
+          "id": "test_0001_3",
+          "path": "test_0001/4.png",
+          "seed": 4360942043752642456,
+          "sha256": "60fa6f4638ddfea9f163838c936296c83724e566d811c45f002464a04eabf439"
+        }
+      ]
+    },
+    {
+      "id": "test_0002",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0002_0",
+          "path": "test_0002/1.png",
+          "seed": 2378832313319459282,
+          "sha256": "5dd5fdc0b369affd8c2635ce9039ad8f63349a82dd752b489290e54a675643b8"
+        },
+        {
+          "id": "test_0002_1",
+          "path": "test_0002/2.png",
+          "seed": 3731449832820051104,
+          "sha256": "b7144b157e3b92df13f4c8dcdc8063e45f8a8b9ea4ddaa6a2a5d06afb95cf1cb"
+        },
+        {
+          "id": "test_0002_2",
+          "path": "test_0002/3.png",
+          "seed": 9152392290118980289,
+          "sha256": "5735fb31f2be7439b5d2724d8a03b25dd7ebd96ebca5cf96b266fc33d1ca2f82"
+        },
+        {
+          "id": "test_0002_3",
+          "path": "test_0002/4.png",
+          "seed": 2949398553381332815,
+          "sha256": "de537f2eb2b9a2430f49e2bf0231f4de439914285cff3124a17af63a809c9471"
+        }
+      ]
+    },
+    {
+      "id": "test_0003",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0003_0",
+          "path": "test_0003/1.png",
+          "seed": 1481829770686772234,
+          "sha256": "0b26259b3e7a5e33babe07c687d5838e97cb37982251c4ded87ace9a30f195ac"
+        },
+        {
+          "id": "test_0003_1",
+          "path": "test_0003/2.png",
+          "seed": 9171729173787337024,
+          "sha256": "dc7fd6bb1351800b6519387fc8255aad08cb7f261eb01f2c09955bd644603562"
+        },
+        {
+          "id": "test_0003_2",
+          "path": "test_0003/3.png",
+          "seed": 3257293568106667390,
+          "sha256": "fffe85b1769d354f3b678e450abe4b160f07e9ab6d2a153b203ff83279ee5c37"
+        },
+        {
+          "id": "test_0003_3",
+          "path": "test_0003/4.png",
+          "seed": 2604442858927711644,
+          "sha256": "3b8805f77584a47dddcfea7124320c273c95a51b15f49e42a5528e91727fd485"
+        }
+      ]
+    },
+    {
+      "id": "test_0004",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0004_0",
+          "path": "test_0004/1.png",
+          "seed": 3641108407069662327,
+          "sha256": "041e6de40df53876d17b1bbf948cda362c3cb20e08e3f5502690673100d4948d"
+        },
+        {
+          "id": "test_0004_1",
+          "path": "test_0004/2.png",
+          "seed": 8172309094244475409,
+          "sha256": "2c36d99a7372b110212b7a20f1f303e800cee41a4bae0141c06b6a6f24275119"
+        },
+        {
+          "id": "test_0004_2",
+          "path": "test_0004/3.png",
+          "seed": 4478821470767924057,
+          "sha256": "b1cd341afae1c80d9adc77e1b8886417197d0646fa5a0e943522369a6acf1af5"
+        },
+        {
+          "id": "test_0004_3",
+          "path": "test_0004/4.png",
+          "seed": 5814389018383874336,
+          "sha256": "4f9b1cb0ccb2b6a5b20c1c8804bdc9a1c060a28a20e47b39bf77e985adfba1e2"
+        }
+      ]
+    },
+    {
+      "id": "test_0005",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0005_0",
+          "path": "test_0005/1.png",
+          "seed": 7704444377274565271,
+          "sha256": "f7a67b35b5f5f0ea710694dd5b564bc63fbd4e7f4c1fe42fa71497d3d2f71c9d"
+        },
+        {
+          "id": "test_0005_1",
+          "path": "test_0005/2.png",
+          "seed": 6941340498280203563,
+          "sha256": "68808495fc8c0cae5fba86373698a14a6e0d320f5a52ad538ffc51e0c488c5e2"
+        },
+        {
+          "id": "test_0005_2",
+          "path": "test_0005/3.png",
+          "seed": 2630218719033386882,
+          "sha256": "055829e794dda3e5d03bcf2f4fd9bd5a032764d30d492f9156a889106bd8f883"
+        },
+        {
+          "id": "test_0005_3",
+          "path": "test_0005/4.png",
+          "seed": 3575146133951990405,
+          "sha256": "5bee16e7b6b70a9cfc9de4cc5572d3e31ce608f6fe752b9525596e00d7631114"
+        }
+      ]
+    },
+    {
+      "id": "test_0006",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0006_0",
+          "path": "test_0006/1.png",
+          "seed": 7453619224035513203,
+          "sha256": "8e4a488259ca8875ffdf2665043eb7978a21afe77d43c6a756f53dfda37f133d"
+        },
+        {
+          "id": "test_0006_1",
+          "path": "test_0006/2.png",
+          "seed": 5833407223979712009,
+          "sha256": "54066182b374cd21e3b18ee188c6892d2f93f35f7f01764cb4f1b7b37bac497c"
+        },
+        {
+          "id": "test_0006_2",
+          "path": "test_0006/3.png",
+          "seed": 3284054531968031135,
+          "sha256": "19702165888433b713c72a3f20fa3e6b9bf7879ca31129cee6317eb078e4125a"
+        },
+        {
+          "id": "test_0006_3",
+          "path": "test_0006/4.png",
+          "seed": 5519901082724168962,
+          "sha256": "e37287124168b5dfafd524f4c161a72e9adb66d1c3a97f2ec8b19f7f2b1ab48c"
+        }
+      ]
+    },
+    {
+      "id": "test_0007",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0007_0",
+          "path": "test_0007/1.png",
+          "seed": 4750336391776603348,
+          "sha256": "08a07478de052e2c1bd22e14e3293d46737caa327a84a90a3d386d04d44ad870"
+        },
+        {
+          "id": "test_0007_1",
+          "path": "test_0007/2.png",
+          "seed": 487048972249319329,
+          "sha256": "b9369bd9627be399fdf1c09828931f9017a8b8d935b786d27b3aa9765b02b75f"
+        },
+        {
+          "id": "test_0007_2",
+          "path": "test_0007/3.png",
+          "seed": 9082241469052036783,
+          "sha256": "6167cdfb8fde446c085cbbd0a3a14162e977265939d558e7286e7a6e1f662491"
+        },
+        {
+          "id": "test_0007_3",
+          "path": "test_0007/4.png",
+          "seed": 953356725218263383,
+          "sha256": "08b5b3f0748c7116e3b54d76e9803e1b76b8502d0f199b29752cf0d47d2f528a"
+        }
+      ]
+    },
+    {
+      "id": "test_0008",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0008_0",
+          "path": "test_0008/1.png",
+          "seed": 1048566469623044974,
+          "sha256": "d40c7b98f0d1f0ea0124d934b210bd8189dedb1583d9e5520a151e6f43eb1454"
+        },
+        {
+          "id": "test_0008_1",
+          "path": "test_0008/2.png",
+          "seed": 1436413043538621406,
+          "sha256": "710e69b27788cee8a20005e7bc932d958e44c094e6664819952342293f5a46cc"
+        },
+        {
+          "id": "test_0008_2",
+          "path": "test_0008/3.png",
+          "seed": 2359681064591076605,
+          "sha256": "1c5525a7821b67662fbfcbf556b2b874e179d7e74834d8d7dfb1f328c47f494d"
+        },
+        {
+          "id": "test_0008_3",
+          "path": "test_0008/4.png",
+          "seed": 3062926173515209045,
+          "sha256": "02eaa2416e94352f243118ac1baf7e0f29e660bc0191f38799a1ca7d4a4fc303"
+        }
+      ]
+    },
+    {
+      "id": "test_0009",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0009_0",
+          "path": "test_0009/1.png",
+          "seed": 6280703522601470004,
+          "sha256": "a657e943472b91744a1ecc9b1551e5031c3084835d5e6de32f78ad87965c6de7"
+        },
+        {
+          "id": "test_0009_1",
+          "path": "test_0009/2.png",
+          "seed": 4391252522392093980,
+          "sha256": "01ba2ea9b431104c297ca1bbd26ffb534b3e9c55b98048f385dae79a4e8f4518"
+        },
+        {
+          "id": "test_0009_2",
+          "path": "test_0009/3.png",
+          "seed": 2379380300748082757,
+          "sha256": "064c195d7ee68f478009b95bd006be25fb7dd67c5fded14d7ca207d3bc94232e"
+        },
+        {
+          "id": "test_0009_3",
+          "path": "test_0009/4.png",
+          "seed": 4519865052200511306,
+          "sha256": "aa7625bc2f1932097d37ef5641b0a4b255d6f29a988ab40561029d846bda02e3"
+        }
+      ]
+    },
+    {
+      "id": "test_0010",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0010_0",
+          "path": "test_0010/1.png",
+          "seed": 6042706992097953579,
+          "sha256": "62617a324bd48d9b91df48d0b0137507c953b779655228ba03826ea1c5438351"
+        },
+        {
+          "id": "test_0010_1",
+          "path": "test_0010/2.png",
+          "seed": 4117296089186508364,
+          "sha256": "e2bb09b01fd5f4102225cac3243d9cd9de971119d6d0e00b63096a1f4c424a21"
+        },
+        {
+          "id": "test_0010_2",
+          "path": "test_0010/3.png",
+          "seed": 7479633002272118566,
+          "sha256": "d9c9c08d73f7428b04b891306302a5cf34579298fc85f4c31a10fbd27c436bfe"
+        },
+        {
+          "id": "test_0010_3",
+          "path": "test_0010/4.png",
+          "seed": 1209616204715123790,
+          "sha256": "cfe4b19de4eead6f1002654e16f5cbc8a79e8e49175ebaad3647f002ea908144"
+        }
+      ]
+    },
+    {
+      "id": "test_0011",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0011_0",
+          "path": "test_0011/1.png",
+          "seed": 4792047717903907417,
+          "sha256": "54b647d550fc1b8e0116e35e8b6d243c3a4c44e9b2803b8478f6abd68e07ac66"
+        },
+        {
+          "id": "test_0011_1",
+          "path": "test_0011/2.png",
+          "seed": 8446075204979630170,
+          "sha256": "f856dbcef67939676725b700ec568ceac1ea3432fbc5fbc2247be7aa71b29c55"
+        },
+        {
+          "id": "test_0011_2",
+          "path": "test_0011/3.png",
+          "seed": 2736711167921223813,
+          "sha256": "760b16aea1654b6edf70a578e6bbdc87d4abcbbc794305a4a0928dd38d58c2b6"
+        },
+        {
+          "id": "test_0011_3",
+          "path": "test_0011/4.png",
+          "seed": 2502486307918819117,
+          "sha256": "c1ec0560af8699e8aa55d05950792d5b72f1078fa5280f37ceecc091ac7bd895"
+        }
+      ]
+    },
+    {
+      "id": "test_0012",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0012_0",
+          "path": "test_0012/1.png",
+          "seed": 1074864814220495965,
+          "sha256": "a35a46394b439809091005f1cab65ae13889f650470c9b324aa0f4a515c4dba4"
+        },
+        {
+          "id": "test_0012_1",
+          "path": "test_0012/2.png",
+          "seed": 7077852099275371697,
+          "sha256": "b4f5c5350f1114e8e69961b99583094dd1bce16955aca5e1003493e58e963b10"
+        },
+        {
+          "id": "test_0012_2",
+          "path": "test_0012/3.png",
+          "seed": 8206302921204771036,
+          "sha256": "5f191616bccb6606404146a6238ed951db88074a2b31fa3108e7a593272a8a36"
+        },
+        {
+          "id": "test_0012_3",
+          "path": "test_0012/4.png",
+          "seed": 8313142021660355454,
+          "sha256": "2ab81c6eb6379f5f7307e90226098ee936ed063b0faae3cfb74c61ee053528c5"
+        }
+      ]
+    },
+    {
+      "id": "test_0013",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0013_0",
+          "path": "test_0013/1.png",
+          "seed": 5618690923994958705,
+          "sha256": "2c4a74ba4848b8cc33eb29db42017357296a6b97e3aa7463c51809659c48e3cd"
+        },
+        {
+          "id": "test_0013_1",
+          "path": "test_0013/2.png",
+          "seed": 1501756381616785131,
+          "sha256": "9ce1c84c4b3f45ef04d90b4c0ac94b633c44eda40026f0f5601c97592a0a5271"
+        },
+        {
+          "id": "test_0013_2",
+          "path": "test_0013/3.png",
+          "seed": 33809173508766353,
+          "sha256": "8a84ced533d0bfbb287f3c3e858741d9da19cdab985c42a4a98a667f51be832e"
+        },
+        {
+          "id": "test_0013_3",
+          "path": "test_0013/4.png",
+          "seed": 102044188080087521,
+          "sha256": "b32fed06b27cfa35d039cfd861cd8a560142b98130ec4c9771b67325cb707b67"
+        }
+      ]
+    },
+    {
+      "id": "test_0014",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0014_0",
+          "path": "test_0014/1.png",
+          "seed": 1769171317958792018,
+          "sha256": "626ab3dc34e20c06793ab4e91283ae4efd0ac6c20497e065fe8c6dfdf8f1f398"
+        },
+        {
+          "id": "test_0014_1",
+          "path": "test_0014/2.png",
+          "seed": 282034241914931166,
+          "sha256": "a3b43777c3cd712f5f40e71cd27044139a3b49c2223d75a7473d536527a040ee"
+        },
+        {
+          "id": "test_0014_2",
+          "path": "test_0014/3.png",
+          "seed": 6273866236323139407,
+          "sha256": "202918f6dab3fe89c1b50444a0e3c392d532076113af1015880ba254c8066146"
+        },
+        {
+          "id": "test_0014_3",
+          "path": "test_0014/4.png",
+          "seed": 650742994567171775,
+          "sha256": "33cdc2241fe6f611d38702e1fd623055795cc42d3915b8106054edd9e00bbf41"
+        }
+      ]
+    },
+    {
+      "id": "test_0015",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0015_0",
+          "path": "test_0015/1.png",
+          "seed": 7203265512697573852,
+          "sha256": "52e702399c7322eb0d63dcf344dd6be657b0dfdbf9364e5234917af384778562"
+        },
+        {
+          "id": "test_0015_1",
+          "path": "test_0015/2.png",
+          "seed": 683279787094849734,
+          "sha256": "e4d7f41996f1fd4623f4818208337f9b7deb1599d5ab590baa940a67d2f88d4f"
+        },
+        {
+          "id": "test_0015_2",
+          "path": "test_0015/3.png",
+          "seed": 8912559126516064709,
+          "sha256": "18c4e16e20f0bac9211c6e6fa57fe880388fe4b3ef6768ee168a9207658e46a4"
+        },
+        {
+          "id": "test_0015_3",
+          "path": "test_0015/4.png",
+          "seed": 5836589984925145725,
+          "sha256": "794c2c5315a39ebb4cc1386b1b01dd7e26622f648c9e0d9f5f3e87b8367bf4f7"
+        }
+      ]
+    },
+    {
+      "id": "test_0016",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0016_0",
+          "path": "test_0016/1.png",
+          "seed": 4097510431057449344,
+          "sha256": "0e2ee3e756c1082378f8781c172bd1255c4a944b6d0e909e6f4b55b1828c9ca7"
+        },
+        {
+          "id": "test_0016_1",
+          "path": "test_0016/2.png",
+          "seed": 551167558863662765,
+          "sha256": "27022863fc2810f9fe3ee33c0785a759e14a2b843dfed7eca9ebf8863eb3af8b"
+        },
+        {
+          "id": "test_0016_2",
+          "path": "test_0016/3.png",
+          "seed": 1719179692624326169,
+          "sha256": "eaeef1913551f2da1908287755e78d826c7c2feca530ad756f9ccefffd46335b"
+        },
+        {
+          "id": "test_0016_3",
+          "path": "test_0016/4.png",
+          "seed": 3144339902229538093,
+          "sha256": "b0f089e44223f662d7f1d6b07313046e18c7efd114370598804cca5dc3742fa6"
+        }
+      ]
+    },
+    {
+      "id": "test_0017",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0017_0",
+          "path": "test_0017/1.png",
+          "seed": 118139729662616464,
+          "sha256": "4fa64ccce10d6e6d8b4b10ef18b4eec7f8f66292a499a148cf8391ff81857cc6"
+        },
+        {
+          "id": "test_0017_1",
+          "path": "test_0017/2.png",
+          "seed": 5255528876509328328,
+          "sha256": "a1d40d785539c57f1f6ac3d0ab96d62b3c540aec2a894fab579ba9502a82d149"
+        },
+        {
+          "id": "test_0017_2",
+          "path": "test_0017/3.png",
+          "seed": 1968345967638453486,
+          "sha256": "01ea79b4adedee33c8b5d13821b5074fd6d6914a64bd4cd0c85f509dc5418fd4"
+        },
+        {
+          "id": "test_0017_3",
+          "path": "test_0017/4.png",
+          "seed": 5901837841468116041,
+          "sha256": "798bcc81b1d50763ed268112122cd2d9d817322b4d710f9d9b998355cc799d7e"
+        }
+      ]
+    },
+    {
+      "id": "test_0018",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0018_0",
+          "path": "test_0018/1.png",
+          "seed": 4598303587772924006,
+          "sha256": "c3be84bc36bd9f6a916748b5d2b393b27c8aeab348cd43754ac5178263c5c916"
+        },
+        {
+          "id": "test_0018_1",
+          "path": "test_0018/2.png",
+          "seed": 7153284670877622793,
+          "sha256": "9a7eb802b5cbb10bbf67cf91df483f8a825fdf7bb1eaaa82aa96b703fbbefddb"
+        },
+        {
+          "id": "test_0018_2",
+          "path": "test_0018/3.png",
+          "seed": 7295312745641387480,
+          "sha256": "e0defc8cfc0721042d20d7cd6542c4fee0e0e26e492c81f7406afda4ad6928f8"
+        },
+        {
+          "id": "test_0018_3",
+          "path": "test_0018/4.png",
+          "seed": 8747846287048363136,
+          "sha256": "506631a5bd92d7ba81e300da843a56cddbd1e9c580ae45e73eb2e86410ab4c60"
+        }
+      ]
+    },
+    {
+      "id": "test_0019",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0019_0",
+          "path": "test_0019/1.png",
+          "seed": 6791882590129724581,
+          "sha256": "feb710e242637fdb0e01c87dfda08702f04a2715c0460fbe3cef60d38be37f27"
+        },
+        {
+          "id": "test_0019_1",
+          "path": "test_0019/2.png",
+          "seed": 8437598463473954445,
+          "sha256": "c48030d452b3837120969d88a2b509b32305cb70afe4ec54ac7c325fd0ca7ca7"
+        },
+        {
+          "id": "test_0019_2",
+          "path": "test_0019/3.png",
+          "seed": 5372910144010281929,
+          "sha256": "6bffc309b88479a6a976de6a565bff35c53d1bfd542aa282099698963fda0b34"
+        },
+        {
+          "id": "test_0019_3",
+          "path": "test_0019/4.png",
+          "seed": 320242681148703723,
+          "sha256": "b9b985ef7cd6608361f78d46441a5901aa96b7e004b3377634194a3328b4cee4"
+        }
+      ]
+    },
+    {
+      "id": "test_0020",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0020_0",
+          "path": "test_0020/1.png",
+          "seed": 4316609827115389429,
+          "sha256": "bea93201381c491e7bbcbd7797e49a47031d9c1196909a9f2ff88d686010e040"
+        },
+        {
+          "id": "test_0020_1",
+          "path": "test_0020/2.png",
+          "seed": 197150977330219898,
+          "sha256": "cbb1cf5e030a950fbc373f827e3a82b48f8dd177b866dacc37d3bac1275bd8f5"
+        },
+        {
+          "id": "test_0020_2",
+          "path": "test_0020/3.png",
+          "seed": 7362754283321354030,
+          "sha256": "5d7cf90eecb901a5f32d47e6c71d68ea6032c688089804b34fb42b00b5773954"
+        },
+        {
+          "id": "test_0020_3",
+          "path": "test_0020/4.png",
+          "seed": 8413645626496134067,
+          "sha256": "5f46780317626b858fdf2e472804c7ad721f6974ea1f91cf1c0ffcc195c606cf"
+        }
+      ]
+    },
+    {
+      "id": "test_0021",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0021_0",
+          "path": "test_0021/1.png",
+          "seed": 4030521481162485282,
+          "sha256": "09487bb24773293e9d8fef6ffacfb0acfba51b0ceda9c0831ebe9cadd396c2c5"
+        },
+        {
+          "id": "test_0021_1",
+          "path": "test_0021/2.png",
+          "seed": 2209555602312000622,
+          "sha256": "996b0d9e6a66bc76685f02ed60bbe1b8f6609d8a718ef8564fec8988cdf18445"
+        },
+        {
+          "id": "test_0021_2",
+          "path": "test_0021/3.png",
+          "seed": 9150062244488351311,
+          "sha256": "d75645e04f5a94753292e0e897682e6e815bba3e757575f216ddbd9542dbff4b"
+        },
+        {
+          "id": "test_0021_3",
+          "path": "test_0021/4.png",
+          "seed": 8273472864150579473,
+          "sha256": "197ecef581bc96bc331a4e0d5de98896be47f0a4f793dc0c95bb12869f2a12d3"
+        }
+      ]
+    },
+    {
+      "id": "test_0022",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0022_0",
+          "path": "test_0022/1.png",
+          "seed": 2999511402301646360,
+          "sha256": "6a7f94d8798d00c91ae34f1a3ccf423967fe2d4fea2a0720566f93945cc4eb4f"
+        },
+        {
+          "id": "test_0022_1",
+          "path": "test_0022/2.png",
+          "seed": 3625379265777744660,
+          "sha256": "cc6c085367a0df574accd52d775bce9a98ac8ccb073953318f00f2860f827b09"
+        },
+        {
+          "id": "test_0022_2",
+          "path": "test_0022/3.png",
+          "seed": 8079676832805054455,
+          "sha256": "c633152956c28eeb71001acaef1ce9cefd16c8ca0eecd3437c8605c1f91d2d0b"
+        },
+        {
+          "id": "test_0022_3",
+          "path": "test_0022/4.png",
+          "seed": 3424539158216691201,
+          "sha256": "17380f10766b066925dcc7ac4e4a6bd1690eda61d3bd87c991710bef0019a0eb"
+        }
+      ]
+    },
+    {
+      "id": "test_0023",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0023_0",
+          "path": "test_0023/1.png",
+          "seed": 5301841408398633556,
+          "sha256": "c4cb3fbb2410aaff1d28b7346820e0dd45ed8fe4a291006f5ed9c48ae858fa4d"
+        },
+        {
+          "id": "test_0023_1",
+          "path": "test_0023/2.png",
+          "seed": 283926038297711595,
+          "sha256": "cff519ab9aa43dcfb812f62fd2c5c7f1c538c4d8bbbb0986114cf1fa2302d495"
+        },
+        {
+          "id": "test_0023_2",
+          "path": "test_0023/3.png",
+          "seed": 7251643173738379145,
+          "sha256": "d11a61f28efd623b51101ca61570863a880268821085c0e9d86c497a5bb28ee3"
+        },
+        {
+          "id": "test_0023_3",
+          "path": "test_0023/4.png",
+          "seed": 7039122031608906909,
+          "sha256": "f30e615421593b3c6c6b29f728d77b65004c59ec3df361b94e5357bc3aea9c60"
+        }
+      ]
+    },
+    {
+      "id": "test_0024",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0024_0",
+          "path": "test_0024/1.png",
+          "seed": 2305105250032484882,
+          "sha256": "1bc7e00325c787e1ea092004aef78b8982a61ec664e08e91795e9611b44a45fb"
+        },
+        {
+          "id": "test_0024_1",
+          "path": "test_0024/2.png",
+          "seed": 3655806699895664154,
+          "sha256": "f18ca7145c84b80e29e293fa5ec2d4f003f6bd30d82f0e85ebaef938e580c7f8"
+        },
+        {
+          "id": "test_0024_2",
+          "path": "test_0024/3.png",
+          "seed": 7607396919068651104,
+          "sha256": "aa87cadee01d80829c21bb77bad0699e70c0b6a024b97ae2dd80c26a1738fcdd"
+        },
+        {
+          "id": "test_0024_3",
+          "path": "test_0024/4.png",
+          "seed": 4235053986151733666,
+          "sha256": "2bc46b3d88accc72e354d5b9e0f692bfe9fb1a39066dcaeec5c963c0d2e78d2f"
+        }
+      ]
+    },
+    {
+      "id": "test_0025",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0025_0",
+          "path": "test_0025/1.png",
+          "seed": 6610659437241025386,
+          "sha256": "ddb65103a3258dea3fefcb803189230a7fb104fe3c91b1c1d1b5c389362bd24c"
+        },
+        {
+          "id": "test_0025_1",
+          "path": "test_0025/2.png",
+          "seed": 1708530859805011252,
+          "sha256": "4562999229aaa2f9e85bfbcbae5391e2bde15c1a6b0b1bef82e4c49d47e1c247"
+        },
+        {
+          "id": "test_0025_2",
+          "path": "test_0025/3.png",
+          "seed": 3103436535872778903,
+          "sha256": "d01e66a3b8e1bae971e9633652a52c222948db744ba08f1980fae2edf7b91d87"
+        },
+        {
+          "id": "test_0025_3",
+          "path": "test_0025/4.png",
+          "seed": 2752823765297290130,
+          "sha256": "deb27fbca637b1586051d3184d0e1dc69a67d2f29bada48a2f0bfe1cc854fd5a"
+        }
+      ]
+    },
+    {
+      "id": "test_0026",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0026_0",
+          "path": "test_0026/1.png",
+          "seed": 7489486994873740122,
+          "sha256": "f3a98281af4e142b7795e18f2e19c29981d143dd6d8ea3618f197b373d8b79e7"
+        },
+        {
+          "id": "test_0026_1",
+          "path": "test_0026/2.png",
+          "seed": 2930639578313655642,
+          "sha256": "1096c9fcd4075e3ea5d9dcd4336520105a4698b995b058fb91cd6400e34d964b"
+        },
+        {
+          "id": "test_0026_2",
+          "path": "test_0026/3.png",
+          "seed": 2860282345321749884,
+          "sha256": "b521097327c9451199ace094aa01d62fb2362100d5183bb7c1935e36640535eb"
+        },
+        {
+          "id": "test_0026_3",
+          "path": "test_0026/4.png",
+          "seed": 5917671312611168872,
+          "sha256": "64560a2d9311f4f99e3436f35198f6aa571d90ccb3cde23f560da2d73d7da277"
+        }
+      ]
+    },
+    {
+      "id": "test_0027",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0027_0",
+          "path": "test_0027/1.png",
+          "seed": 1599046918663759704,
+          "sha256": "094dfc8ab17a73ca17eacce0c7e5717a7cf80a352836907ea3a9b37e52974ff7"
+        },
+        {
+          "id": "test_0027_1",
+          "path": "test_0027/2.png",
+          "seed": 3953183368084858665,
+          "sha256": "10909791c3b8fe8c61d46c16b5d9554fef5fbfab1b0a2d79994f5b1a523c9f7f"
+        },
+        {
+          "id": "test_0027_2",
+          "path": "test_0027/3.png",
+          "seed": 1265565239224506285,
+          "sha256": "2605eec802e5c503492c62279dcd0fe753d3db65b4eb7d1319d2340c3ca54d67"
+        },
+        {
+          "id": "test_0027_3",
+          "path": "test_0027/4.png",
+          "seed": 4790771139511297320,
+          "sha256": "7dcb2db97b8162296cce84070a76cc7c7e14fe6d701aaa9d326bda262e15c16c"
+        }
+      ]
+    },
+    {
+      "id": "test_0028",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0028_0",
+          "path": "test_0028/1.png",
+          "seed": 1649100329174811426,
+          "sha256": "25294eb8ca749ce26caa37d9a0d7b13dadb5228587bb363b41b7c6bb538cb7c7"
+        },
+        {
+          "id": "test_0028_1",
+          "path": "test_0028/2.png",
+          "seed": 3285433895075603764,
+          "sha256": "55204cd0a8f6ccc19f20e0f48e73e1490f723da0559ae2de7dcfd4bf658deac9"
+        },
+        {
+          "id": "test_0028_2",
+          "path": "test_0028/3.png",
+          "seed": 8392556351881870265,
+          "sha256": "0bb845845217a76411a699fd93c4ba37f7289359c2e15fc58f6835608bb50f84"
+        },
+        {
+          "id": "test_0028_3",
+          "path": "test_0028/4.png",
+          "seed": 7453663097791670366,
+          "sha256": "882f30d654879b118eba516892d3abb6eea3fbec088e70fd17be2a70ad699a2c"
+        }
+      ]
+    },
+    {
+      "id": "test_0029",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0029_0",
+          "path": "test_0029/1.png",
+          "seed": 4898236172553155835,
+          "sha256": "9226004f23761e1a8bd9c9c61048749f5a0dc8356ee47c368a844e9a5733a408"
+        },
+        {
+          "id": "test_0029_1",
+          "path": "test_0029/2.png",
+          "seed": 7570322065701739666,
+          "sha256": "8df1879c82e51e3c2e7bc0436f08031479cb456a9077ff22b804621ff72ae6d7"
+        },
+        {
+          "id": "test_0029_2",
+          "path": "test_0029/3.png",
+          "seed": 7026313167831669326,
+          "sha256": "95d35df94bd3b866144cb9371a06907275baa415feaf30f813a2361f7e604653"
+        },
+        {
+          "id": "test_0029_3",
+          "path": "test_0029/4.png",
+          "seed": 6423102371578299621,
+          "sha256": "bca6859d420c70168fb5071c42ecceb614da4ced45b222fe399976d4d9c5ba8d"
+        }
+      ]
+    },
+    {
+      "id": "test_0030",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0030_0",
+          "path": "test_0030/1.png",
+          "seed": 760839705648613229,
+          "sha256": "3645d7e8a123002384f28facb2e1c863e5a6e539f4e3358b9957b6d45454c6bd"
+        },
+        {
+          "id": "test_0030_1",
+          "path": "test_0030/2.png",
+          "seed": 9008120499299019303,
+          "sha256": "68e25cceaaf9749dd889eb98f62d45ec0b257cdcc530bc923e7d6f5767881705"
+        },
+        {
+          "id": "test_0030_2",
+          "path": "test_0030/3.png",
+          "seed": 1128587526414452155,
+          "sha256": "a78cfdd935c5f751e537897b73d2ed2343f66273d70fed56c412d95d208b871b"
+        },
+        {
+          "id": "test_0030_3",
+          "path": "test_0030/4.png",
+          "seed": 750342041617728685,
+          "sha256": "c6069308fd635c7e6b792b14e376c0084a4d125a6c884d1e9fce59c68271721d"
+        }
+      ]
+    },
+    {
+      "id": "test_0031",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0031_0",
+          "path": "test_0031/1.png",
+          "seed": 828860059061864644,
+          "sha256": "9b23f16f3dfcd8ecff53d228053075c045cc740b6389b93196434d27b41f6296"
+        },
+        {
+          "id": "test_0031_1",
+          "path": "test_0031/2.png",
+          "seed": 2538523009635938513,
+          "sha256": "af7948c3a1137d8eb78d05ce57181c6b57fd528684ec49cd9c21bb38fa70a72b"
+        },
+        {
+          "id": "test_0031_2",
+          "path": "test_0031/3.png",
+          "seed": 5721207895152175903,
+          "sha256": "2d1435eada3c568797c07e0e582c7e96a6d58e79c4dedf805531fe7fd2bb304a"
+        },
+        {
+          "id": "test_0031_3",
+          "path": "test_0031/4.png",
+          "seed": 7232349466176479825,
+          "sha256": "f26a395f9b8a0ba052876a52c7e0cb2e5ea13884f52f1e2829d32539aed16d66"
+        }
+      ]
+    },
+    {
+      "id": "test_0032",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0032_0",
+          "path": "test_0032/1.png",
+          "seed": 4356811373920448270,
+          "sha256": "74b4c1267fba09b18cd05a81c8d95b34e1724353c3650358ccfea3c3b15fa06a"
+        },
+        {
+          "id": "test_0032_1",
+          "path": "test_0032/2.png",
+          "seed": 5794705023203285211,
+          "sha256": "b6558d8ec915737d1dcae2ca7f739941536c5d2feb98558a17bafc72f1acbe37"
+        },
+        {
+          "id": "test_0032_2",
+          "path": "test_0032/3.png",
+          "seed": 414764464709073311,
+          "sha256": "11dbc4c787f14504a278c117c083a548eddc9e725fef9e0a3956811b9473257e"
+        },
+        {
+          "id": "test_0032_3",
+          "path": "test_0032/4.png",
+          "seed": 3215177146645551323,
+          "sha256": "d954b8b01664339ac0794441c88856c168e9335baadff85bdd04be05df108685"
+        }
+      ]
+    },
+    {
+      "id": "test_0033",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0033_0",
+          "path": "test_0033/1.png",
+          "seed": 2276109564912540643,
+          "sha256": "cc4f8a77a0730f9f53289558d17edcefddeabecebbd0c36d45be04e01acaad4a"
+        },
+        {
+          "id": "test_0033_1",
+          "path": "test_0033/2.png",
+          "seed": 675052528799948374,
+          "sha256": "4c8f1d9aaf616b1fd3ffefaec877033c465532e648f39d55169a1c0f4d367218"
+        },
+        {
+          "id": "test_0033_2",
+          "path": "test_0033/3.png",
+          "seed": 4658231305714865157,
+          "sha256": "50c0cf6d7e5cf93cfa4eaf64995f59d334e308e427e8d01656cf125629758a39"
+        },
+        {
+          "id": "test_0033_3",
+          "path": "test_0033/4.png",
+          "seed": 2123618189946363600,
+          "sha256": "941e61c638a6110b84d1516cd7c1ca1123e0fa93b9bf5bebe57dbf3185b27b71"
+        }
+      ]
+    },
+    {
+      "id": "test_0034",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0034_0",
+          "path": "test_0034/1.png",
+          "seed": 4088097098683437922,
+          "sha256": "94dfca4011da66f284520c44f8574476766150850d56dd6042f9a38681ad3163"
+        },
+        {
+          "id": "test_0034_1",
+          "path": "test_0034/2.png",
+          "seed": 954485020477101448,
+          "sha256": "61ef79ca2682b32a05c3525291990943ecd9f8e6b1bd071d443137f6e0bc8ecc"
+        },
+        {
+          "id": "test_0034_2",
+          "path": "test_0034/3.png",
+          "seed": 2691468308429468896,
+          "sha256": "a89b5176ed3f4d7b871f3cac9206ecfa81ac5bf7955fc81f2228f51f4edbe590"
+        },
+        {
+          "id": "test_0034_3",
+          "path": "test_0034/4.png",
+          "seed": 9189024735296547367,
+          "sha256": "5653691258cc9f2cc919a5adff8e31f5b19918cebf90a229729d3aa4ac1cf0d8"
+        }
+      ]
+    },
+    {
+      "id": "test_0035",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0035_0",
+          "path": "test_0035/1.png",
+          "seed": 8757867954449280417,
+          "sha256": "f21903a1588598a6377909fd75079f30308e158bf1a2348457fa1c578a32b500"
+        },
+        {
+          "id": "test_0035_1",
+          "path": "test_0035/2.png",
+          "seed": 6212788064718363585,
+          "sha256": "d64661ba66f58f9a068e74e1fe6167cf4832e48e5eb8e8bb2e85b8ec1cff434a"
+        },
+        {
+          "id": "test_0035_2",
+          "path": "test_0035/3.png",
+          "seed": 4601977788740448667,
+          "sha256": "941a34787fad49bc83f7a983069a37d73234373100f31b657464261e6e4ddfac"
+        },
+        {
+          "id": "test_0035_3",
+          "path": "test_0035/4.png",
+          "seed": 4993945892741630819,
+          "sha256": "7aec9104cfc449634967fd337d2d8dd4c8f9e96437dccc196ee0f2289881e6fe"
+        }
+      ]
+    },
+    {
+      "id": "test_0036",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0036_0",
+          "path": "test_0036/1.png",
+          "seed": 5579026874455463923,
+          "sha256": "cdf27ac5dc3cb7619aec4ea26b8f38e0e98ac66a66eae2ddab9e51adfe36fd15"
+        },
+        {
+          "id": "test_0036_1",
+          "path": "test_0036/2.png",
+          "seed": 1817149653993358046,
+          "sha256": "2b04eea71e8cc74e2b5ef503bc9fd0d5c42673133b8d72856209bd2105be3614"
+        },
+        {
+          "id": "test_0036_2",
+          "path": "test_0036/3.png",
+          "seed": 3476528404247674945,
+          "sha256": "c09fb648677b31de3b03e35993e583cc47ce3f609fb1d3a6aaefaeb7c94495c4"
+        },
+        {
+          "id": "test_0036_3",
+          "path": "test_0036/4.png",
+          "seed": 2677721878145854328,
+          "sha256": "17ec63e05c2d93aca2c3b94fd8850a3e46f39550131791b0a945e509a70ecb55"
+        }
+      ]
+    },
+    {
+      "id": "test_0037",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0037_0",
+          "path": "test_0037/1.png",
+          "seed": 187228268498946599,
+          "sha256": "a64cf797557126e1de2ba0dc75b11c0aca4045a216cbd3f75f2f66411b80354c"
+        },
+        {
+          "id": "test_0037_1",
+          "path": "test_0037/2.png",
+          "seed": 6179701957064637127,
+          "sha256": "2df6edc654c4ce1a1b4b4c6083e0c26f476b568df62300b6e890c457c9628eee"
+        },
+        {
+          "id": "test_0037_2",
+          "path": "test_0037/3.png",
+          "seed": 5294457784709298664,
+          "sha256": "c27554e1a9b068988b3d2db4e9d36a2754cb0ec701f616ec5a5e22cdd0496b12"
+        },
+        {
+          "id": "test_0037_3",
+          "path": "test_0037/4.png",
+          "seed": 2383228165231251876,
+          "sha256": "5ecddd95ec89d9f92d500ae0e59dc72ea7d9f0464b1095ccae52e2e03b1847bb"
+        }
+      ]
+    },
+    {
+      "id": "test_0038",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0038_0",
+          "path": "test_0038/1.png",
+          "seed": 8988158288683593071,
+          "sha256": "884e9cef225f8914df240c4c2f738d9f98177505e23f4a69aafea042f2a8a3e3"
+        },
+        {
+          "id": "test_0038_1",
+          "path": "test_0038/2.png",
+          "seed": 6569190327337031921,
+          "sha256": "9da42572aa2eb0d8c34facd363e02c9904f35dbaf9cc96f16c8052e7ebec4fb9"
+        },
+        {
+          "id": "test_0038_2",
+          "path": "test_0038/3.png",
+          "seed": 4436310386091387488,
+          "sha256": "e023bc38f2c20f35760531a16007ea6536912f8ffc6b2555e4c790581b4c2518"
+        },
+        {
+          "id": "test_0038_3",
+          "path": "test_0038/4.png",
+          "seed": 707160871596689405,
+          "sha256": "3d3d13e6fbd560b79d6b40923bd3cb43b1ff8dc6da989f865bf9c7a31fc91b9c"
+        }
+      ]
+    },
+    {
+      "id": "test_0039",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0039_0",
+          "path": "test_0039/1.png",
+          "seed": 8759479003987414079,
+          "sha256": "f5ffa29f3f4bd49611e19145e5d8ced506e465d01fbaad690176ad6327f8a498"
+        },
+        {
+          "id": "test_0039_1",
+          "path": "test_0039/2.png",
+          "seed": 7987587857624224468,
+          "sha256": "36730a0c71ff64c9bf93b1f5198e8071ec8fe38299876ab16e53c8de132871cd"
+        },
+        {
+          "id": "test_0039_2",
+          "path": "test_0039/3.png",
+          "seed": 3474081196311633627,
+          "sha256": "a93683ec2245b0833d9b986e1106df1414679bbe79a7929386b38e8a35dd99e1"
+        },
+        {
+          "id": "test_0039_3",
+          "path": "test_0039/4.png",
+          "seed": 5964502698369003487,
+          "sha256": "9f2d2caa0982d5a800bfaadb4e3cb63237a8f82d5878291966f5a4abd91f6ba1"
+        }
+      ]
+    },
+    {
+      "id": "test_0040",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0040_0",
+          "path": "test_0040/1.png",
+          "seed": 262393865850473762,
+          "sha256": "b4c5c5f20f0dbabd489e83e81d9060008460573a12595f4f34c5b546c1f0f4f7"
+        },
+        {
+          "id": "test_0040_1",
+          "path": "test_0040/2.png",
+          "seed": 8212858034784507130,
+          "sha256": "e505b8399037fe93f54e674c986aa8b7a9881d04873f916acae9544a0f51b23d"
+        },
+        {
+          "id": "test_0040_2",
+          "path": "test_0040/3.png",
+          "seed": 8247533851862403755,
+          "sha256": "a7081565f60bb40ee7084c0387ce1ba245c27043a055cbfeea3e555356fc4eb6"
+        },
+        {
+          "id": "test_0040_3",
+          "path": "test_0040/4.png",
+          "seed": 5142737457326127913,
+          "sha256": "de33e105492f795f3fa25dd03fdb71c4e3ddb2016cdffa167dd344d82a32f14f"
+        }
+      ]
+    },
+    {
+      "id": "test_0041",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0041_0",
+          "path": "test_0041/1.png",
+          "seed": 8541924796727908776,
+          "sha256": "a2f2b83b455a974c88fd667d98dd63d05f8b932352e75b66d3c469fca5eb19b4"
+        },
+        {
+          "id": "test_0041_1",
+          "path": "test_0041/2.png",
+          "seed": 6894517872468663927,
+          "sha256": "86462d0fe1ac7ad8a1e860f3573685f275ee696d9503094cd0a6bd7b7b8bb847"
+        },
+        {
+          "id": "test_0041_2",
+          "path": "test_0041/3.png",
+          "seed": 5025739149257974889,
+          "sha256": "a633b7ff1ee4fcf4e884ece9046f496bc54024b4d734aadc724bcab8243502c9"
+        },
+        {
+          "id": "test_0041_3",
+          "path": "test_0041/4.png",
+          "seed": 4078571425397607021,
+          "sha256": "594d84249f17916a050c8d8577be8eb38a7b8e3590debfc091649fe72c662717"
+        }
+      ]
+    },
+    {
+      "id": "test_0042",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0042_0",
+          "path": "test_0042/1.png",
+          "seed": 5091939606754118564,
+          "sha256": "09460ff0e5435c72c518bc112571dec2dfe37623bd3becb2f07b0ae7c25ef1b2"
+        },
+        {
+          "id": "test_0042_1",
+          "path": "test_0042/2.png",
+          "seed": 578983043273889302,
+          "sha256": "84f91c56ea67ac5b063536de4f14c97c4c88c27163c6a928933fb70d92af459e"
+        },
+        {
+          "id": "test_0042_2",
+          "path": "test_0042/3.png",
+          "seed": 669077889701027182,
+          "sha256": "3c3faa7df825dba12d70fa6704595167dcf2fac6962a1cfdf16ce847b9b2ac9a"
+        },
+        {
+          "id": "test_0042_3",
+          "path": "test_0042/4.png",
+          "seed": 948025581969517185,
+          "sha256": "e62c11d64d65f729b284d25f1e888e0d7d47e0b37bc5ba7339a3a0f9170806c0"
+        }
+      ]
+    },
+    {
+      "id": "test_0043",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0043_0",
+          "path": "test_0043/1.png",
+          "seed": 5733035995887382195,
+          "sha256": "c95ed68ededc1c512901da0d4f7b84d135330c4e8a505f0f9d3a7763cf15dd12"
+        },
+        {
+          "id": "test_0043_1",
+          "path": "test_0043/2.png",
+          "seed": 7142114543732830317,
+          "sha256": "3b8bff5bbc312cdb94cebd3851b7cae794aba88954d6b7a562093a85e6157c11"
+        },
+        {
+          "id": "test_0043_2",
+          "path": "test_0043/3.png",
+          "seed": 5176909601278388138,
+          "sha256": "db54e769b9f3ffd0d52e6e009bfc443e5f940629fb3df7e985081eb2fdbb1e3e"
+        },
+        {
+          "id": "test_0043_3",
+          "path": "test_0043/4.png",
+          "seed": 740213010053527930,
+          "sha256": "c50d285ea765cb6ca89b461f819125895d66b08937fb1ae7c784e8b320d19e30"
+        }
+      ]
+    },
+    {
+      "id": "test_0044",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0044_0",
+          "path": "test_0044/1.png",
+          "seed": 6050231461958789269,
+          "sha256": "855be1ad52a8400e11f8634abd85b95039259c81cfb27cfd8c92d8c160f773e2"
+        },
+        {
+          "id": "test_0044_1",
+          "path": "test_0044/2.png",
+          "seed": 890794469862694371,
+          "sha256": "6845982fd57bc1d6d653098f1f82c2be257f5d2bad2c5ce2760f4dfe90317784"
+        },
+        {
+          "id": "test_0044_2",
+          "path": "test_0044/3.png",
+          "seed": 5186847025238639419,
+          "sha256": "96aca092314b5f6e8a8a87bc3c10b38c1cb568d2a9c753c27c58c6916fb7ce7d"
+        },
+        {
+          "id": "test_0044_3",
+          "path": "test_0044/4.png",
+          "seed": 2626768053558973651,
+          "sha256": "304bc2b51256ab7def3c582db5d1a7c6103ca0ea55f4cd5734a0cc31ee7984d5"
+        }
+      ]
+    },
+    {
+      "id": "test_0045",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0045_0",
+          "path": "test_0045/1.png",
+          "seed": 6338389610382365480,
+          "sha256": "7c6be093cb3ee840b80d2adcce708d94d7d7b28e4926cb1444cb3929f150393b"
+        },
+        {
+          "id": "test_0045_1",
+          "path": "test_0045/2.png",
+          "seed": 2854894997733500974,
+          "sha256": "93bee8e297bc1da408a6cafff3573abddb223516db9b40f5e4576b8784da2434"
+        },
+        {
+          "id": "test_0045_2",
+          "path": "test_0045/3.png",
+          "seed": 1521135196032715493,
+          "sha256": "fde60541aeb80b80681af653c88007bbbb35754414c6726aba5133724cd3d062"
+        },
+        {
+          "id": "test_0045_3",
+          "path": "test_0045/4.png",
+          "seed": 6166853868563123119,
+          "sha256": "b97d1b0d1371f288e85bc5b21ebca0a314301dfb2d57252526e1914d5f6c8404"
+        }
+      ]
+    },
+    {
+      "id": "test_0046",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0046_0",
+          "path": "test_0046/1.png",
+          "seed": 2775620623198936450,
+          "sha256": "d567978e2ffd08005be26d64c706fe80c1b2257e4e2b32d101eec253eeb58079"
+        },
+        {
+          "id": "test_0046_1",
+          "path": "test_0046/2.png",
+          "seed": 6760097574493711320,
+          "sha256": "07502b53d752776554cfcaebfa4c00b37d91910b15f35911ed9197bdf925d6d5"
+        },
+        {
+          "id": "test_0046_2",
+          "path": "test_0046/3.png",
+          "seed": 4766357727721206383,
+          "sha256": "3c9e9346e0b1ae57b5c140bb47ed5918520ba911ff92b64816c83228a49530bd"
+        },
+        {
+          "id": "test_0046_3",
+          "path": "test_0046/4.png",
+          "seed": 6811404373422327262,
+          "sha256": "7427bf564fd6a73e4634c19b361a2384006f6fd5c77cc19d58305dd08ebb2959"
+        }
+      ]
+    },
+    {
+      "id": "test_0047",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0047_0",
+          "path": "test_0047/1.png",
+          "seed": 8908275911449404820,
+          "sha256": "3e1544e18c9da74d261ebf45df0654b8d8471f246c1b2ca48e30eabd592c0929"
+        },
+        {
+          "id": "test_0047_1",
+          "path": "test_0047/2.png",
+          "seed": 5874346455502820388,
+          "sha256": "142d3efb9bff5aef580b53c728e8ac2611a86078c694960e409be4bffa5c51c1"
+        },
+        {
+          "id": "test_0047_2",
+          "path": "test_0047/3.png",
+          "seed": 7109361859168859633,
+          "sha256": "3f562868c0940b985d1387092802ab34cd8b37ded803b37574062d0ce5898db9"
+        },
+        {
+          "id": "test_0047_3",
+          "path": "test_0047/4.png",
+          "seed": 1777013575020803070,
+          "sha256": "dcd2c358fc117c77986cbcaff7ce3d31e9e8dade3c484394096c7f3c727ac0bc"
+        }
+      ]
+    },
+    {
+      "id": "test_0048",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0048_0",
+          "path": "test_0048/1.png",
+          "seed": 4950544021724310438,
+          "sha256": "bfc2eaf80013fb71430b0db295b7db42357f280024c39aed5e9fcb7c28db9081"
+        },
+        {
+          "id": "test_0048_1",
+          "path": "test_0048/2.png",
+          "seed": 5595540917257910320,
+          "sha256": "c15e7c0182f555fa32a3ffc22453031fe1cdea55dfdb92052e1a45513653481f"
+        },
+        {
+          "id": "test_0048_2",
+          "path": "test_0048/3.png",
+          "seed": 4242632327463515418,
+          "sha256": "4b6bb45d27088bd40fc57dc0d5b1be226697a9bea70150884183f66b524fa687"
+        },
+        {
+          "id": "test_0048_3",
+          "path": "test_0048/4.png",
+          "seed": 7364990787179523499,
+          "sha256": "612b6db43c5b7675f22260509b1c6d4fc8fe2de27e47088c329b2bf9a7482cb9"
+        }
+      ]
+    },
+    {
+      "id": "test_0049",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0049_0",
+          "path": "test_0049/1.png",
+          "seed": 2130218617428639776,
+          "sha256": "f051e9e7bec7edb0da861867e07fb9c44ce9d28ff1cb042a16381d2866047d3c"
+        },
+        {
+          "id": "test_0049_1",
+          "path": "test_0049/2.png",
+          "seed": 2190013527060658408,
+          "sha256": "65612b4b25adbf3c3dcfbba08f9fa1b128a0c68933bef4e3cf7e452e15c9cdce"
+        },
+        {
+          "id": "test_0049_2",
+          "path": "test_0049/3.png",
+          "seed": 6029220253666588624,
+          "sha256": "489dd72b341521e440a2b91ec4adcd35827ac49998ff3f97b58e53f11b8a9efd"
+        },
+        {
+          "id": "test_0049_3",
+          "path": "test_0049/4.png",
+          "seed": 8462117183404382691,
+          "sha256": "2c1d227478f132bf664f09a845cd80f90fe7513fa67daf2da4b550bf9c446cc6"
+        }
+      ]
+    },
+    {
+      "id": "test_0050",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0050_0",
+          "path": "test_0050/1.png",
+          "seed": 4630302558835013356,
+          "sha256": "3060671cbef0f0f42ff94b184dfefe801329e2b98150ddc8c974ddf6358db853"
+        },
+        {
+          "id": "test_0050_1",
+          "path": "test_0050/2.png",
+          "seed": 2220078310014043595,
+          "sha256": "92a9ddfe22dda1d62f9b0a4adbefcdca3eb83b144af68cb39e7488f85cb0df32"
+        },
+        {
+          "id": "test_0050_2",
+          "path": "test_0050/3.png",
+          "seed": 6466740366089064908,
+          "sha256": "5d79e2b4d127b404d97ed7894d3522f005bb369417f9afbf78f9e9236bd9a3a9"
+        },
+        {
+          "id": "test_0050_3",
+          "path": "test_0050/4.png",
+          "seed": 861901748683784877,
+          "sha256": "388803dfb7c1fd01bd9850b248d9db49f711457862e76004da9a460218cb18e5"
+        }
+      ]
+    },
+    {
+      "id": "test_0051",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0051_0",
+          "path": "test_0051/1.png",
+          "seed": 9174814587227664899,
+          "sha256": "6267b1690ecc61b37afbe0248b0584be242869b2a7dd7a8bd42eacc8d148da59"
+        },
+        {
+          "id": "test_0051_1",
+          "path": "test_0051/2.png",
+          "seed": 3839750902237676808,
+          "sha256": "6fcbb00d6642b510f5a9fc8289e1f4bc6ef0f4bac9c2c9a3d1431c7758b269a0"
+        },
+        {
+          "id": "test_0051_2",
+          "path": "test_0051/3.png",
+          "seed": 5716969097082334489,
+          "sha256": "8f7dc1d2a9752a8d40ce5b6e5c24c99e53c875cb3eab437b027ba3b7c3cbd211"
+        },
+        {
+          "id": "test_0051_3",
+          "path": "test_0051/4.png",
+          "seed": 6525486056836456131,
+          "sha256": "1add4cebd5297751eb30cf6dde8976063f0e9a13f8f70a11ed3f5c6d7f579262"
+        }
+      ]
+    },
+    {
+      "id": "test_0052",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0052_0",
+          "path": "test_0052/1.png",
+          "seed": 2953478759618971666,
+          "sha256": "6983a29f5558665bd702a06e501ebf7f7685af6324493c5de1bf038f76a8aa15"
+        },
+        {
+          "id": "test_0052_1",
+          "path": "test_0052/2.png",
+          "seed": 556179950763004957,
+          "sha256": "491400eda5d17d1cc43e6013a273d9eaed53382f62df66a92aceaef317d62905"
+        },
+        {
+          "id": "test_0052_2",
+          "path": "test_0052/3.png",
+          "seed": 312226059342590275,
+          "sha256": "de04d49a58562a865d60e07e6a865b64578d89b0d365ce3c257ae8bc296b321f"
+        },
+        {
+          "id": "test_0052_3",
+          "path": "test_0052/4.png",
+          "seed": 4525860755619900606,
+          "sha256": "3369c1e9636b9e868a4066d02885a68ddc92aa7d05dc350887893ef02f5a38c5"
+        }
+      ]
+    },
+    {
+      "id": "test_0053",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0053_0",
+          "path": "test_0053/1.png",
+          "seed": 7137981152095929360,
+          "sha256": "bb13400723377e521e434ad3695edbfb3db6f67e0c2ea9117f2352d3e099a112"
+        },
+        {
+          "id": "test_0053_1",
+          "path": "test_0053/2.png",
+          "seed": 6794159031852501939,
+          "sha256": "f6a7b14eded8ad3a7981ae80192a5b47ac4ae12e9a7a803a782424485cd09dfc"
+        },
+        {
+          "id": "test_0053_2",
+          "path": "test_0053/3.png",
+          "seed": 7917605848584632123,
+          "sha256": "7acbf7362ef8d18fdf76b08cbf2e8e84acf306fa66e9711bf3b4cb930b5cb3ce"
+        },
+        {
+          "id": "test_0053_3",
+          "path": "test_0053/4.png",
+          "seed": 2791171872777989440,
+          "sha256": "cfa27ad624e7d3d912294a0516a13c5968199d4b4cff31d968f4b0f84b54e477"
+        }
+      ]
+    },
+    {
+      "id": "test_0054",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0054_0",
+          "path": "test_0054/1.png",
+          "seed": 6506796710380829667,
+          "sha256": "d08a191668aa5b1051422ff210cfe045123532d2640db86d945c36c345c091aa"
+        },
+        {
+          "id": "test_0054_1",
+          "path": "test_0054/2.png",
+          "seed": 122366843509518033,
+          "sha256": "ae0ec5bb72be5022606af843ccce5e7d52bea83a0ed37013e3582681141d7a17"
+        },
+        {
+          "id": "test_0054_2",
+          "path": "test_0054/3.png",
+          "seed": 3438126424580616364,
+          "sha256": "834548cbf2b4f5b9b831e22e1f7624bbedbaf1a928ce5deed70a5cd19c978504"
+        },
+        {
+          "id": "test_0054_3",
+          "path": "test_0054/4.png",
+          "seed": 8820546985990550236,
+          "sha256": "257e007aa9349e51263f9a9d6e7ab00ec6996077c94422ff2ab3e5b0c4d23418"
+        }
+      ]
+    },
+    {
+      "id": "test_0055",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0055_0",
+          "path": "test_0055/1.png",
+          "seed": 3748466784221623276,
+          "sha256": "91ab36ed3b568cb93040a0b8c56b9c07ce1b1127bf3aca63adfcc033fb62800b"
+        },
+        {
+          "id": "test_0055_1",
+          "path": "test_0055/2.png",
+          "seed": 5953368401062207895,
+          "sha256": "ff1e472be40e606acca56dbcb6a09751e140ec8065e91332697a1ade6de119ca"
+        },
+        {
+          "id": "test_0055_2",
+          "path": "test_0055/3.png",
+          "seed": 4086034135868132160,
+          "sha256": "85ee44186d945101dd470b840d84d52c2c861d148feb8caddac931829a16c5bc"
+        },
+        {
+          "id": "test_0055_3",
+          "path": "test_0055/4.png",
+          "seed": 582299316754841890,
+          "sha256": "eca548052dcc3a8999d9e4f5e6597867b57f7f16fdc0352706c4034cc1980f1f"
+        }
+      ]
+    },
+    {
+      "id": "test_0056",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0056_0",
+          "path": "test_0056/1.png",
+          "seed": 8614185274410450872,
+          "sha256": "e63360a76b6d40bd4fc2f0252fcd4e7bce6470461c89b9900fccde5d4714c58f"
+        },
+        {
+          "id": "test_0056_1",
+          "path": "test_0056/2.png",
+          "seed": 1056092536998357346,
+          "sha256": "e23498550fa5e723963a5f45721287d98589baa9d1c708d7878ee5590debaf70"
+        },
+        {
+          "id": "test_0056_2",
+          "path": "test_0056/3.png",
+          "seed": 4219779880166132419,
+          "sha256": "203b1bf0f19c335d2464fb902046e4a270143e0deeb336eb06e889ae324ec1b9"
+        },
+        {
+          "id": "test_0056_3",
+          "path": "test_0056/4.png",
+          "seed": 4947709539150178338,
+          "sha256": "5fe06d55bbe7de76e5a8713c1e9a5505cd61ea6ad4591c31b67c34ef1954193a"
+        }
+      ]
+    },
+    {
+      "id": "test_0057",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0057_0",
+          "path": "test_0057/1.png",
+          "seed": 3100814093992118932,
+          "sha256": "8735a222a5eca5ba89c9aa90047cb675469a600ae357d2cdf362f95b43fa38db"
+        },
+        {
+          "id": "test_0057_1",
+          "path": "test_0057/2.png",
+          "seed": 29118769688353574,
+          "sha256": "92d03f649135967decddae13e16eab3860db2c8a13b37f2beb1fc95eba0fba3a"
+        },
+        {
+          "id": "test_0057_2",
+          "path": "test_0057/3.png",
+          "seed": 2702125529863614553,
+          "sha256": "9668e9c6d718c959e1aabd138e7ad003ed9fcb673b76f760f27516a0f0905309"
+        },
+        {
+          "id": "test_0057_3",
+          "path": "test_0057/4.png",
+          "seed": 6252181251340490046,
+          "sha256": "3a1af811f4e34ec0da448d4c74b6e40f68a50b0dd5c38e3a056845eb52d781ed"
+        }
+      ]
+    },
+    {
+      "id": "test_0058",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0058_0",
+          "path": "test_0058/1.png",
+          "seed": 9026474184108734262,
+          "sha256": "5bfd4b4c8aaf3353195e7d51c4ac932d5e6b379d02d4595fe3f83acf94820401"
+        },
+        {
+          "id": "test_0058_1",
+          "path": "test_0058/2.png",
+          "seed": 5926411650859280821,
+          "sha256": "400d6740ef9c9d30e7b93653aafb29c5b4ecaa3317ffb18e46fb5119446bae74"
+        },
+        {
+          "id": "test_0058_2",
+          "path": "test_0058/3.png",
+          "seed": 2736097031874733518,
+          "sha256": "9a933602ad17384369c91bce6beaa15b69b09b182371a14f219c4dfddd41545e"
+        },
+        {
+          "id": "test_0058_3",
+          "path": "test_0058/4.png",
+          "seed": 127334845568643124,
+          "sha256": "357adc5133fcf1af6aaa129b5a4b01f4fa2263c252d44be02f11cbd975d96bc3"
+        }
+      ]
+    },
+    {
+      "id": "test_0059",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0059_0",
+          "path": "test_0059/1.png",
+          "seed": 4046356202676713903,
+          "sha256": "d67365103401d283193a62ad9bfd46d4acd3dee57640bffa2f3a5d2578592d06"
+        },
+        {
+          "id": "test_0059_1",
+          "path": "test_0059/2.png",
+          "seed": 2789391896618508874,
+          "sha256": "825ad1b5900cf3f75e8914e04b34c5a63cd2a5920bba7bbeb35f4f385baa4bed"
+        },
+        {
+          "id": "test_0059_2",
+          "path": "test_0059/3.png",
+          "seed": 1052234450251550348,
+          "sha256": "f2605fb66bbf7c9003c96ed34e3339a6efd1301d1137a88a08bb06673c5d1811"
+        },
+        {
+          "id": "test_0059_3",
+          "path": "test_0059/4.png",
+          "seed": 624930557415147505,
+          "sha256": "034267e12429fc3aa826fb7ca1e9c1fb31e18970fbc0b23e3d8f60e00780190d"
+        }
+      ]
+    },
+    {
+      "id": "test_0060",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "test_0060_0",
+          "path": "test_0060/1.png",
+          "seed": 4726903913177635533,
+          "sha256": "47ce65f6ee631184676d845064dd758aa935cfd7c9daf2802d135dfb816f2a53"
+        },
+        {
+          "id": "test_0060_1",
+          "path": "test_0060/2.png",
+          "seed": 1018323601085312714,
+          "sha256": "35a1365bdb60af1d5d7aee88cc5dbf72fb0e5f305ddadeda94183a6d4306a0ed"
+        },
+        {
+          "id": "test_0060_2",
+          "path": "test_0060/3.png",
+          "seed": 6036012618486446513,
+          "sha256": "c22ba8ec2416b68bb9bdbc736314581434c92e26f5cc9d7103c4d67677ad4ae0"
+        },
+        {
+          "id": "test_0060_3",
+          "path": "test_0060/4.png",
+          "seed": 1503235505654417383,
+          "sha256": "50cafd9fb88a6745926b71e461f9d82f0c15bd4d379defffe8f1c975aa14bfa6"
+        }
+      ]
+    },
+    {
+      "id": "test_0061",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "test_0061_0",
+          "path": "test_0061/1.png",
+          "seed": 1401951960204213028,
+          "sha256": "7b4bf2bb38d65d14fec87fd83f68acf0be4c68db37bf52b083c801161b77de5f"
+        },
+        {
+          "id": "test_0061_1",
+          "path": "test_0061/2.png",
+          "seed": 9063905399363763119,
+          "sha256": "868a43167e9a0d6c8f6f8ab1bd4f21f2613e27cc6e5f55409cd39d4b4988c0af"
+        },
+        {
+          "id": "test_0061_2",
+          "path": "test_0061/3.png",
+          "seed": 2641229971134701900,
+          "sha256": "9f7bc0b743d7e83a524e556e29cae75c4301e5420ae318070dcabadd3ed49480"
+        },
+        {
+          "id": "test_0061_3",
+          "path": "test_0061/4.png",
+          "seed": 6288742375673342062,
+          "sha256": "1ebea328b522a5a80c125123c6abcbace401a65d79b8553426a57af6b48510b4"
+        }
+      ]
+    },
+    {
+      "id": "test_0062",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "test_0062_0",
+          "path": "test_0062/1.png",
+          "seed": 6883877343356451644,
+          "sha256": "0605542d0937c8777a4ae5b4b206bacb2742f580415616cd0bdeaf45cbe26f3e"
+        },
+        {
+          "id": "test_0062_1",
+          "path": "test_0062/2.png",
+          "seed": 4247564677735260009,
+          "sha256": "ef5e1c7ad8a851a0745d92278607eceda36b62702279b545d523d5874c89f579"
+        },
+        {
+          "id": "test_0062_2",
+          "path": "test_0062/3.png",
+          "seed": 4118143375178577298,
+          "sha256": "37daf02e76194c5997a7a2e81121a404377c77bb551c0b81f5afa0f74841a7b6"
+        },
+        {
+          "id": "test_0062_3",
+          "path": "test_0062/4.png",
+          "seed": 2274994106872584299,
+          "sha256": "ff72a9ec1a622ff82ff3b3d2786a634e03c328c674944236105d9549fa5e7bec"
+        }
+      ]
+    },
+    {
+      "id": "test_0063",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "test_0063_0",
+          "path": "test_0063/1.png",
+          "seed": 7921892801895028857,
+          "sha256": "df836a98cd9f988ae917a2d4bd888d9dcebd732d73e66b2405ce6e02a5ddf6d9"
+        },
+        {
+          "id": "test_0063_1",
+          "path": "test_0063/2.png",
+          "seed": 2020917734295215568,
+          "sha256": "62d413d8f866b9a0d86e11c141843ec9a02057a4577590f070366beeaf312862"
+        },
+        {
+          "id": "test_0063_2",
+          "path": "test_0063/3.png",
+          "seed": 2467439600435821011,
+          "sha256": "6b2c19c4c67cf2e4d8aeb92853ea38f151c9c4a208351198ba2dbc44560806a9"
+        },
+        {
+          "id": "test_0063_3",
+          "path": "test_0063/4.png",
+          "seed": 6861435469753760878,
+          "sha256": "886a4a104b4f4ffdbf1c5377280a252bb0e96d708f75ecdde72efe2f5f2ef9aa"
+        }
+      ]
+    }
+  ],
+  "versions": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0"
+  }
+}

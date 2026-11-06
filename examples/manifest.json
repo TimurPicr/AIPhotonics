@@ -1,0 +1,258 @@
+{
+  "split": "examples",
+  "seed": 42004,
+  "generator": "synthetic-v1",
+  "size": 8,
+  "z_m": [
+    0.0241,
+    0.0253,
+    0.0265,
+    0.0277
+  ],
+  "samples": [
+    {
+      "id": "examples_0000",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "examples_0000_0",
+          "path": "examples_0000/1.png",
+          "seed": 5029112298109730216,
+          "sha256": "9a147557419e26f9a138b37c48af62e5dfceb9222762a00c3556d7247e44428c"
+        },
+        {
+          "id": "examples_0000_1",
+          "path": "examples_0000/2.png",
+          "seed": 8285743529201491733,
+          "sha256": "c1921960d686b4b32463aba6740da936c7fc789b2faad35bf49c46a921c0a2fe"
+        },
+        {
+          "id": "examples_0000_2",
+          "path": "examples_0000/3.png",
+          "seed": 247743619784776921,
+          "sha256": "343f36eee5e9c496d0afddc6173de4c0911a6bcadfec2a8fb6dadd5fdf611b5d"
+        },
+        {
+          "id": "examples_0000_3",
+          "path": "examples_0000/4.png",
+          "seed": 7050909692097438781,
+          "sha256": "5e93acf61a5a9ae04636f027d46e743a30d7b8b9478c12232b800620f1a41b17"
+        }
+      ]
+    },
+    {
+      "id": "examples_0001",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "examples_0001_0",
+          "path": "examples_0001/1.png",
+          "seed": 4533929857401109288,
+          "sha256": "be36143d273aaa18fd21754d8990fb2338e93080c3a51c290525d0ea99f7f6c2"
+        },
+        {
+          "id": "examples_0001_1",
+          "path": "examples_0001/2.png",
+          "seed": 1961400263170756244,
+          "sha256": "b415fd3a7371ef9b5a6863e61f5d7d42c92048126a929e53cc8cd7a56d31ff99"
+        },
+        {
+          "id": "examples_0001_2",
+          "path": "examples_0001/3.png",
+          "seed": 1566139870276086578,
+          "sha256": "ad878c2dbdf21c1846635e1a5829e5a7d841fca97e683af89c18cba979121912"
+        },
+        {
+          "id": "examples_0001_3",
+          "path": "examples_0001/4.png",
+          "seed": 4622168176618561746,
+          "sha256": "b8af6e83ac155603a9be4e554c3ced577d400f0327e66a41556c2289a38f8ac9"
+        }
+      ]
+    },
+    {
+      "id": "examples_0002",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "examples_0002_0",
+          "path": "examples_0002/1.png",
+          "seed": 7723773656372226476,
+          "sha256": "f0030d611b65a95d3f27bd5e0700e770284f4e38d29c0afa69ce9dfe76a8a880"
+        },
+        {
+          "id": "examples_0002_1",
+          "path": "examples_0002/2.png",
+          "seed": 1664753473911479133,
+          "sha256": "06661ab3b522912678e55f0c68fd85a6f9f608bfd08893b1bd988542f16c1722"
+        },
+        {
+          "id": "examples_0002_2",
+          "path": "examples_0002/3.png",
+          "seed": 2010015007903986692,
+          "sha256": "66b16c7460d8fc21400130435ce31bcbac980e4d943052a8a1574833d442ed79"
+        },
+        {
+          "id": "examples_0002_3",
+          "path": "examples_0002/4.png",
+          "seed": 6147064097332023459,
+          "sha256": "f2458277002e44ba51a7212be41a8dab9bcbe10287dcde191a65486083072ddb"
+        }
+      ]
+    },
+    {
+      "id": "examples_0003",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "examples_0003_0",
+          "path": "examples_0003/1.png",
+          "seed": 8177659001363907502,
+          "sha256": "7051de9c2af7d10acf45af27ad1ccc2a24af80e705f28f95193d177ba4315e12"
+        },
+        {
+          "id": "examples_0003_1",
+          "path": "examples_0003/2.png",
+          "seed": 70357989961324922,
+          "sha256": "7fbae08f0bd78206a29b2aba7865d7a4527aa097b712239c48e620670f967c1d"
+        },
+        {
+          "id": "examples_0003_2",
+          "path": "examples_0003/3.png",
+          "seed": 6179233419568863577,
+          "sha256": "7bc3882905cb23bcdb8ee7e12a20c4352d8d9090eb163193ac442f2457159c65"
+        },
+        {
+          "id": "examples_0003_3",
+          "path": "examples_0003/4.png",
+          "seed": 6170850572601744991,
+          "sha256": "c934b8036b4f336be78a48f3c6e716865a7c8da4390c686a8161540efee2b4c3"
+        }
+      ]
+    },
+    {
+      "id": "examples_0004",
+      "category": "geometry",
+      "sources": [
+        {
+          "id": "examples_0004_0",
+          "path": "examples_0004/1.png",
+          "seed": 3859139019339463420,
+          "sha256": "3bead23cfc4577821bb5e7cd333c481ef27673a0ab88a5a93b8fc5b5c9134637"
+        },
+        {
+          "id": "examples_0004_1",
+          "path": "examples_0004/2.png",
+          "seed": 689920440776197711,
+          "sha256": "d695a22873b963e3daa221ff3642669990ced3c6535e49358c7267ba9b698df5"
+        },
+        {
+          "id": "examples_0004_2",
+          "path": "examples_0004/3.png",
+          "seed": 7270471425822396411,
+          "sha256": "ff9d49d79778b97fbdaa82a12e29b5b39c885f2aecbc32977e3b6008fecfcaf3"
+        },
+        {
+          "id": "examples_0004_3",
+          "path": "examples_0004/4.png",
+          "seed": 5365100862278873283,
+          "sha256": "9c4e8df8b9c034fdee59282899cb63a9f943769b1b1bee748e1e0ebb46ea2b06"
+        }
+      ]
+    },
+    {
+      "id": "examples_0005",
+      "category": "symbols",
+      "sources": [
+        {
+          "id": "examples_0005_0",
+          "path": "examples_0005/1.png",
+          "seed": 5133896999296128788,
+          "sha256": "e950d38862d70002c98d42bfb51221e00702cdcbde4792df3c2dc77b9fd85d7e"
+        },
+        {
+          "id": "examples_0005_1",
+          "path": "examples_0005/2.png",
+          "seed": 543947433680252785,
+          "sha256": "700707a21c5cda5136aca72683958c547f7dd2a0096b81086ee1b8afff028bc5"
+        },
+        {
+          "id": "examples_0005_2",
+          "path": "examples_0005/3.png",
+          "seed": 5098011105714716891,
+          "sha256": "455ac8afcac629a3af5499f921b34b844614ef16f5256d2a4f05bbe89533a7f4"
+        },
+        {
+          "id": "examples_0005_3",
+          "path": "examples_0005/4.png",
+          "seed": 5411739834861155429,
+          "sha256": "1e38b7e7d4871cd8e345b526adc16d10ab673d71d45f92be09e9be29b098f41b"
+        }
+      ]
+    },
+    {
+      "id": "examples_0006",
+      "category": "grayscale",
+      "sources": [
+        {
+          "id": "examples_0006_0",
+          "path": "examples_0006/1.png",
+          "seed": 2759730836596283360,
+          "sha256": "7e7de86e3c08e5a5ac1b086f4a1c119ae5d21eb966ab2b8e045573a946da7371"
+        },
+        {
+          "id": "examples_0006_1",
+          "path": "examples_0006/2.png",
+          "seed": 6800395074215479539,
+          "sha256": "74863ed7be77320a9054730dbf12fa9a10f7a594185e3cd9421bbf97c3b00db2"
+        },
+        {
+          "id": "examples_0006_2",
+          "path": "examples_0006/3.png",
+          "seed": 5611085994987972878,
+          "sha256": "c97de1cb11ab8659dfa0c5c94fcf41279a4b6b1a48d6aae95b9f596e5cb2e5c8"
+        },
+        {
+          "id": "examples_0006_3",
+          "path": "examples_0006/4.png",
+          "seed": 5128692915845455112,
+          "sha256": "08fbeb345564204e7853285d2e408542651b2d3c10ebec6d6b2987df1fadf1fc"
+        }
+      ]
+    },
+    {
+      "id": "examples_0007",
+      "category": "mixed",
+      "sources": [
+        {
+          "id": "examples_0007_0",
+          "path": "examples_0007/1.png",
+          "seed": 4911579711652573707,
+          "sha256": "8bb459100194cd8206c8da6495257f6915b0ff88b1cdd2abb70fdebb89228954"
+        },
+        {
+          "id": "examples_0007_1",
+          "path": "examples_0007/2.png",
+          "seed": 5245438648738543933,
+          "sha256": "5c7914e231889f5ca55ca5c923f63ebf3a1703e4bf46d1e0a441e2c2158bf17b"
+        },
+        {
+          "id": "examples_0007_2",
+          "path": "examples_0007/3.png",
+          "seed": 8421367722921694709,
+          "sha256": "789b5a808ae3737f93cfcb205f80f5b6829a3a4d20a64b0d0978990cbe5b68b7"
+        },
+        {
+          "id": "examples_0007_3",
+          "path": "examples_0007/4.png",
+          "seed": 1597251686830071001,
+          "sha256": "6a63f3de1afd37cde7ec6c6ac9d237a015ab505c606032cb9a9aac0c62394551"
+        }
+      ]
+    }
+  ],
+  "versions": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0"
+  }
+}
