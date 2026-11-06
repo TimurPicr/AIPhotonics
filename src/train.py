@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import argparse
 from collections.abc import Callable, Iterable
-import hashlib
 import itertools
 import json
 import math
 import os
 from pathlib import Path
 import random
+import tempfile
 import time
 
 import numpy as np
@@ -27,6 +27,13 @@ def seed_everything(seed: int) -> None:
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+
+def current_protocol() -> dict:
+    """A's canonical semantic protocol; source-only edits do not change optics."""
+    from config import DEFAULT_CONFIG
+
+    return DEFAULT_CONFIG.snapshot()
 
 
 def select_device(requested: str = "auto") -> torch.device:
@@ -62,6 +69,7 @@ def save_checkpoint(
     step: int = 0,
     protocol: dict | None = None,
     training_config: dict | None = None,
+    validation: dict | None = None,
 ) -> None:
     """Save state dictionaries and plain metadata, never a pickled model object."""
     payload = {
@@ -74,6 +82,7 @@ def save_checkpoint(
         "training_config": training_config or {},
         "torch_version": str(torch.__version__),
         "rng_state": capture_rng_state(),
+        "validation": validation,
     }
     _atomic_save(payload, Path(path))
 
@@ -127,6 +136,57 @@ def load_checkpoint(
     if any(not torch.isfinite(p).all() for p in model.parameters()):
         raise ValueError("checkpoint contains non-finite model parameters")
     return model.to(device).eval(), payload
+
+
+def validation_score(result: dict) -> tuple[float, float] | None:
+    """Prefer the worst plane's mean SSIM; use mean Pearson as a tie-breaker."""
+    aggregate = result["aggregate"]
+    ssim = aggregate["worst_plane_mean"]["ssim"]
+    pearson = aggregate["mean"]["pearson"]
+    if (
+        aggregate["failure_count"]
+        or aggregate["valid_pearson_pairs"] != aggregate["total_pairs"]
+        or ssim is None or pearson is None
+        or not math.isfinite(ssim) or not math.isfinite(pearson)
+    ):
+        return None
+    return float(ssim), float(pearson)
+
+
+def evaluate_validation(
+    model: PhaseUNet,
+    samples: list[tuple[dict, Tensor]],
+    *,
+    export_fn: Callable | None = None,
+) -> dict:
+    """Use C's real PNG roundtrip; reuse and remove one temporary export folder."""
+    from src.evaluate import aggregate_results
+    if export_fn is None:
+        from src.io import export_result
+
+        export_fn = export_result
+    if not samples:
+        raise ValueError("validation samples must not be empty")
+    was_training = model.training
+    model.eval()
+    device = next(model.parameters()).device
+    results, categories = [], {}
+    try:
+        with torch.no_grad(), tempfile.TemporaryDirectory(prefix="photonics-b-validation-") as temporary:
+            for sample, targets in samples:
+                phase = model(targets.to(device))
+                result = export_fn(
+                    targets, phase, Path(temporary),
+                    metadata={"split": "val", "sample_id": sample["id"]},
+                )
+                results.append(result)
+                categories.setdefault(sample["category"], []).append(result)
+    finally:
+        model.train(was_training)
+    return {
+        "aggregate": aggregate_results(results),
+        "categories": {name: aggregate_results(group) for name, group in categories.items()},
+    }
 
 
 def train_step(
@@ -229,6 +289,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--checkpoint-dir", type=Path, default=Path("checkpoints"))
     parser.add_argument("--run-dir", type=Path, default=Path("runs/mvp"))
     parser.add_argument("--resume", type=Path, help="resume optimizer/RNG; --steps is additional updates")
+    parser.add_argument("--val-manifest", type=Path, default=Path("data/val/manifest.json"))
+    parser.add_argument("--val-every", type=_positive_int, default=50)
     return parser
 
 
@@ -238,8 +300,8 @@ def main(argv: list[str] | None = None) -> int:
     if not math.isfinite(args.lr) or args.lr <= 0:
         parser.error("--lr must be positive and finite")
     try:
-        import config
-        from src.data import make_train_loader
+        from config import DEFAULT_CONFIG
+        from src.data import load_manifest, make_train_loader
         from src.reconstruction import normalize_recons, reconstruct_four
     except ImportError as error:
         parser.error(f"A/C dependencies are not ready: {error}; no stub training is allowed")
@@ -249,7 +311,7 @@ def main(argv: list[str] | None = None) -> int:
         device = select_device(args.device)
     except ValueError as error:
         parser.error(str(error))
-    protocol = {"config_sha256": hashlib.sha256(Path(config.__file__).read_bytes()).hexdigest()}
+    protocol = current_protocol()
     settings = {key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()}
     settings["device"] = str(device)
     model = PhaseUNet(args.base_channels)
@@ -278,6 +340,13 @@ def main(argv: list[str] | None = None) -> int:
             next(batches)
     if resumed is not None:
         restore_rng_state(resumed)
+    validation_samples = None
+    if args.overfit_samples is None:
+        manifest, validation_samples = load_manifest(args.val_manifest)
+        if manifest["split"] != "val":
+            parser.error("checkpoint selection requires a validation manifest, never test/OOD")
+        if list(DEFAULT_CONFIG.distances_m) != manifest["z_m"]:
+            parser.error("validation distances do not match the current optical protocol")
     args.run_dir.mkdir(parents=True, exist_ok=True)
     (args.run_dir / "config.json").write_text(json.dumps({**settings, "protocol": protocol}, indent=2) + "\n")
 
@@ -285,13 +354,41 @@ def main(argv: list[str] | None = None) -> int:
         return physics_loss(phase, targets, reconstruct_fn=reconstruct_four, normalize_fn=normalize_recons)
 
     with (args.run_dir / "metrics.jsonl").open("a" if resumed is not None else "w") as log:
+        best_score = None
+        best_path = args.checkpoint_dir / "best.pt"
+        if resumed is not None and best_path.exists():
+            _, previous = load_checkpoint(best_path, expected_protocol=protocol)
+            if previous.get("validation") is not None:
+                best_score = validation_score(previous["validation"])
+
+        def report_validation(step: int, *, select: bool) -> None:
+            nonlocal best_score
+            result = evaluate_validation(model, validation_samples)
+            score = validation_score(result)
+            row = {"kind": "validation", "step": step, "selection_score": score, **result}
+            log.write(json.dumps(row, allow_nan=False) + "\n")
+            log.flush()
+            print(json.dumps({"kind": "validation", "step": step, "score": score}), flush=True)
+            if select and score is not None and (best_score is None or score > best_score):
+                best_score = score
+                save_checkpoint(
+                    best_path, model, step=step, protocol=protocol,
+                    training_config=settings, validation=result,
+                )
+
         def report(record: dict) -> None:
-            log.write(json.dumps(record, allow_nan=False) + "\n")
+            log.write(json.dumps({"kind": "train", **record}, allow_nan=False) + "\n")
             log.flush()
             if record["step"] == 1 or record["step"] % 10 == 0:
                 print(json.dumps(record, allow_nan=False), flush=True)
+            if validation_samples is not None and (
+                record["step"] % args.val_every == 0 or record["step"] == start_step + args.steps
+            ):
+                report_validation(record["step"], select=True)
 
         try:
+            if validation_samples is not None:
+                report_validation(start_step, select=False)
             fit(
                 model, batches, steps=args.steps, learning_rate=args.lr, device=device,
                 objective=objective, checkpoint_dir=args.checkpoint_dir,
