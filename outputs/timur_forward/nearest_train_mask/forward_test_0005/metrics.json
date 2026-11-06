@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "sample_id": "forward_test_0005",
+    "split": "test",
+    "category": "grayscale",
+    "manifest_sha256": "49391326001ca6dcebbf1f4710dbfeb77fbea9a6d0060d4a1123366e16c4d24a",
+    "method": "nearest_train_mask",
+    "source_phase_sha256": "103d048fa439615a3d7d5fb1c19ad039d3f0b955724ebe3646035cc4815ab6c7",
+    "neighbor_parent_id": "ood_0010",
+    "phase_png_quantized": true
+  },
+  "planes": [
+    {
+      "plane": 1,
+      "pearson": 0.24482499190510215,
+      "pearson_reason": null,
+      "ssim": 0.7605469022281776
+    },
+    {
+      "plane": 2,
+      "pearson": 0.1359127272005532,
+      "pearson_reason": null,
+      "ssim": 0.7887348116882358
+    },
+    {
+      "plane": 3,
+      "pearson": 0.4985174954134886,
+      "pearson_reason": null,
+      "ssim": 0.8255298584400708
+    },
+    {
+      "plane": 4,
+      "pearson": 0.6998323063213483,
+      "pearson_reason": null,
+      "ssim": 0.8438540240832931
+    }
+  ],
+  "mean": {
+    "pearson": 0.39477188021012305,
+    "ssim": 0.8046663991099443
+  },
+  "worst_plane": {
+    "pearson": 0.1359127272005532,
+    "ssim": 0.7605469022281776
+  },
+  "valid_pearson_pairs": 4,
+  "total_pairs": 4,
+  "failure_count": 0,
+  "errors": [],
+  "ssim_parameters": {
+    "data_range": 1.0,
+    "win_size": 7,
+    "gaussian_weights": false,
+    "use_sample_covariance": true,
+    "K1": 0.01,
+    "K2": 0.03
+  },
+  "skimage_version": "0.26.0"
+}

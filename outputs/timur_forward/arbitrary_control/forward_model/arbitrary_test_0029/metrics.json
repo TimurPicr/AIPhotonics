@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "checkpoint_sha256": "4a16fcb91512efd57bcdbf2d85618e5a89aeec12ef0a3b85a519bf0abc10ad34",
+    "checkpoint_step": 1800,
+    "method": "network",
+    "protocol": {
+      "wavelength_m": 5.32e-07,
+      "slm_pitch_m": 1e-05,
+      "distances_m": [
+        0.0241,
+        0.0253,
+        0.0265,
+        0.0277
+      ],
+      "image_size": 128,
+      "reconstruction_value": "amplitude",
+      "normalization": "per_plane_max",
+      "normalization_eps": 1e-08
+    },
+    "dx_out_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ],
+    "device": "cpu",
+    "threads": 2,
+    "seed": 44002,
+    "versions": {
+      "python": "3.13.18",
+      "torch": "2.15.0",
+      "numpy": "2.5.4",
+      "pillow": "13.0.0"
+    },
+    "git_revision": "b34fd1594b849517c3e7adc59442041f096f7c7e",
+    "sample_id": "arbitrary_test_0029",
+    "split": "arbitrary_test",
+    "category": "symbols",
+    "timing": {
+      "forward_seconds": 0.0074538749977364205,
+      "warmup_passes": 2,
+      "refinement_seconds": 0.0,
+      "pipeline_seconds": 0.014742040999408346
+    },
+    "phase_png_quantized": true
+  },
+  "planes": [
+    {
+      "plane": 1,
+      "pearson": 0.1728340310588679,
+      "pearson_reason": null,
+      "ssim": 0.005498930194997336
+    },
+    {
+      "plane": 2,
+      "pearson": 0.15254423339361822,
+      "pearson_reason": null,
+      "ssim": 0.005388720316963414
+    },
+    {
+      "plane": 3,
+      "pearson": 0.13173339520848332,
+      "pearson_reason": null,
+      "ssim": 0.0040312695085701735
+    },
+    {
+      "plane": 4,
+      "pearson": 0.05720898714707932,
+      "pearson_reason": null,
+      "ssim": -2.7285531848159253e-05
+    }
+  ],
+  "mean": {
+    "pearson": 0.1285801617020122,
+    "ssim": 0.003722908622170691
+  },
+  "worst_plane": {
+    "pearson": 0.05720898714707932,
+    "ssim": -2.7285531848159253e-05
+  },
+  "valid_pearson_pairs": 4,
+  "total_pairs": 4,
+  "failure_count": 0,
+  "errors": [],
+  "ssim_parameters": {
+    "data_range": 1.0,
+    "win_size": 7,
+    "gaussian_weights": false,
+    "use_sample_covariance": true,
+    "K1": 0.01,
+    "K2": 0.03
+  },
+  "skimage_version": "0.26.0"
+}

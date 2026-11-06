@@ -1,0 +1,10 @@
+{
+  "dataset_recreated_identically": true,
+  "source_masks_unique_and_split_disjoint": 96,
+  "selected_validation_reproduced": true,
+  "scored_cases_repropagated_and_metrics_recomputed": 192,
+  "checkpoint_sha256": "4a16fcb91512efd57bcdbf2d85618e5a89aeec12ef0a3b85a519bf0abc10ad34",
+  "original_checkpoint_unchanged": true,
+  "repeated_png_files_identical": 965,
+  "repeated_scored_cases_identical": 192
+}

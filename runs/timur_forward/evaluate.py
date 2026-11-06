@@ -1,6 +1,7 @@
 """Evaluate the fixed forward-data experiment and its controls after model selection."""
 from pathlib import Path
 
+import numpy as np
 import torch
 
 from src.data import load_manifest
@@ -21,6 +22,7 @@ def main():
     train_hashes = {sample['phase_sha256'] for sample,_ in train_samples}
     assert not train_hashes & {sample['phase_sha256'] for sample,_ in test_samples}
     _, payload = load_checkpoint(CHECKPOINT, expected_protocol=current_protocol())
+    assert payload['training_config']['train_manifest_sha256'] == file_hash(ROOT / 'train/manifest.json')
     old, old_metadata = load_predictor('checkpoints/best.pt')
     new, new_metadata = load_predictor(CHECKPOINT)
     initial, _ = load_checkpoint('checkpoints/timur_forward/initial.pt')
@@ -63,6 +65,13 @@ def main():
                                                               if sample['category']==category])
                                        for name,values in results.items()} for category in categories},
                'paired_changes':pairs}
+    summary['paired_change_summary'] = {}
+    for key in ('ssim_delta','pearson_delta'):
+        values = np.array([pair[key] for pair in pairs])
+        means = np.random.default_rng(42).choice(values,size=(10000,len(values)),replace=True).mean(1)
+        summary['paired_change_summary'][key] = {
+            'mean':float(values.mean()),'positive_cases':int((values>0).sum()),
+            'paired_bootstrap_95ci':np.quantile(means,[.025,.975]).tolist()}
     control_manifest, control_samples = load_manifest('data/timur_control/arbitrary_test/manifest.json')
     arbitrary = {'old_model': [], 'forward_model': []}
     for sample, targets in control_samples:
