@@ -1,0 +1,20 @@
+{
+  "checkpoint_sha256": "55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c",
+  "fixed_sources_disjoint": true,
+  "checks": {
+    "test": {
+      "samples": 64,
+      "pairs": 256,
+      "summary_sha256": "6c7d642d8ae43ca0d8d7945173ed416628c2d390c011f96068a91ad11e7ddeab",
+      "repropagated_pngs_match": true,
+      "reread_metrics_match": true
+    },
+    "ood": {
+      "samples": 16,
+      "pairs": 64,
+      "summary_sha256": "e9e507f05e44a9e5fceb2dca96d397dd24abeeccd29864c0e1f635a9be68d3c1",
+      "repropagated_pngs_match": true,
+      "reread_metrics_match": true
+    }
+  }
+}

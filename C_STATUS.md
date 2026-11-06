@@ -1,24 +1,14 @@
 # Передача роли C
 
-- T0.1: src package, Python 3.13 `.venv`, зависимости установлены; точные версии — requirements-lock.txt.
-- C1.1: `src.io.load_four_png`, `export_phase_png`, `load_phase_png`; строгие 128×128 L PNG.
-- C1.2: `src.data.make_train_loader(batch_size, seed)`, бесконечный повторяемый поток float32 [B,4,128,128]; новый RNG на iterator, не на batch.
-- C1.3: сохранены data/{val,test,ood,train_diagnostic} (64/64/16/4) и examples (8); z из AGENTS.md переданы явно через prepare_split(..., z_m=...). Manifest содержит seeds, SHA256 и версии NumPy/Pillow; проверено отсутствие общих PNG/источников. CLI по умолчанию ожидает config.CONFIG.z_m от A.
-- C1.4: `src.evaluate.evaluate_four`, `aggregate_results`; постоянные реконструкции помечаются ошибками. `src.io.export_result(targets, phase, out, metadata=...)` перечитывает phase и reconstruction PNG.
-- Проверки: `.venv/bin/python -m pytest tests/test_io.py -q` — 7 passed; полный suite — 25 passed.
-- B: экспорт C импортирует `src.reconstruction.{reconstruct_four,normalize_recons}` только при вызове. Для validation `aggregate_results(results)['worst_plane_mean']['ssim']` и `['mean']['pearson']`.
-- A: общий экспорт доступен для CLI baseline; возвращает словарь, сохраняемый в metrics.json. Значение `metadata` — произвольный JSON-совместимый словарь.
+- T0.1, C1 и C2 завершены: PNG/фаза, поток независимых целей, фиксированные manifests, Pearson/SSIM, общий квантованный экспорт и CLI.
+- Python 3.13, PyTorch 2.15.0, CPU macOS arm64; точные зависимости — requirements-lock.txt.
+- Данные: 64 val, 64 test, 16 OOD, 4 train_diagnostic, 8 examples. Хеши проверены; фиксированные исходники/PNG между наборами не пересекаются.
+- Финальный checkpoint B3.2: шаг 1400, SHA256 `55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c`. Протокол — `config.DEFAULT_CONFIG.snapshot()` через `src.train.current_protocol()`.
+- A3 завершён: исходный отчёт A — outputs/comparison/a_summary.json. C повторил все три метода на одном локальном CPU: outputs/comparison/final/summary.json, сохранены фазы и реконструкции каждого метода. На 8 val mean SSIM initial/network/Adam = 0.05963/0.16193/0.14239, Pearson = 0.12182/0.17927/0.27771. Adam: 100 шагов, один старт, seed 42. Метрики/время разных платформ могут отличаться.
+- C3.1 завершён. Test: 64 четвёрки, 256 пар, Pearson 0.14464, SSIM 0.11864, worst-plane mean SSIM 0.10198. OOD: 16 четвёрок, 64 пары, Pearson 0.08278, SSIM 0.02409, worst-plane mean SSIM 0.01974. Все 320 Pearson определены, ошибок нет.
+- Выбор модели/экспериментов завершён до test/OOD; после финальной оценки веса не менялись.
+- Все test/OOD PNG повторно прочитаны, распространены из phase.png и сверены с recon PNG; метрики и агрегаты пересчитаны. Аудит: outputs/final_verification.json.
+- 8 финальных examples и коллажи — outputs/examples/. Исторический outputs/c2_initial относится к checkpoint до B3.1; актуальные initial-результаты — outputs/comparison/final/initial_network/.
+- C3.2/C3.3 выполняются: README/отчёт, пакет сдачи и воспроизведение в новом каталоге.
 
-C2.1/C2.2 завершены: подключён current_protocol() B, CLI проверен с initial.pt и реальным Френелем A. Два запуска дали побайтно одинаковые PNG и одинаковые метрики. Тест независимо распространяет перечитанную phase.png, квантует recon и сверяет их с файлами. Несовместимый протокол intensity отклоняется.
-
-- Полный suite: 49 passed, 1 skipped (Metal недоступен в среде C).
-- Результаты C2: outputs/c2_initial/; verification.json содержит хеши повторных PNG и отдельно float-фазу/PNG-фазу/PNG-реконструкции.
-- 8 examples, initial network: mean Pearson=0.0267693, SSIM=0.0289239, worst-plane mean SSIM=0.0231847, 32/32 валидных пар, ошибок нет.
-- C3 ожидает обученный best.pt B и результаты сравнения A3. Test/OOD не оценены.
-- README обновлён реальными командами и ограничениями. C3 не объявляется завершённым.
-
-Для A3 зафиксирован data/val/comparison_manifest.json: первые 8 validation-четвёрок (по две каждой категории, включает val_0000/val_0001 baseline A). Initial network оценена на этой подвыборке: outputs/comparison/initial/summary.json; mean Pearson=0.1218250, SSIM=0.0596306, worst-plane SSIM=0.0352225. Все 32 пары валидны, ошибок нет. A/B могут использовать тот же manifest для итогового сравнения. Summary теперь содержит manifest SHA256/seed и список ошибок с sample ID.
-
-Initial comparison пересчитан после обновления initial.pt ролью B (B3.1): актуальный SHA256 записан в outputs/comparison/initial/summary.json. Старые outputs/c2_initial — историческая техническая проверка checkpoint до B3.1, SHA256 сохранён в каждом отчёте. B3.2/A3 ещё ожидаются; test/OOD не запускались. Текущий suite: 49 passed, 1 skipped.
-
-B3.2 получен: финальный best.pt шага 1400, SHA256 55ad50208b7545c1ea3f14485148fba089e6817d08eebfec9589eb42cb54412c. Для A3 подготовлен outputs/comparison/network/summary.json на общих 8 val: mean Pearson=0.1792708, SSIM=0.1619337, worst-plane SSIM=0.1180773; 32/32 пары валидны, ошибок нет. A3 ещё не отмечен готовым; C3 ждёт его. Test/OOD не запускались.
+Общий экспорт для A/B: `src.io.export_result(targets, phase, out, metadata=...)`. Для validation: `aggregate_results(results)['worst_plane_mean']['ssim']`, затем `['mean']['pearson']`. Постоянные реконструкции непостоянных целей записываются как ошибки; JSON не допускает NaN/Infinity.

@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "sample_id": "val_0003",
+    "split": "val",
+    "category": "mixed",
+    "manifest_sha256": "9d6e7a70acc06be7ffc3ee36ba8781c916d44b7afc8f9aef2627806b2c497f29",
+    "threads": 2,
+    "git_revision": "0640466778c8b4601eb4a2ed1f7d46870653ff45",
+    "method": "adam_phase",
+    "seed": 42,
+    "steps": 100,
+    "learning_rate": 0.1,
+    "optimized_planes": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "float_mse": {
+      "initial": 0.04876818507909775,
+      "final": 0.019509918987751007
+    },
+    "protocol": {
+      "wavelength_m": 5.32e-07,
+      "slm_pitch_m": 1e-05,
+      "distances_m": [
+        0.0241,
+        0.0253,
+        0.0265,
+        0.0277
+      ],
+      "image_size": 128,
+      "reconstruction_value": "amplitude",
+      "normalization": "per_plane_max",
+      "normalization_eps": 1e-08
+    },
+    "dx_out_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ],
+    "device": "cpu",
+    "versions": {
+      "python": "3.13.18",
+      "torch": "2.15.0"
+    },
+    "timing": {
+      "optimization_seconds": 0.2469522909996158,
+      "warmup_steps": 2,
+      "pipeline_seconds": 0.25565883300077985
+    },
+    "phase_png_quantized": true
+  },
+  "planes": [
+    {
+      "plane": 1,
+      "pearson": 0.37930603281645847,
+      "pearson_reason": null,
+      "ssim": 0.11672818122147266
+    },
+    {
+      "plane": 2,
+      "pearson": 0.6029815661283408,
+      "pearson_reason": null,
+      "ssim": 0.34523949822528444
+    },
+    {
+      "plane": 3,
+      "pearson": 0.43234389218391245,
+      "pearson_reason": null,
+      "ssim": 0.2926756368179993
+    },
+    {
+      "plane": 4,
+      "pearson": 0.10961804387195204,
+      "pearson_reason": null,
+      "ssim": 0.17496587697674137
+    }
+  ],
+  "mean": {
+    "pearson": 0.38106238375016593,
+    "ssim": 0.23240229831037443
+  },
+  "worst_plane": {
+    "pearson": 0.10961804387195204,
+    "ssim": 0.11672818122147266
+  },
+  "valid_pearson_pairs": 4,
+  "total_pairs": 4,
+  "failure_count": 0,
+  "errors": [],
+  "ssim_parameters": {
+    "data_range": 1.0,
+    "win_size": 7,
+    "gaussian_weights": false,
+    "use_sample_covariance": true,
+    "K1": 0.01,
+    "K2": 0.03
+  },
+  "skimage_version": "0.26.0"
+}
