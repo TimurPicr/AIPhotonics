@@ -65,7 +65,7 @@ def aggregate_results(results: list[dict]) -> dict:
 def main():
     from src.data import load_manifest
     from src.infer import load_predictor, infer_sample
-    from src.io import write_json
+    from src.io import file_hash, write_json
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path, required=True)
@@ -85,7 +85,7 @@ def main():
         result = infer_sample(model, targets, args.out / sample['id'],
                               metadata={**metadata, 'sample_id': sample['id'],
                                         'split': manifest['split'], 'category': sample['category'],
-                                        'manifest_sha256': __import__('src.io', fromlist=['file_hash']).file_hash(args.manifest)})
+                                        'manifest_sha256': file_hash(args.manifest)})
         results.append(result)
         categories.setdefault(sample['category'], []).append(result)
     summary = {'metadata': metadata, 'split': manifest['split'], 'aggregate': aggregate_results(results),
