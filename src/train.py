@@ -9,7 +9,9 @@ import json
 import math
 import os
 from pathlib import Path
+import platform
 import random
+import subprocess
 import tempfile
 import time
 
@@ -70,6 +72,7 @@ def save_checkpoint(
     protocol: dict | None = None,
     training_config: dict | None = None,
     validation: dict | None = None,
+    samples_seen: int = 0,
 ) -> None:
     """Save state dictionaries and plain metadata, never a pickled model object."""
     payload = {
@@ -78,6 +81,7 @@ def save_checkpoint(
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict() if optimizer is not None else None,
         "step": step,
+        "samples_seen": samples_seen,
         "protocol": protocol,
         "training_config": training_config or {},
         "torch_version": str(torch.__version__),
@@ -234,6 +238,7 @@ def fit(
     training_config: dict | None = None,
     optimizer: torch.optim.Optimizer | None = None,
     start_step: int = 0,
+    start_samples: int = 0,
     on_step: Callable[[dict], None] | None = None,
 ) -> list[dict]:
     """Run additional steps, saving the last finite state on normal/error exit."""
@@ -246,6 +251,7 @@ def fit(
         save_checkpoint(directory / "initial.pt", model, protocol=protocol, training_config=training_config)
     history = []
     completed = start_step
+    samples_seen = start_samples
     iterator = iter(batches)
     try:
         for step in range(start_step + 1, start_step + steps + 1):
@@ -256,7 +262,11 @@ def fit(
             started = time.perf_counter()
             result = train_step(model, targets.to(device), optimizer, objective=objective)
             completed = step
-            record = {"step": step, **result, "step_seconds": time.perf_counter() - started}
+            samples_seen += targets.shape[0]
+            record = {
+                "step": step, "samples_seen": samples_seen, "batch_size": targets.shape[0],
+                **result, "step_seconds": time.perf_counter() - started,
+            }
             history.append(record)
             if on_step is not None:
                 on_step(record)
@@ -265,6 +275,7 @@ def fit(
             save_checkpoint(
                 directory / "last.pt", model, optimizer=optimizer, step=completed,
                 protocol=protocol, training_config=training_config,
+                samples_seen=samples_seen,
             )
     return history
 
@@ -314,9 +325,19 @@ def main(argv: list[str] | None = None) -> int:
     protocol = current_protocol()
     settings = {key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()}
     settings["device"] = str(device)
+    from importlib.metadata import version
+    settings["versions"] = {
+        "python": platform.python_version(), "torch": str(torch.__version__),
+        "numpy": np.__version__, "pillow": version("Pillow"), "scikit_image": version("scikit-image"),
+    }
+    settings["git_revision"] = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=Path(__file__).resolve().parents[1],
+        capture_output=True, text=True, check=False,
+    ).stdout.strip() or None
     model = PhaseUNet(args.base_channels)
     optimizer = None
     start_step = 0
+    start_samples = 0
     resumed = None
     if args.resume is not None:
         model, resumed = load_checkpoint(args.resume, device=device, expected_protocol=protocol)
@@ -331,6 +352,7 @@ def main(argv: list[str] | None = None) -> int:
         for group in optimizer.param_groups:
             group["lr"] = args.lr
         start_step = resumed["step"]
+        start_samples = resumed.get("samples_seen", start_step * (args.overfit_samples or args.batch_size))
     batches = make_train_loader(args.overfit_samples or args.batch_size, args.seed)
     if args.overfit_samples:
         batches = itertools.repeat(next(iter(batches)))
@@ -338,8 +360,6 @@ def main(argv: list[str] | None = None) -> int:
         batches = iter(batches)
         for _ in range(start_step):
             next(batches)
-    if resumed is not None:
-        restore_rng_state(resumed)
     validation_samples = None
     if args.overfit_samples is None:
         manifest, validation_samples = load_manifest(args.val_manifest)
@@ -360,8 +380,10 @@ def main(argv: list[str] | None = None) -> int:
             _, previous = load_checkpoint(best_path, expected_protocol=protocol)
             if previous.get("validation") is not None:
                 best_score = validation_score(previous["validation"])
+        if resumed is not None:
+            restore_rng_state(resumed)
 
-        def report_validation(step: int, *, select: bool) -> None:
+        def report_validation(step: int, *, select: bool, samples_seen: int) -> None:
             nonlocal best_score
             result = evaluate_validation(model, validation_samples)
             score = validation_score(result)
@@ -374,6 +396,7 @@ def main(argv: list[str] | None = None) -> int:
                 save_checkpoint(
                     best_path, model, step=step, protocol=protocol,
                     training_config=settings, validation=result,
+                    samples_seen=samples_seen,
                 )
 
         def report(record: dict) -> None:
@@ -384,16 +407,17 @@ def main(argv: list[str] | None = None) -> int:
             if validation_samples is not None and (
                 record["step"] % args.val_every == 0 or record["step"] == start_step + args.steps
             ):
-                report_validation(record["step"], select=True)
+                report_validation(record["step"], select=True, samples_seen=record["samples_seen"])
 
         try:
             if validation_samples is not None:
-                report_validation(start_step, select=False)
+                report_validation(start_step, select=False, samples_seen=start_samples)
             fit(
                 model, batches, steps=args.steps, learning_rate=args.lr, device=device,
                 objective=objective, checkpoint_dir=args.checkpoint_dir,
                 protocol=protocol, training_config=settings, on_step=report,
                 optimizer=optimizer, start_step=start_step,
+                start_samples=start_samples,
             )
         except KeyboardInterrupt:
             print("Interrupted: last finite checkpoint saved.", flush=True)

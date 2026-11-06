@@ -26,6 +26,7 @@ def test_train_loop_learns_and_saves_last_state(tmp_path):
     assert len(records) == 12
     saved = torch.load(tmp_path / "last.pt", weights_only=True)
     assert saved["step"] == 12
+    assert saved["samples_seen"] == history[-1]["samples_seen"] == 12
     assert saved["optimizer_state_dict"]["state"]
     for key, value in model.state_dict().items():
         torch.testing.assert_close(value.cpu(), saved["model_state_dict"][key])

@@ -51,7 +51,11 @@ def test_resume_matches_uninterrupted_adam(tmp_path):
     optimizer = torch.optim.Adam(resumed.parameters())
     optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
     restore_rng_state(checkpoint)
-    fit(resumed, itertools.repeat(targets), steps=6, objective=objective, optimizer=optimizer, start_step=4)
+    history = fit(
+        resumed, itertools.repeat(targets), steps=6, objective=objective, optimizer=optimizer,
+        start_step=4, start_samples=checkpoint["samples_seen"],
+    )
+    assert history[-1]["samples_seen"] == 10
     for key, value in full.state_dict().items():
         torch.testing.assert_close(value, resumed.state_dict()[key], atol=0, rtol=0)
 
