@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from src.losses import physics_loss, reconstruction_mse
+from src.losses import differentiable_ssim, physics_loss, reconstruction_loss, reconstruction_mse
 
 
 def test_all_planes_have_equal_weight():
@@ -46,3 +46,25 @@ def test_complex_interface_fixture_keeps_phase_gradient():
 def test_rejects_accidental_broadcasting():
     with pytest.raises(ValueError, match="same shape"):
         reconstruction_mse(torch.ones(1, 4, 8, 8), torch.ones(4, 8, 8))
+
+
+@pytest.mark.parametrize("dtype,tolerance", [(torch.float32, 1e-4), (torch.float64, 1e-10)])
+def test_differentiable_ssim_matches_c_metric_and_has_gradients(dtype, tolerance):
+    from src.evaluate import evaluate_four
+
+    generator = torch.Generator().manual_seed(42)
+    predicted = torch.rand(1, 4, 128, 128, generator=generator, dtype=dtype, requires_grad=True)
+    targets = torch.rand(1, 4, 128, 128, generator=generator, dtype=dtype)
+    score = differentiable_ssim(predicted, targets)
+    expected = evaluate_four(targets, predicted)["mean"]["ssim"]
+    assert float(score.detach()) == pytest.approx(expected, abs=tolerance)
+    score.backward()
+    assert torch.isfinite(predicted.grad).all() and predicted.grad.abs().sum() > 0
+
+
+def test_ssim_objective_is_zero_for_identical_images():
+    image = torch.rand(1, 4, 16, 16)
+    torch.testing.assert_close(
+        reconstruction_loss(image, image, normalize_fn=lambda x: x, ssim_weight=0.1),
+        torch.tensor(0.0), atol=1e-6, rtol=0,
+    )

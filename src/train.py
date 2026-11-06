@@ -305,6 +305,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--base-channels", type=_positive_int, default=16)
     parser.add_argument("--interleave-factor", type=int, choices=[1, 2, 4, 8, 16], default=1)
     parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--ssim-weight", type=float, default=0.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--threads", type=_positive_int, default=2)
     parser.add_argument("--device", choices=["auto", "cpu", "cuda", "mps"], default="auto")
@@ -322,6 +323,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if not math.isfinite(args.lr) or args.lr <= 0:
         parser.error("--lr must be positive and finite")
+    if not math.isfinite(args.ssim_weight) or args.ssim_weight < 0:
+        parser.error("--ssim-weight must be finite and nonnegative")
     try:
         from config import DEFAULT_CONFIG
         from src.data import load_manifest, make_train_loader
@@ -383,7 +386,10 @@ def main(argv: list[str] | None = None) -> int:
     (args.run_dir / "config.json").write_text(json.dumps({**settings, "protocol": protocol}, indent=2) + "\n")
 
     def objective(phase: Tensor, targets: Tensor) -> Tensor:
-        return physics_loss(phase, targets, reconstruct_fn=reconstruct_four, normalize_fn=normalize_recons)
+        return physics_loss(
+            phase, targets, reconstruct_fn=reconstruct_four, normalize_fn=normalize_recons,
+            ssim_weight=args.ssim_weight,
+        )
 
     with (args.run_dir / "metrics.jsonl").open("a" if resumed is not None else "w") as log:
         best_score = None
