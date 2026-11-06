@@ -3,3 +3,5 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+data/external/medmnist/*.npz
+data/external/medmnist/*.npz.par
