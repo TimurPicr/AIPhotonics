@@ -64,3 +64,14 @@ def test_bad_checkpoint_fails_clearly(tmp_path):
     torch.save({"format_version": 999}, tmp_path / "bad.pt")
     with pytest.raises(ValueError, match="format_version"):
         load_checkpoint(tmp_path / "bad.pt")
+
+
+@pytest.mark.skipif(not torch.backends.mps.is_available(), reason="Metal is unavailable")
+def test_mps_rng_roundtrip(tmp_path):
+    seed_everything(51)
+    save_checkpoint(tmp_path / "mps.pt", PhaseUNet(base_channels=2))
+    expected = torch.rand(5, device="mps").cpu()
+    seed_everything(99)
+    _, checkpoint = load_checkpoint(tmp_path / "mps.pt")
+    restore_rng_state(checkpoint)
+    torch.testing.assert_close(torch.rand(5, device="mps").cpu(), expected, rtol=0, atol=0)

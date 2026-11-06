@@ -39,9 +39,16 @@ def current_protocol() -> dict:
 
 
 def select_device(requested: str = "auto") -> torch.device:
-    # Complex FFT support is required; CPU is the conservative Apple fallback.
-    name = ("cuda" if torch.cuda.is_available() else "cpu") if requested == "auto" else requested
-    device = torch.device(name)
+    if requested == "auto":
+        candidates = (["cuda"] if torch.cuda.is_available() else [])
+        candidates += ["mps"] if torch.backends.mps.is_available() else []
+        for name in candidates + ["cpu"]:
+            try:
+                return select_device(name)
+            except ValueError:
+                continue
+        raise ValueError("no device can run complex FFT/backward")
+    device = torch.device(requested)
     try:
         phase = torch.randn(1, 1, 16, 16, device=device, requires_grad=True)
         field = torch.fft.fft2(torch.exp(1j * phase))
@@ -100,6 +107,8 @@ def capture_rng_state() -> dict:
     }
     if torch.cuda.is_available():
         state["cuda"] = torch.cuda.get_rng_state_all()
+    if torch.backends.mps.is_available():
+        state["mps"] = torch.mps.get_rng_state()
     return state
 
 
@@ -111,6 +120,8 @@ def restore_rng_state(checkpoint: dict) -> None:
     torch.set_rng_state(state["torch"].cpu())
     if "cuda" in state and torch.cuda.is_available():
         torch.cuda.set_rng_state_all([value.cpu() for value in state["cuda"]])
+    if "mps" in state and torch.backends.mps.is_available():
+        torch.mps.set_rng_state(state["mps"].cpu())
 
 
 def load_checkpoint(
@@ -317,11 +328,11 @@ def main(argv: list[str] | None = None) -> int:
     except ImportError as error:
         parser.error(f"A/C dependencies are not ready: {error}; no stub training is allowed")
     torch.set_num_threads(args.threads)
-    seed_everything(args.seed)
     try:
         device = select_device(args.device)
     except ValueError as error:
         parser.error(str(error))
+    seed_everything(args.seed)
     protocol = current_protocol()
     settings = {key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()}
     settings["device"] = str(device)

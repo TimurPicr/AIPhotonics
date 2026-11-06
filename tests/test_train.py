@@ -62,3 +62,17 @@ def test_cli_arguments_and_cpu_fft_backward():
     with pytest.raises(SystemExit):
         build_parser().parse_args(["--steps", "0"])
     assert select_device("cpu").type == "cpu"
+
+
+def test_auto_device_falls_back_when_mps_is_unsupported(monkeypatch):
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
+    monkeypatch.setattr(torch.backends.mps, "is_available", lambda: True)
+    original = torch.randn
+
+    def unavailable_mps(*args, **kwargs):
+        if kwargs.get("device") == torch.device("mps"):
+            raise NotImplementedError("fixture: MPS FFT unavailable")
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(torch, "randn", unavailable_mps)
+    assert select_device("auto").type == "cpu"

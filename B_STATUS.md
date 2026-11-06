@@ -1,7 +1,7 @@
 # Передача роли B
 
-- B1.1–B1.4 готовы и отправлены; 18 тестов модели, loss, train-loop и checkpoint прошли.
-- Среда B: Python 3.12.14, PyTorch 2.15.0, CPU; комплексный FFT/backward работает.
+- B1.1–B1.4 готовы и отправлены; 20 тестов модели, loss, train-loop и checkpoint прошли.
+- Среда B: Python 3.12.14, PyTorch 2.15.0. CPU и Metal проверены; полный градиент U-Net/четырёх Френелей работает на Metal. `--device auto` проверяет ускоритель и откатывается на CPU; RNG Metal сохраняется/восстанавливается.
 - Загрузка: `from src.train import load_checkpoint, current_protocol`; `model, metadata = load_checkpoint(path, expected_protocol=current_protocol())`.
 - **Согласование с A:** конфигурация — `config.DEFAULT_CONFIG`, расстояния — `.distances_m`, протокол — `.snapshot()`. Протокол checkpoint теперь содержит эти значения, а не хеш исходника; C следует использовать `current_protocol()` в `src.infer.protocol_snapshot`.
 - `checkpoints/initial.pt` — необученная сеть для C2, с актуальным протоколом A. Она не является результатом обучения.
