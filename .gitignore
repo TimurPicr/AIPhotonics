@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 data/external/medmnist/*.npz
 data/external/medmnist/*.npz.par
+data/external/train55k/
+data/train55k/
+data/train55k_pilot/
