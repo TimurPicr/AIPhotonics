@@ -8,7 +8,7 @@ import pytest
 import torch
 
 from config import DEFAULT_CONFIG
-from src.physics import fresnel_1fft, output_pitch_m, propagate_four
+from src.physics import UnitaryFresnel, _fresnel_field_1fft, fresnel_1fft, output_pitch_m, propagate_four
 from src.reconstruction import normalize_recons, reconstruct_four
 
 
@@ -90,3 +90,22 @@ def test_four_plane_gradient_matches_finite_difference():
         step = 1e-2
         finite_difference = (loss(phase + step * direction) - loss(phase - step * direction)) / (2 * step)
     torch.testing.assert_close((gradient * direction).sum(), finite_difference, rtol=1e-2, atol=0)
+
+
+@pytest.mark.parametrize("z", DEFAULT_CONFIG.distances_m)
+@pytest.mark.parametrize("size", [5, 128])
+def test_unitary_fresnel_matches_physical_operator_and_its_adjoint(z, size):
+    rng = torch.Generator().manual_seed(123)
+    shape = (1, 1, size, size)
+    u = torch.randn(shape, generator=rng, dtype=torch.complex64)
+    v = torch.randn(shape, generator=rng, dtype=torch.complex64)
+    operator = UnitaryFresnel(u, z)
+    propagated = operator.forward(u)
+    lhs = torch.vdot(propagated.flatten(), v.flatten())
+    rhs = torch.vdot(u.flatten(), operator.adjoint(v).flatten())
+    assert (lhs - rhs).abs() / torch.maximum(lhs.abs(), rhs.abs()).clamp_min(1e-8) < 1e-5
+    assert (operator.adjoint(propagated) - u).norm() / u.norm() < 1e-5
+    assert (propagated.norm() - u.norm()).abs() / u.norm() < 1e-5
+
+    expected = _fresnel_field_1fft(u, z, DEFAULT_CONFIG) * (output_pitch_m(z, size) / DEFAULT_CONFIG.slm_pitch_m)
+    assert (propagated - expected).norm() / expected.norm() < 1e-5
