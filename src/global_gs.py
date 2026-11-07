@@ -43,7 +43,10 @@ def global_mp_gs(
     seed: int = 42,
     device: str | torch.device | None = None,
 ) -> Tensor:
-    """Return the phase-only mask after a fixed number of projections."""
+    """Return masks for independent quartets after a fixed number of projections.
+
+    Every quartet uses the same seeded initialization as a separate solver call.
+    """
     if iterations < 1:
         raise ValueError("iterations must be positive")
     if CONFIG.reconstruction_value != "amplitude":
@@ -51,8 +54,8 @@ def global_mp_gs(
     if targets.ndim == 3:
         targets = targets.unsqueeze(0)
     size = CONFIG.image_size
-    if targets.shape != (1, 4, size, size):
-        raise ValueError(f"Expected targets of shape [1, 4, {size}, {size}] or [4, {size}, {size}]")
+    if targets.ndim != 4 or targets.shape[0] < 1 or targets.shape[1:] != (4, size, size):
+        raise ValueError(f"Expected targets of shape [B, 4, {size}, {size}] or [4, {size}, {size}]")
     if targets.dtype not in (torch.float32, torch.float64):
         raise ValueError("Targets must be float32 or float64 in [0, 1]")
     if not torch.isfinite(targets).all() or (targets < 0).any() or (targets > 1).any():
@@ -62,7 +65,7 @@ def global_mp_gs(
     amplitudes = _target_amplitudes(targets)
     rng = torch.Generator().manual_seed(seed)
     phase = (torch.rand((1, 1, size, size), generator=rng, dtype=targets.dtype) * (2 * math.pi) - math.pi)
-    phase = phase.to(targets)
+    phase = phase.to(targets).expand(targets.shape[0], -1, -1, -1).clone()
     field = torch.exp(1j * phase)
     operators = tuple(UnitaryFresnel(field, z) for z in CONFIG.z_m)
     for _ in range(iterations):

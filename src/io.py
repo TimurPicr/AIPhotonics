@@ -54,13 +54,21 @@ def load_phase_png(path: str) -> torch.Tensor:
     return (read_png(path) * (2 * math.pi) - math.pi)[None, None]
 
 
-def quantize_png(values: torch.Tensor) -> torch.Tensor:
+def quantize_png(values: torch.Tensor, *, keep_device: bool = False) -> torch.Tensor:
     """Apply the same 8-bit conversion as a PNG round trip, in memory."""
+    if keep_device:
+        codes = (values.detach().clamp(0, 1) * 255).round().to(torch.uint8)
+        return codes.to(torch.float32) / 255
     codes = _png_codes(values.detach().cpu().numpy())
     return torch.from_numpy(codes.astype(np.float32) / 255)
 
 
-def quantize_phase(phase: torch.Tensor) -> torch.Tensor:
+def quantize_phase(phase: torch.Tensor, *, keep_device: bool = False) -> torch.Tensor:
+    if keep_device:
+        if phase.ndim != 4 or phase.shape[0] < 1 or phase.shape[1:] != (1, SIZE, SIZE) or not torch.isfinite(phase).all():
+            raise ValueError('Expected finite phase masks of shape [B, 1, 128, 128]')
+        values = (phase.detach().clamp(-math.pi, math.pi) + math.pi) / (2 * math.pi)
+        return quantize_png(values, keep_device=True) * (2 * math.pi) - math.pi
     values = torch.from_numpy(_phase_values(_array(phase, (1, 1, SIZE, SIZE))))
     return quantize_png(values) * (2 * math.pi) - math.pi
 

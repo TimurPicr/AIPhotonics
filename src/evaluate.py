@@ -48,14 +48,18 @@ def _plot_loss(log: Path, out: Path, *, through_epoch: int | None = None) -> boo
 
 
 @torch.no_grad()
+def _batch_scores(phases, targets):
+    quantized = quantize_phase(phases, keep_device=True)
+    images = quantize_png(normalize_recons(reconstruct_four(quantized)), keep_device=True)
+    ssim, pearson, valid = plane_metrics(images.double(), targets.to(images.device).double())
+    ssim, pearson, valid = ssim.cpu().tolist(), pearson.cpu().tolist(), valid.cpu().tolist()
+    return [{'ssim': s, 'pearson': [r if ok else None for r, ok in zip(p, v)]}
+            for s, p, v in zip(ssim, pearson, valid)]
+
+
+@torch.no_grad()
 def _score(phase, targets):
-    quantized = quantize_phase(phase).to(phase.device)
-    images = quantize_png(normalize_recons(reconstruct_four(quantized)))
-    ssim, pearson, valid = plane_metrics(images.double(), targets.cpu().double())
-    return {
-        "ssim": ssim[0].tolist(),
-        "pearson": [float(r) if ok else None for r, ok in zip(pearson[0], valid[0])],
-    }
+    return _batch_scores(phase, targets)[0]
 
 
 def _summary(samples, method_names=METHODS):
@@ -79,7 +83,7 @@ def _summary(samples, method_names=METHODS):
 @torch.no_grad()
 def validate_epoch(
     infer, dataset, out, *, epoch, batch_size, gs_iterations, seed, alpha, beta,
-    checkpoint, baseline_cache, progress=None,
+    checkpoint, baseline_cache, progress=None, device='cpu', preloaded_targets=None,
 ):
     """Score all validation quartets; reuse the unchanged Global MP-GS results.
 
@@ -87,25 +91,36 @@ def validate_epoch(
     Keep one JSON report, overwriting it after each complete validation pass.
     """
     rows, loss_sum = [], 0.0
-    loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
+    device = torch.device(device)
+    loader = torch.utils.data.DataLoader(dataset if preloaded_targets is None else preloaded_targets,
+                                        batch_size=batch_size, shuffle=False)
     for targets in loader:
+        targets = targets.to(device)
         phases, recons = infer(targets)
         value = float(reconstruction_loss(recons, targets, alpha=alpha, beta=beta))
         if not math.isfinite(value):
             raise FloatingPointError('Non-finite validation loss')
         loss_sum += value * len(targets)
-        for phase, target in zip(phases, targets):
-            sample = dataset.samples[len(rows)]
-            target = target[None]
-            if sample['id'] not in baseline_cache:
-                if (target.amax(dim=(-2, -1)) == 0).any():
-                    baseline_cache[sample['id']] = {
-                        'metrics': None, 'error': 'A black target plane is incompatible with nonzero conserved power'}
-                else:
-                    gs = global_mp_gs(target, iterations=gs_iterations, seed=seed, device='cpu')
-                    baseline_cache[sample['id']] = {'metrics': _score(gs, target), 'error': None}
+        batch_samples = dataset.samples[len(rows):len(rows) + len(targets)]
+        network_scores = _batch_scores(phases, targets)
+        black = (targets.amax(dim=(-2, -1)) == 0).any(dim=1).cpu().tolist()
+        missing = []
+        for index, (sample, is_black) in enumerate(zip(batch_samples, black)):
+            if sample['id'] in baseline_cache:
+                continue
+            if is_black:
+                baseline_cache[sample['id']] = {
+                    'metrics': None, 'error': 'A black target plane is incompatible with nonzero conserved power'}
+            else:
+                missing.append(index)
+        if missing:
+            selected = targets[missing]
+            gs = global_mp_gs(selected, iterations=gs_iterations, seed=seed, device=device)
+            for index, score in zip(missing, _batch_scores(gs, selected)):
+                baseline_cache[batch_samples[index]['id']] = {'metrics': score, 'error': None}
+        for sample, score in zip(batch_samples, network_scores):
             baseline = baseline_cache[sample['id']]
-            scores = {'network': _score(phase[None], target)}
+            scores = {'network': score}
             errors = {}
             if baseline['metrics'] is not None:
                 scores['global_mp_gs'] = baseline['metrics']
@@ -127,7 +142,8 @@ def validate_epoch(
         'checkpoint': str(checkpoint.resolve()), 'checkpoint_sha256': file_hash(checkpoint),
         'protocol': CONFIG.snapshot(), 'seed': seed, 'gs_iterations': gs_iterations,
         'quantization': 'phase and reconstructions, 8-bit',
-        'scoring_device': 'cpu', 'shared_pairs': shared, 'methods': methods, 'samples': rows,
+        'inference_device': str(device), 'scoring_device': str(device), 'gs_device': str(device),
+        'shared_pairs': shared, 'methods': methods, 'samples': rows,
     }
     temporary = out.with_suffix('.tmp')
     temporary.write_text(json.dumps(report, ensure_ascii=False, allow_nan=False) + '\n', encoding='utf-8')
