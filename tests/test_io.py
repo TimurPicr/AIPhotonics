@@ -44,35 +44,6 @@ def test_finite_validation(tmp_path):
         write_json(tmp_path / 'bad.json', {'x': float('nan')})
 
 
-def test_metrics_known_pairs():
-    from src.evaluate import evaluate_four, aggregate_results
-    target = torch.linspace(0, 1, 128 * 128).reshape(1, 1, 128, 128).repeat(1, 4, 1, 1)
-    identical = evaluate_four(target, target)
-    assert identical['mean']['pearson'] == pytest.approx(1)
-    assert identical['mean']['ssim'] == pytest.approx(1)
-    reversed_ = evaluate_four(target, 1 - target)
-    assert reversed_['mean']['pearson'] == pytest.approx(-1)
-    failure = evaluate_four(target, torch.zeros_like(target))
-    assert failure['valid_pearson_pairs'] == 0 and failure['failure_count'] == 4
-    diagnostic = evaluate_four(torch.zeros_like(target), torch.zeros_like(target))
-    assert diagnostic['mean']['pearson'] is None and diagnostic['failure_count'] == 0
-    aggregate = aggregate_results([identical, failure])
-    assert aggregate['total_pairs'] == 8 and aggregate['failure_count'] == 4
-    assert aggregate['valid_pearson_pairs'] == 4
-
-
-def test_train_stream():
-    from src.data import make_train_loader
-    a, b = iter(make_train_loader(2, 42)), iter(make_train_loader(2, 42))
-    first = next(a)
-    assert first.shape == (2, 4, 128, 128) and first.dtype == torch.float32
-    assert torch.equal(first, next(b))
-    second = next(a)
-    assert torch.equal(second, next(b)) and not torch.equal(first, second)
-    assert not torch.equal(first[:, 0], first[:, 1])
-    assert 0 <= first.min() <= first.max() <= 1
-
-
 def test_manifests_reproducible_disjoint_and_verified(tmp_path):
     from src.data import prepare_split, load_manifest, verify_disjoint
     distances = [0.0241, 0.0253, 0.0265, 0.0277]
@@ -89,27 +60,3 @@ def test_manifests_reproducible_disjoint_and_verified(tmp_path):
     write_png(torch.zeros(128, 128), path)
     with pytest.raises(ValueError, match='hash mismatch'):
         load_manifest(tmp_path / 'val/manifest.json')
-
-
-def test_export_uses_quantized_phase_and_saved_recons(tmp_path, monkeypatch):
-    import json
-    import sys
-    from types import SimpleNamespace
-    from src.evaluate import evaluate_four
-    from src.io import export_result
-    seen = []
-
-    def interface_only_reconstruction(phase):
-        seen.append(phase.clone())
-        return phase.sigmoid().repeat(1, 4, 1, 1)
-
-    monkeypatch.setitem(sys.modules, 'src.reconstruction', SimpleNamespace(
-        reconstruct_four=interface_only_reconstruction, normalize_recons=lambda x: x))
-    phase = torch.linspace(-math.pi, math.pi, 128 * 128).reshape(1, 1, 128, 128)
-    target = torch.rand(1, 4, 128, 128)
-    result = export_result(target, phase, tmp_path, metadata={'method': 'interface_test_only'})
-    assert torch.equal(seen[0], load_phase_png(str(tmp_path / 'phase.png')))
-    assert not torch.equal(seen[0], phase)
-    recon = load_four_png([str(tmp_path / f'recon_{i}.png') for i in range(1, 5)])
-    assert result['planes'] == evaluate_four(target, recon)['planes']
-    assert json.loads((tmp_path / 'metrics.json').read_text()) == result

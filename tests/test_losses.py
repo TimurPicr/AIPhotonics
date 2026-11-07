@@ -1,70 +1,31 @@
 import pytest
 import torch
 
-from src.losses import differentiable_ssim, physics_loss, reconstruction_loss, reconstruction_mse
+from src.losses import reconstruction_loss
 
 
-def test_all_planes_have_equal_weight():
-    values = torch.zeros(1, 4, 8, 8, requires_grad=True)
-    targets = torch.zeros_like(values)
-    targets[:, 2] = 1
-    loss = reconstruction_mse(values, targets, normalize_fn=lambda x: x)
-    torch.testing.assert_close(loss, torch.tensor(0.25))
+def test_loss_combines_ssim_and_pearson_with_requested_weights():
+    x = torch.linspace(0, 1, 64, dtype=torch.float64).reshape(1, 1, 8, 8).repeat(1, 4, 1, 1)
+    y = 1 - x
+    ssim_term = reconstruction_loss(y, x, alpha=1, beta=0)
+    pearson_term = reconstruction_loss(y, x, alpha=0, beta=1)
+    assert float(pearson_term) == pytest.approx(2.0)
+    torch.testing.assert_close(reconstruction_loss(y, x), 0.7 * ssim_term + 0.3 * pearson_term)
+    assert float(reconstruction_loss(x, x)) == pytest.approx(0, abs=1e-12)
+
+
+def test_pearson_averages_plane_correlations_with_equal_weight():
+    x = torch.linspace(0, 1, 64, dtype=torch.float64).reshape(1, 1, 8, 8)
+    targets = x.repeat(1, 4, 1, 1)
+    recons = torch.cat((0.1 * x, 0.3 + 0.1 * x, 1 - x, 1 - x), dim=1)
+    assert float(reconstruction_loss(recons, targets, alpha=0, beta=1)) == pytest.approx(1)
+
+
+def test_constant_planes_use_analytic_ssim_and_zero_pearson():
+    targets = torch.full((1, 4, 8, 8), 0.1, dtype=torch.float64)
+    recons = torch.full_like(targets, 0.3, requires_grad=True)
+    expected_ssim = (2 * 0.1 * 0.3 + 0.01**2) / (0.1**2 + 0.3**2 + 0.01**2)
+    loss = reconstruction_loss(recons, targets)
+    assert float(loss.detach()) == pytest.approx(0.7 * (1 - expected_ssim) + 0.3)
     loss.backward()
-    assert torch.count_nonzero(values.grad[:, 2]) == 64
-    assert torch.count_nonzero(values.grad[:, [0, 1, 3]]) == 0
-
-
-def test_delegates_normalization_without_detaching_gradients():
-    values = torch.full((2, 4, 8, 8), 0.5, requires_grad=True)
-    loss = reconstruction_mse(values, torch.zeros_like(values), normalize_fn=lambda x: 2 * x)
-    torch.testing.assert_close(loss, torch.tensor(1.0))
-    loss.backward()
-    assert torch.isfinite(values.grad).all()
-    assert (values.grad > 0).all()
-
-
-def test_complex_interface_fixture_keeps_phase_gradient():
-    # Explicit interface fixture, not the production Fresnel propagator.
-    phase = torch.randn(1, 1, 16, 16, requires_grad=True)
-    targets = torch.rand(1, 4, 16, 16)
-
-    def fixture(phi):
-        amplitude = torch.fft.fft2(torch.exp(1j * phi)).abs()
-        return amplitude.repeat(1, 4, 1, 1)
-
-    loss = physics_loss(
-        phase, targets, reconstruct_fn=fixture,
-        normalize_fn=lambda x: x / x.amax(dim=(-2, -1), keepdim=True).clamp_min(1e-8),
-    )
-    loss.backward()
-    assert loss.ndim == 0 and loss.is_floating_point()
-    assert torch.isfinite(phase.grad).all()
-    assert phase.grad.abs().sum() > 0
-
-
-def test_rejects_accidental_broadcasting():
-    with pytest.raises(ValueError, match="same shape"):
-        reconstruction_mse(torch.ones(1, 4, 8, 8), torch.ones(4, 8, 8))
-
-
-@pytest.mark.parametrize("dtype,tolerance", [(torch.float32, 1e-4), (torch.float64, 1e-10)])
-def test_differentiable_ssim_matches_c_metric_and_has_gradients(dtype, tolerance):
-    from src.evaluate import evaluate_four
-
-    generator = torch.Generator().manual_seed(42)
-    predicted = torch.rand(1, 4, 128, 128, generator=generator, dtype=dtype, requires_grad=True)
-    targets = torch.rand(1, 4, 128, 128, generator=generator, dtype=dtype)
-    score = differentiable_ssim(predicted, targets)
-    expected = evaluate_four(targets, predicted)["mean"]["ssim"]
-    assert float(score.detach()) == pytest.approx(expected, abs=tolerance)
-    score.backward()
-    assert torch.isfinite(predicted.grad).all() and predicted.grad.abs().sum() > 0
-
-
-def test_ssim_objective_is_zero_for_identical_images():
-    image = torch.rand(1, 4, 16, 16)
-    torch.testing.assert_close(
-        reconstruction_loss(image, image, normalize_fn=lambda x: x, ssim_weight=0.1),
-        torch.tensor(0.0), atol=1e-6, rtol=0,
-    )
+    assert torch.isfinite(recons.grad).all()

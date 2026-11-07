@@ -1,4 +1,4 @@
-"""Build the agreed 55,000 target PNGs: 10,000 / 1,250 / 2,500 ordered quartets."""
+"""Build 5,500 target PNGs: 1,000 / 125 / 250 ordered quartets."""
 from __future__ import annotations
 
 import argparse
@@ -6,7 +6,6 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 import hashlib
 import io
-import itertools
 import json
 import math
 from pathlib import Path
@@ -16,23 +15,18 @@ import subprocess
 import time
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont, ImageOps, __version__ as pillow_version
-from skimage import __version__ as skimage_version
-from skimage.metrics import structural_similarity
+from PIL import Image, ImageOps, __version__ as pillow_version
 import torch
 import torch.nn.functional as F
 
 from config import CONFIG
-from src.baseline import optimize_phase
-from src.data import _target
 from src.dataset_sources import RemoteZip, download
-from src.evaluate import evaluate_four, SSIM_PARAMETERS
 from src.io import export_phase_png, file_hash, load_four_png, load_phase_png, read_png, write_json, write_png
 from src.physics import output_pitch_m
 from src.reconstruction import normalize_recons, reconstruct_four
 
-GENERATOR = "mixed55k-v1"
-FAMILIES = ("smooth", "analytic", "mixed", "optimized")
+GENERATOR = "mixed55k-physical-v2"
+FAMILIES = ("smooth", "analytic", "mixed")
 COCO_ANNOTATIONS = "https://s3.amazonaws.com/images.cocodataset.org/annotations/annotations_trainval2017.zip"
 COCO_IMAGES = "https://s3.amazonaws.com/images.cocodataset.org/train2017/"
 VIMEO_URL = "https://www.kaggle.com/api/v1/datasets/download/maiimaii/vimeo-septuplet?datasetVersionNumber=2"
@@ -76,7 +70,7 @@ def make_phase(seed: int, family: str) -> tuple[torch.Tensor, dict]:
                           frequency=frequency, strength=strength)
         if family == "analytic":
             phase = analytic[None, None]
-        elif family in ("mixed", "optimized"):
+        elif family == "mixed":
             noise_scale = float(rng.uniform(0.05, 1.5))
             phase = analytic[None, None] + smooth + noise_scale * torch.randn((1, 1, 128, 128), generator=generator)
             parameters["noise_scale"] = noise_scale
@@ -107,36 +101,19 @@ def _save_sample(root: Path, sample: dict) -> dict:
     return sample
 
 
-def build_synthetic(root: Path, count: int, seed: int, *, batch_size: int, steps: int) -> list[dict]:
+def build_synthetic(root: Path, count: int, seed: int, *, batch_size: int) -> list[dict]:
     samples = []
     started = time.perf_counter()
     for start in range(0, count, batch_size):
         indices = list(range(start, min(start + batch_size, count)))
-        # Rebuild the entire original batch if one item is damaged. Adam's batch
-        # mean changes epsilon scaling when only a subset is regenerated.
-        pending = indices if any(_cached(root, "synthetic", index) is None for index in indices) else []
-        phases, descriptions, desired = [], {}, []
+        pending = [index for index in indices if _cached(root, "synthetic", index) is None]
+        phases, descriptions = [], {}
         for index in pending:
             local_seed = sample_seed(seed, "synthetic", index)
             family = FAMILIES[index % len(FAMILIES)]
             phase, parameters = make_phase(local_seed, family)
             descriptions[index] = {"seed": local_seed, "family": family, "parameters": parameters}
-            if family == "optimized":
-                targets = torch.stack([_target(np.random.default_rng(sample_seed(local_seed, "desired", plane)),
-                                              ("geometry", "symbols", "grayscale", "mixed")[plane])
-                                       for plane in range(4)])[None]
-                desired.append((index, phase, targets))
             phases.append(phase)
-        if desired:
-            initial = torch.cat([item[1] for item in desired])
-            targets = torch.cat([item[2] for item in desired])
-            fitted = optimize_phase(targets, initial_phase=initial, steps=steps, seed=seed)
-            for slot, (index, _, target) in enumerate(desired):
-                phases[pending.index(index)] = fitted[slot:slot + 1]
-                with torch.no_grad():
-                    mse = (normalize_recons(reconstruct_four(fitted[slot:slot + 1])) - target).square().mean().item()
-                descriptions[index]["optimization"] = {"steps": steps, "lr": 0.1,
-                    "desired_mse_float": mse, "targets_are": "reconstructions_of_fitted_phase"}
         if pending:
             quantized = []
             for index, phase in zip(pending, phases):
@@ -306,23 +283,17 @@ def build_similar(root: Path, cache: Path, count: int, seed: int, workers: int, 
                 rejected.append({"sequence_id": sequence_id, "reason": rejection_reason(error)})
         else:
             raise ValueError(f"No usable Vimeo septuplet for slot {index}: {rejected}")
-        sources, tensors = [], []
+        sources = []
         for plane, (frame, name, (tensor, preprocessing)) in enumerate(zip(frames, chosen_names, prepared), 1):
             path = root / "train" / "similar" / sample_id / f"{plane}.png"
             write_png(tensor, path)
-            tensors.append(tensor.numpy())
             sources.append(_record(root, path, f"vimeo90k:train:{sequence_id}:im{frame}",
                 dataset="Vimeo90K Septuplet original", archive_url=url, archive_member=name,
                 original_sha256=hashlib.sha256(payloads[name]).hexdigest(), sequence_id=sequence_id,
                 frame=frame, plane=plane, preprocessing=preprocessing))
-        pairwise = [{"frames": [frames[a], frames[b]],
-                     "ssim": float(structural_similarity(tensors[a], tensors[b], **SSIM_PARAMETERS))}
-                    for a, b in itertools.combinations(range(4), 2)]
         return _save_sample(root, {"id": sample_id, "category": "similar", "sources": sources,
             "sequence_id": sequence_id, "frame_indices": list(frames),
-            "rejected_sequences": previous.get("rejected_sequences", []) if previous else rejected,
-            "target_similarity": {"pairs": pairwise, "mean_ssim": float(np.mean([p["ssim"] for p in pairwise])),
-                                  "kind": "between_targets_not_optical_reconstruction"}})
+            "rejected_sequences": previous.get("rejected_sequences", []) if previous else rejected})
 
     samples = []
     with ThreadPoolExecutor(max_workers=workers) as pool:
@@ -339,16 +310,15 @@ def build_similar(root: Path, cache: Path, count: int, seed: int, workers: int, 
 def make_manifest(root: Path, samples: list[dict], seed: int) -> dict:
     project = Path(__file__).resolve().parent.parent
     revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=project, capture_output=True, text=True)
-    code_files = ["config.py", "src/build_dataset.py", "src/dataset_sources.py", "src/data.py",
-                  "src/physics.py", "src/reconstruction.py", "src/baseline.py", "src/io.py"]
+    code_files = ["config.py", "src/build_dataset.py", "src/dataset_sources.py",
+                  "src/physics.py", "src/reconstruction.py", "src/io.py"]
     manifest = {"generator": GENERATOR, "split": "train", "seed": seed,
         "size": len(samples), "target_images": len(samples) * 4,
         "z_m": list(CONFIG.z_m), "protocol": CONFIG.snapshot(),
         "dx_out_m": [output_pitch_m(z, 128) for z in CONFIG.z_m],
         "category_quartets": dict(Counter(sample["category"] for sample in samples)),
         "versions": {"python": platform.python_version(), "torch": str(torch.__version__),
-                     "numpy": np.__version__, "pillow": pillow_version, "skimage": skimage_version},
-        "ssim_parameters": SSIM_PARAMETERS,
+                     "numpy": np.__version__, "pillow": pillow_version},
         "git_revision": revision.stdout.strip() if revision.returncode == 0 else None,
         "code_sha256": {name: file_hash(project / name) for name in code_files}, "samples": samples}
     atomic_json(root / "train" / "manifest.json", manifest)
@@ -369,7 +339,7 @@ def verify_dataset(root: Path, *, audit_phase: bool = True) -> dict:
         expected = {key: value for key, value in json.loads(plan_path.read_text())["counts_quartets"].items() if value}
         if manifest["category_quartets"] != expected:
             raise ValueError("Dataset is incomplete relative to build_config.json")
-    minimum_ssim, synthetic, target_count, hash_count = 1.0, 0, 0, 0
+    synthetic, target_count, hash_count = 0, 0, 0
     category_counts = Counter()
     phase_hashes, coco_ids, sequence_ids, target_paths = set(), set(), set(), set()
     for index, sample in enumerate(manifest["samples"]):
@@ -406,10 +376,9 @@ def verify_dataset(root: Path, *, audit_phase: bool = True) -> dict:
             if audit_phase:
                 with torch.no_grad():
                     recons = normalize_recons(reconstruct_four(load_phase_png(str(phase_path))))
-                    png_values = recons.clamp(0, 1).mul(255).round().div(255)
-                scores = evaluate_four(load_four_png(paths), png_values)
-                minimum_ssim = min(minimum_ssim, scores["worst_plane"]["ssim"])
-                if scores["worst_plane"]["ssim"] < 0.99999 or scores["failure_count"]:
+                    recon_codes = recons.clamp(0, 1).mul(255).round()
+                target_codes = load_four_png(paths).mul(255).round()
+                if ((target_codes - recon_codes).abs() > 1).any():
                     raise ValueError(f"Synthetic phase consistency check failed: {sample['id']}")
         if (index + 1) % 1000 == 0:
             print(f"verified {index + 1}/{manifest['size']}", flush=True)
@@ -421,50 +390,23 @@ def verify_dataset(root: Path, *, audit_phase: bool = True) -> dict:
         raise ValueError("Target PNG files do not match the manifest")
     report = {"status": "verified", "quartets": manifest["size"], "target_images": target_count,
         "category_quartets": dict(category_counts), "synthetic_phase_masks": synthetic,
-        "synthetic_min_reconstruction_ssim": minimum_ssim if audit_phase and synthetic else None,
         "phase_audit": audit_phase, "checked_target_hashes": hash_count,
         "unique_coco_sources": len(coco_ids), "unique_vimeo_sequences": len(sequence_ids),
-        "manifest_sha256": file_hash(root / "train" / "manifest.json"),
-        "ssim_parameters": SSIM_PARAMETERS, "skimage_version": skimage_version,
-        "note": "Synthetic consistency is for known generating masks, not a trained model's predictions."}
+        "manifest_sha256": file_hash(root / "train" / "manifest.json")}
     atomic_json(root / "verification.json", report)
     return report
 
 
-def create_preview(root: Path, samples: list[dict]) -> None:
-    selected = []
-    for family in FAMILIES:
-        sample = next((s for s in samples if s.get("generation", {}).get("family") == family), None)
-        if sample:
-            selected.append((f"synthetic / {family}", sample))
-    for category in ("random", "similar"):
-        sample = next((s for s in samples if s["category"] == category), None)
-        if sample:
-            selected.append((category, sample))
-    if not selected:
-        return
-    canvas = Image.new("RGB", (4 * 144 + 16, len(selected) * 164 + 24), "white")
-    draw = ImageDraw.Draw(canvas)
-    font = ImageFont.load_default(size=15)
-    for row, (label, sample) in enumerate(selected):
-        draw.text((16, row * 164 + 8), label, fill="black", font=font)
-        for column, source in enumerate(sample["sources"]):
-            with Image.open(root / "train" / source["path"]) as png:
-                canvas.paste(png.convert("RGB"), (16 + column * 144, row * 164 + 32))
-    canvas.save(root / "preview.png")
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=Path("data/train55k"))
+    parser.add_argument("--root", type=Path, default=Path("data/train5.5k_physical"))
     parser.add_argument("--cache", type=Path, default=Path("data/external/train55k"))
     parser.add_argument("--category", choices=["all", "synthetic", "random", "similar"], default="all")
-    parser.add_argument("--synthetic-quartets", type=int, default=10000)
-    parser.add_argument("--random-quartets", type=int, default=1250)
-    parser.add_argument("--similar-quartets", type=int, default=2500)
+    parser.add_argument("--synthetic-quartets", type=int, default=1000)
+    parser.add_argument("--random-quartets", type=int, default=125)
+    parser.add_argument("--similar-quartets", type=int, default=250)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--batch-size", type=int, default=16)
-    parser.add_argument("--optimization-steps", type=int, default=100)
     parser.add_argument("--threads", type=int, default=2)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--vimeo-url", default=VIMEO_URL)
@@ -472,22 +414,21 @@ def main():
     args = parser.parse_args()
     counts = {"synthetic": args.synthetic_quartets, "random": args.random_quartets,
               "similar": args.similar_quartets}
-    if sum(counts.values()) < 1 or min(counts.values()) < 0 or min(args.batch_size, args.threads, args.workers, args.optimization_steps) < 1:
+    if sum(counts.values()) < 1 or min(counts.values()) < 0 or min(args.batch_size, args.threads, args.workers) < 1:
         parser.error("Counts must be nonnegative; execution parameters must be positive")
     torch.set_num_threads(args.threads)
     if args.verify_only:
         print(json.dumps(verify_dataset(args.root), indent=2))
         return
     plan = {"generator": GENERATOR, "seed": args.seed, "counts_quartets": counts,
-            "optimization_steps": args.optimization_steps, "protocol": CONFIG.snapshot(),
+            "protocol": CONFIG.snapshot(),
             "vimeo_url": args.vimeo_url, "batch_size": args.batch_size}
     plan_path = args.root / "build_config.json"
     if plan_path.exists() and json.loads(plan_path.read_text()) != plan:
         raise ValueError("Build parameters changed; use a new --root")
     atomic_json(plan_path, plan)
     if args.category in ("all", "synthetic"):
-        build_synthetic(args.root, counts["synthetic"], args.seed,
-                        batch_size=args.batch_size, steps=args.optimization_steps)
+        build_synthetic(args.root, counts["synthetic"], args.seed, batch_size=args.batch_size)
     if args.category in ("all", "random"):
         build_random(args.root, args.cache, counts["random"], args.seed, args.workers)
     if args.category in ("all", "similar"):
@@ -499,7 +440,6 @@ def main():
             if sample:
                 samples.append(sample)
     manifest = make_manifest(args.root, samples, args.seed)
-    create_preview(args.root, samples)
     complete = manifest["category_quartets"] == {key: value for key, value in counts.items() if value}
     atomic_json(args.root / "build_status.json", {"complete": complete,
                 "expected_quartets": counts, "actual_quartets": manifest["category_quartets"]})

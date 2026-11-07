@@ -48,23 +48,6 @@ def _target(rng: np.random.Generator, category: str, ood: bool = False) -> torch
     return torch.from_numpy(np.array(image, dtype=np.float32) / 255)
 
 
-class TrainStream:
-    def __init__(self, batch_size: int, seed: int):
-        if batch_size < 1:
-            raise ValueError('batch_size must be positive')
-        self.batch_size, self.seed = batch_size, seed
-
-    def __iter__(self):
-        rng = np.random.default_rng(self.seed)
-        while True:
-            yield torch.stack([torch.stack([_target(rng, str(rng.choice(CATEGORIES)))
-                                            for _ in range(4)]) for _ in range(self.batch_size)])
-
-
-def make_train_loader(batch_size: int, seed: int) -> TrainStream:
-    return TrainStream(batch_size, seed)
-
-
 class ManifestDataset(torch.utils.data.Dataset):
     """Read one fixed quartet at a time, without keeping a large dataset in RAM."""
 

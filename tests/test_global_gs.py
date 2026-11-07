@@ -1,14 +1,10 @@
-import json
 import math
 
 import pytest
 import torch
-from PIL import Image
 
 from config import CONFIG
-from src.evaluate import evaluate_four
-from src.global_gs import PHASE_EPS, _gs_step, _replace_amplitude, _target_amplitudes, global_mp_gs, run_global_gs
-from src.io import export_phase_png, export_result, load_four_png, load_phase_png, write_png
+from src.global_gs import PHASE_EPS, _gs_step, _replace_amplitude, _target_amplitudes, global_mp_gs
 from src.physics import UnitaryFresnel
 from src.reconstruction import normalize_recons, reconstruct_four
 
@@ -48,49 +44,14 @@ def test_invalid_target_fails_before_solving(value, message):
         global_mp_gs(targets, iterations=3)
 
 
-def test_reachable_png_targets_and_repeatable_gs_export(tmp_path):
+def test_solver_returns_repeatable_phase_for_reachable_targets():
     rng = torch.Generator().manual_seed(17)
-    codes = torch.randint(0, 256, (1, 1, 128, 128), generator=rng)
-    known_path = tmp_path / "known_phase.png"
-    export_phase_png(codes.float() / 255 * (2 * math.pi) - math.pi, str(known_path))
-    known_phase = load_phase_png(str(known_path))
-    values = normalize_recons(reconstruct_four(known_phase))
-    inputs = [tmp_path / f"target_{i}.png" for i in range(4)]
-    for image, path in zip(values[0], inputs):
-        write_png(image, path)
-    targets = load_four_png(inputs)
-    oracle = export_result(targets, known_phase, tmp_path / "oracle")
-    assert oracle["mean"] == {"pearson": pytest.approx(1.0), "ssim": pytest.approx(1.0)}
-
+    known_phase = torch.rand((1, 1, 128, 128), generator=rng) * (2 * math.pi) - math.pi
+    targets = normalize_recons(reconstruct_four(known_phase))
     before = torch.random.get_rng_state()
-    out = tmp_path / "gs"
-    report = run_global_gs(targets, out, iterations=3, eval_every=2, seed=42)
-    repeat = run_global_gs(targets[0], tmp_path / "repeat", iterations=3, eval_every=2, seed=42)
+    phase = global_mp_gs(targets, iterations=3, seed=42)
+    repeat = global_mp_gs(targets[0], iterations=3, seed=42)
     assert torch.equal(torch.random.get_rng_state(), before)
-
-    files = [out / "phase.png", *(out / f"recon_{i}.png" for i in range(1, 5))]
-    for path in files:
-        with Image.open(path) as image:
-            assert (image.format, image.mode, image.size) == ("PNG", "L", (128, 128))
-        assert path.read_bytes() == (tmp_path / "repeat" / path.name).read_bytes()
-    phase = load_phase_png(str(files[0]))
     assert phase.shape == (1, 1, 128, 128) and torch.isfinite(phase).all()
     assert phase.min() >= -math.pi and phase.max() <= math.pi
-    recons = load_four_png(files[1:])
-    expected = normalize_recons(reconstruct_four(phase)).mul(255).round().div(255)
-    torch.testing.assert_close(recons, expected, rtol=0, atol=0)
-    measured = evaluate_four(targets, recons)
-    assert measured == {key: report[key] for key in measured} == {key: repeat[key] for key in measured}
-    assert report == json.loads((out / "metrics.json").read_text())
-
-    history = json.loads((out / "history.json").read_text())
-    assert history == json.loads((tmp_path / "repeat" / "history.json").read_text())
-    assert [row["iteration"] for row in history["history"]] == [0, 2, 3]
-    assert all(math.isfinite(row[key]) for row in history["history"]
-               for key in ("mean_ssim", "min_ssim", "mean_pearson"))
-    best = max(history["history"], key=lambda row: (row["mean_ssim"], row["min_ssim"]))
-    assert best["iteration"] == history["best_iteration"] == report["metadata"]["best_iteration"]
-    assert best["mean_ssim"] == report["mean"]["ssim"]
-    assert best["min_ssim"] == report["worst_plane"]["ssim"]
-    timing = report["metadata"]["timing"]
-    assert 0 < timing["solve_seconds"] <= timing["total_seconds"]
+    torch.testing.assert_close(phase, repeat, rtol=0, atol=0)

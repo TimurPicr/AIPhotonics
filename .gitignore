@@ -8,3 +8,7 @@ data/external/medmnist/*.npz.par
 data/external/train55k/
 data/train55k/
 data/train55k_pilot/
+data/train55k_physical/
+data/train5.5k/
+data/train5.5k_physical/
+runs/

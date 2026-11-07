@@ -1,4 +1,4 @@
-"""Strict grayscale PNG IO and the shared quantized export path."""
+"""Strict grayscale PNG and phase mask IO."""
 from pathlib import Path
 import hashlib
 import json
@@ -34,16 +34,35 @@ def write_png(value: torch.Tensor, path: str | Path) -> None:
     array = _array(value, (SIZE, SIZE))
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(np.rint(np.clip(array, 0, 1) * 255).astype(np.uint8)).save(path)
+    Image.fromarray(_png_codes(array)).save(path)
+
+
+def _png_codes(values: np.ndarray) -> np.ndarray:
+    return np.rint(np.clip(values, 0, 1) * 255).astype(np.uint8)
+
+
+def _phase_values(phase: np.ndarray) -> np.ndarray:
+    return (np.clip(phase, -math.pi, math.pi) + math.pi) / (2 * math.pi)
 
 
 def export_phase_png(phi: torch.Tensor, path: str) -> None:
     array = _array(phi, (1, 1, SIZE, SIZE))[0, 0]
-    write_png(torch.from_numpy((np.clip(array, -math.pi, math.pi) + math.pi) / (2 * math.pi)), path)
+    write_png(torch.from_numpy(_phase_values(array)), path)
 
 
 def load_phase_png(path: str) -> torch.Tensor:
     return (read_png(path) * (2 * math.pi) - math.pi)[None, None]
+
+
+def quantize_png(values: torch.Tensor) -> torch.Tensor:
+    """Apply the same 8-bit conversion as a PNG round trip, in memory."""
+    codes = _png_codes(values.detach().cpu().numpy())
+    return torch.from_numpy(codes.astype(np.float32) / 255)
+
+
+def quantize_phase(phase: torch.Tensor) -> torch.Tensor:
+    values = torch.from_numpy(_phase_values(_array(phase, (1, 1, SIZE, SIZE))))
+    return quantize_png(values) * (2 * math.pi) - math.pi
 
 
 def file_hash(path: str | Path) -> str:
@@ -54,23 +73,3 @@ def write_json(path: str | Path, value: dict) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + '\n')
-
-
-def export_result(targets: torch.Tensor, phase: torch.Tensor, out: str | Path,
-                  *, metadata: dict | None = None) -> dict:
-    from src.reconstruction import reconstruct_four, normalize_recons
-    from src.evaluate import evaluate_four
-
-    _array(targets, (1, 4, SIZE, SIZE))
-    out = Path(out)
-    export_phase_png(phase, str(out / 'phase.png'))
-    quantized = load_phase_png(str(out / 'phase.png')).to(phase.device)
-    with torch.no_grad():
-        recons = normalize_recons(reconstruct_four(quantized)).cpu()
-    for index in range(4):
-        write_png(recons[0, index], out / f'recon_{index + 1}.png')
-    saved = load_four_png([str(out / f'recon_{i}.png') for i in range(1, 5)])
-    result = {'metadata': {**(metadata or {}), 'phase_png_quantized': True},
-              **evaluate_four(targets.cpu(), saved)}
-    write_json(out / 'metrics.json', result)
-    return result

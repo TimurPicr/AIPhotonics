@@ -1,103 +1,190 @@
-"""PNG metrics and fixed-manifest evaluation."""
-import argparse
-from pathlib import Path
+"""Compare a trained network and two phase solvers on a fixed manifest."""
 
-import numpy as np
-import skimage
-from skimage.metrics import structural_similarity
+import argparse
+import json
+import math
+from pathlib import Path
+from statistics import mean
+
 import torch
 
-SSIM_PARAMETERS = {'data_range': 1.0, 'win_size': 7, 'gaussian_weights': False,
-                   'use_sample_covariance': True, 'K1': 0.01, 'K2': 0.03}
+from config import CONFIG
+from src.baseline import optimize_phase
+from src.data import ManifestDataset
+from src.global_gs import global_mp_gs
+from src.io import file_hash, quantize_phase, quantize_png
+from src.losses import plane_metrics
+from src.reconstruction import normalize_recons, reconstruct_four
 
 
-def _mean(values):
-    valid = [value for value in values if value is not None]
-    return float(np.mean(valid)) if valid else None
+METHODS = ("network", "adam", "global_mp_gs")
+LABELS = {"network": "U-Net", "adam": "Adam", "global_mp_gs": "Global MP-GS"}
 
 
-def evaluate_four(targets: torch.Tensor, recons: torch.Tensor) -> dict:
-    for value in (targets, recons):
-        if tuple(value.shape) != (1, 4, 128, 128):
-            raise ValueError('Expected [1,4,128,128]')
-        if not torch.isfinite(value).all() or (value < 0).any() or (value > 1).any():
-            raise ValueError('Metrics require finite PNG values in [0,1]')
-    targets, recons = (v.detach().cpu().numpy().astype(np.float64)[0] for v in (targets, recons))
-    planes, errors = [], []
-    for index, (target, recon) in enumerate(zip(targets, recons), 1):
-        tc, rc = target - target.mean(), recon - recon.mean()
-        target_constant, recon_constant = not np.any(tc), not np.any(rc)
-        reason = 'constant_target' if target_constant else 'constant_reconstruction' if recon_constant else None
-        pearson = None if reason else float(np.clip(np.sum(tc * rc) / np.sqrt(np.sum(tc**2) * np.sum(rc**2)), -1, 1))
-        if reason:
-            errors.append({'plane': index, 'reason': reason, 'failure': not target_constant})
-        planes.append({'plane': index, 'pearson': pearson,
-                       'pearson_reason': reason,
-                       'ssim': float(structural_similarity(target, recon, **SSIM_PARAMETERS))})
-    return {'planes': planes, 'mean': {key: _mean([p[key] for p in planes]) for key in ('pearson', 'ssim')},
-            'worst_plane': {key: min((p[key] for p in planes if p[key] is not None), default=None)
-                            for key in ('pearson', 'ssim')},
-            'valid_pearson_pairs': sum(p['pearson'] is not None for p in planes),
-            'total_pairs': 4, 'failure_count': sum(e['failure'] for e in errors), 'errors': errors,
-            'ssim_parameters': SSIM_PARAMETERS, 'skimage_version': skimage.__version__}
+def _plot_loss(log: Path, out: Path, *, through_epoch: int | None = None) -> bool:
+    if not log.is_file():
+        return False
+    lines = log.read_text(encoding="utf-8").splitlines(keepends=True)
+    rows = [json.loads(line) for line in lines if line.endswith("\n") and line.strip()]
+    if through_epoch is not None:
+        rows = [row for row in rows if row["epoch"] <= through_epoch]
+    if not rows:
+        return False
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+    from matplotlib.figure import Figure
+    from matplotlib.ticker import MaxNLocator
+
+    figure = Figure(figsize=(7, 4), layout="constrained")
+    FigureCanvasAgg(figure)
+    axes = figure.subplots()
+    axes.plot([row["epoch"] for row in rows], [row["mean_loss"] for row in rows], ".-")
+    axes.set(title="Training loss", xlabel="Epoch", ylabel="Mean loss")
+    axes.xaxis.set_major_locator(MaxNLocator(integer=True))
+    axes.grid(alpha=0.25)
+    figure.savefig(out, dpi=150)
+    return True
 
 
-def aggregate_results(results: list[dict]) -> dict:
-    if not results:
-        raise ValueError('Cannot aggregate an empty set')
-    planes = []
-    for index in range(4):
-        pairs = [r['planes'][index] for r in results]
-        planes.append({'plane': index + 1,
-                       **{key: _mean([p[key] for p in pairs]) for key in ('pearson', 'ssim')},
-                       'valid_pearson_pairs': sum(p['pearson'] is not None for p in pairs),
-                       'total_pairs': len(pairs)})
-    all_pairs = [p for r in results for p in r['planes']]
-    return {'samples': len(results), 'total_pairs': len(all_pairs), 'planes': planes,
-            'mean': {key: _mean([p[key] for p in all_pairs]) for key in ('pearson', 'ssim')},
-            'worst_plane_mean': {key: min((p[key] for p in planes if p[key] is not None), default=None)
-                                 for key in ('pearson', 'ssim')},
-            'valid_pearson_pairs': sum(r['valid_pearson_pairs'] for r in results),
-            'failure_count': sum(r['failure_count'] for r in results),
-            'diagnostic_pairs': sum(len(r['errors']) for r in results)}
+@torch.no_grad()
+def _score(phase, targets):
+    quantized = quantize_phase(phase).to(phase.device)
+    images = quantize_png(normalize_recons(reconstruct_four(quantized)))
+    ssim, pearson, valid = plane_metrics(images.double(), targets.cpu().double())
+    return {
+        "ssim": ssim[0].tolist(),
+        "pearson": [float(r) if ok else None for r, ok in zip(pearson[0], valid[0])],
+    }
 
 
-def main():
-    from src.data import load_manifest
-    from src.infer import load_predictor, infer_sample
-    from src.io import file_hash, write_json
+def _summary(samples):
+    methods = {
+        method: {"solved": sum(method in row["metrics"] for row in samples), "mean": {}}
+        for method in METHODS
+    }
+    shared = {}
+    for metric in ("ssim", "pearson"):
+        pairs = [
+            values for row in samples if all(method in row["metrics"] for method in METHODS)
+            for values in zip(*(row["metrics"][method][metric] for method in METHODS))
+            if all(value is not None for value in values)
+        ]
+        shared[metric] = len(pairs)
+        for index, method in enumerate(METHODS):
+            methods[method]["mean"][metric] = mean(pair[index] for pair in pairs) if pairs else None
+    return methods, shared
+
+
+@torch.no_grad()
+def compare(
+    model, dataset: ManifestDataset, out: Path, *, adam_steps: int, adam_lr: float,
+    gs_iterations: int, seed: int, alpha: float, beta: float, checkpoint: Path, epoch: int, checkpoint_hash: str,
+) -> dict:
+    """Evaluate the same quantized phase and image pipeline for every solver."""
+    if min(adam_steps, gs_iterations) < 1:
+        raise ValueError("Baseline iteration counts must be positive")
+    if not math.isfinite(adam_lr) or adam_lr <= 0:
+        raise ValueError("Adam learning rate must be finite and positive")
+    out.mkdir(parents=True, exist_ok=False)
+    has_loss_plot = _plot_loss(checkpoint.with_name("training.jsonl"), out / "loss.png", through_epoch=epoch)
+    device = next(model.parameters()).device
+    model.eval()
+    samples = []
+    for index, sample in enumerate(dataset.samples):
+        targets = dataset[index][None].to(device)
+        mask, _ = model(targets)
+        adam = optimize_phase(targets, steps=adam_steps, lr=adam_lr, seed=seed, alpha=alpha, beta=beta)
+        scores = {"network": _score(mask, targets), "adam": _score(adam, targets)}
+        errors = {}
+        if (targets.amax(dim=(-2, -1)) == 0).any():
+            errors["global_mp_gs"] = "A black target plane is incompatible with nonzero conserved power"
+        else:
+            gs = global_mp_gs(targets, iterations=gs_iterations, seed=seed)
+            scores["global_mp_gs"] = _score(gs, targets)
+        samples.append({"id": sample["id"], "category": sample.get("category"), "metrics": scores, "errors": errors})
+        if (index + 1) % 10 == 0 or index + 1 == len(dataset):
+            print(f"Comparison {index + 1}/{len(dataset)}", flush=True)
+
+    methods, shared = _summary(samples)
+    report = {
+        "manifest": str(dataset.path.resolve()), "manifest_sha256": file_hash(dataset.path),
+        "checkpoint": str(checkpoint.resolve()), "checkpoint_sha256": checkpoint_hash,
+        "loss_plot": "loss.png" if has_loss_plot else None,
+        "epoch": epoch,
+        "split": dataset.manifest["split"], "quartets": len(dataset), "total_pairs": 4 * len(dataset),
+        "protocol": CONFIG.snapshot(), "device": str(device), "seed": seed,
+        "quantization": "phase and reconstructions, 8-bit",
+        "baseline_parameters": {"adam_steps": adam_steps, "adam_lr": adam_lr, "gs_iterations": gs_iterations,
+                                "alpha": alpha, "beta": beta},
+        "shared_pairs": shared, "methods": methods, "samples": samples,
+    }
+    (out / "summary.json").write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+                                      encoding="utf-8")
+    lines = [
+        "# Сравнение реконструкций",
+        "",
+        f"Набор `{report['split']}`, {len(dataset)} четвёрок. Веса U-Net после эпохи {epoch}. "
+        f"Adam — {adam_steps} шагов, "
+        f"Global MP-GS — {gs_iterations} итераций на четвёрку.",
+        "",
+        "| Метод | Средний SSIM | Средний Pearson | Решено четвёрок |",
+        "|---|---:|---:|---:|",
+    ]
+    for method, result in methods.items():
+        ssim, pearson = [
+            f"{result['mean'][metric]:.6f}" if result["mean"][metric] is not None else "—"
+            for metric in ("ssim", "pearson")
+        ]
+        lines.append(f"| {LABELS[method]} | {ssim} | {pearson} | {result['solved']}/{len(dataset)} |")
+    lines += [
+        "",
+        f"Общие пары для среднего SSIM — {shared['ssim']}/{report['total_pairs']}, "
+        f"для Pearson — {shared['pearson']}/{report['total_pairs']}.",
+        "Для каждой метрики набор пар одинаков для всех методов. "
+        "Пары с неопределённым Pearson исключаются из среднего Pearson. "
+        "Метрики каждой плоскости и причины пропусков сохранены в `summary.json`.",
+    ]
+    if has_loss_plot:
+        lines += ["", "![Training loss by epoch](loss.png)"]
+    (out / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return report
+
+
+def add_runtime_arguments(parser):
+    parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
+    parser.add_argument("--threads", type=int, default=2)
+
+
+def runtime(args):
+    if args.threads < 1:
+        raise ValueError("--threads must be positive")
+    torch.set_num_threads(args.threads)
+    if args.device == "cuda" and not torch.cuda.is_available():
+        raise ValueError("CUDA is unavailable")
+    device = "cuda" if args.device == "auto" and torch.cuda.is_available() else args.device
+    return torch.device("cpu" if device == "auto" else device)
+
+
+def main(argv=None):
+    from src.train import load_checkpoint
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--manifest', type=Path, required=True)
-    parser.add_argument('--checkpoint', type=Path, required=True)
-    parser.add_argument('--out', type=Path, required=True)
-    parser.add_argument('--device', default='cpu')
-    parser.add_argument('--threads', type=int, default=2)
-    args = parser.parse_args()
-    if args.threads < 1:
-        parser.error('--threads must be positive')
-    torch.set_num_threads(args.threads)
-    model, metadata = load_predictor(args.checkpoint, args.device)
-    manifest, samples = load_manifest(args.manifest)
-    from config import CONFIG
-    if list(CONFIG.z_m) != manifest['z_m']:
-        raise ValueError('Manifest distances differ from active protocol')
-    metadata.update(run_id=args.out.name, split=manifest['split'], dataset_seed=manifest['seed'],
-                    manifest_sha256=file_hash(args.manifest))
-    results, categories, errors = [], {}, []
-    for sample, targets in samples:
-        result = infer_sample(model, targets, args.out / sample['id'],
-                              metadata={**metadata, 'sample_id': sample['id'],
-                                        'split': manifest['split'], 'category': sample['category'],
-                                        'inputs': sample['sources']})
-        results.append(result)
-        errors.extend({'sample_id': sample['id'], **error} for error in result['errors'])
-        categories.setdefault(sample['category'], []).append(result)
-    summary = {'metadata': metadata, 'split': manifest['split'], 'aggregate': aggregate_results(results), 'errors': errors,
-               'categories': {name: aggregate_results(group) for name, group in categories.items()}}
-    write_json(args.out / 'summary.json', summary)
-    print(summary['aggregate'])
+    parser.add_argument("--checkpoint", type=Path, required=True)
+    parser.add_argument("--eval-manifest", type=Path, required=True)
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--adam-steps", type=int)
+    parser.add_argument("--adam-lr", type=float)
+    parser.add_argument("--gs-iterations", type=int)
+    add_runtime_arguments(parser)
+    args = parser.parse_args(argv)
+    model, checkpoint = load_checkpoint(args.checkpoint, runtime(args))
+    settings = checkpoint["baseline_config"].copy()
+    settings.update({name: getattr(args, name) for name in settings if getattr(args, name, None) is not None})
+    compare(model, ManifestDataset(args.eval_manifest), args.out, checkpoint=args.checkpoint, epoch=checkpoint["epochs"],
+            checkpoint_hash=checkpoint["checkpoint_sha256"],
+            **settings, **checkpoint["loss_config"])
+    print(args.out / "report.md")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

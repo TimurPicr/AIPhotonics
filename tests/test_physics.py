@@ -8,8 +8,14 @@ import pytest
 import torch
 
 from config import DEFAULT_CONFIG
-from src.physics import UnitaryFresnel, _fresnel_field_1fft, fresnel_1fft, output_pitch_m, propagate_four
+from src.physics import UnitaryFresnel, _fresnel_field_1fft, backpropagate_four, fresnel_1fft, output_pitch_m, propagate_four
 from src.reconstruction import normalize_recons, reconstruct_four
+
+
+def test_plane_inverse_returns_physical_fields_to_the_slm():
+    phase = torch.rand(2, 1, 32, 32, generator=torch.Generator().manual_seed(42))
+    actual = backpropagate_four(propagate_four(phase))
+    torch.testing.assert_close(actual, torch.exp(1j * phase).expand_as(actual), atol=1e-6, rtol=1e-6)
 
 
 def _direct_fresnel(phase: torch.Tensor, z: float) -> torch.Tensor:
@@ -79,16 +85,16 @@ def test_four_plane_gradient_matches_finite_difference():
     phase = torch.randn(1, 1, 8, 8, generator=generator).requires_grad_()
     direction = torch.randn(phase.shape, generator=generator)
     direction /= direction.norm()
-    targets = torch.rand(1, 4, 8, 8, generator=generator)
+    weights = torch.rand(1, 4, 8, 8, generator=generator)
 
-    def loss(phi):
-        return (normalize_recons(reconstruct_four(phi)) - targets).square().mean()
+    def probe(phi):
+        return (normalize_recons(reconstruct_four(phi)) * weights).mean()
 
-    (gradient,) = torch.autograd.grad(loss(phase), phase)
+    (gradient,) = torch.autograd.grad(probe(phase), phase)
     assert torch.isfinite(gradient).all() and gradient.norm() > 0
     with torch.no_grad():
         step = 1e-2
-        finite_difference = (loss(phase + step * direction) - loss(phase - step * direction)) / (2 * step)
+        finite_difference = (probe(phase + step * direction) - probe(phase - step * direction)) / (2 * step)
     torch.testing.assert_close((gradient * direction).sum(), finite_difference, rtol=1e-2, atol=0)
 
 

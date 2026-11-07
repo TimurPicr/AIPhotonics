@@ -84,3 +84,18 @@ def fresnel_1fft(phase: Tensor, z_m: float, *, config: OpticalConfig = DEFAULT_C
 def propagate_four(phase: Tensor, *, config: OpticalConfig = DEFAULT_CONFIG) -> Tensor:
     """Propagate in configuration order; output has shape [B, 4, N, N]."""
     return torch.cat([fresnel_1fft(phase, z, config=config) for z in config.distances_m], dim=1)
+
+
+def backpropagate_four(fields: Tensor, *, config: OpticalConfig = DEFAULT_CONFIG) -> Tensor:
+    """Return each complex reconstruction plane to the SLM with the inverse of P_z."""
+    if fields.ndim != 4 or fields.shape[1] != len(config.distances_m):
+        raise ValueError("fields must have shape [B, 4, N, N] in distance order")
+    size = fields.shape[-1]
+    returned = []
+    for index, z in enumerate(config.distances_m):
+        field = fields[:, index:index + 1]
+        operator = UnitaryFresnel(field, z, config=config)
+        # P_z = (dx_in / dx_out) * unitary P_z, so its inverse scales by dx_out / dx_in.
+        scale = output_pitch_m(z, size, config=config) / config.slm_pitch_m
+        returned.append(operator.adjoint(field) * scale)
+    return torch.cat(returned, dim=1)

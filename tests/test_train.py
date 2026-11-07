@@ -1,92 +1,87 @@
-import itertools
+import json
 
 import pytest
 import torch
+from PIL import Image
 
-from src.model import PhaseUNet
-from src.train import build_parser, fit, seed_everything, select_device, train_step
-
-
-def interface_objective(phase, targets):
-    # Test fixture, deliberately not a physical propagator.
-    return (torch.sigmoid(phase).expand_as(targets) - targets).square().mean()
+import src.train as training
+from src.data import prepare_split
+from src.evaluate import _summary, main as evaluate
+from src.train import load_checkpoint, main as train
 
 
-def test_train_loop_learns_and_saves_last_state(tmp_path):
-    seed_everything(42)
-    model = PhaseUNet(base_channels=2)
-    targets = torch.full((1, 4, 16, 16), 0.8)
-    records = []
-    history = fit(
-        model, itertools.repeat(targets), steps=12, objective=interface_objective,
-        checkpoint_dir=tmp_path, on_step=records.append,
-    )
-    assert history[-1]["loss"] < history[0]["loss"]
-    assert all(record["gradient_norm"] > 0 for record in history)
-    assert len(records) == 12
-    saved = torch.load(tmp_path / "last.pt", weights_only=True)
-    assert saved["step"] == 12
-    assert saved["samples_seen"] == history[-1]["samples_seen"] == 12
-    assert saved["optimizer_state_dict"]["state"]
-    for key, value in model.state_dict().items():
-        torch.testing.assert_close(value.cpu(), saved["model_state_dict"][key])
-    assert not list(tmp_path.glob("*.tmp"))
+def test_training_writes_checkpoint_and_reproducible_comparison(tmp_path):
+    prepare_split(tmp_path, "train", 2, seed=1)
+    prepare_split(tmp_path, "val", 1)
+    manifest = str(tmp_path / "val/manifest.json")
+    run = tmp_path / "run"
+    train(["--train-manifest", str(tmp_path / "train/manifest.json"), "--eval-manifest", manifest,
+           "--epochs", "2", "--batch-size", "3", "--base-channels", "2",
+           "--adam-steps", "2", "--gs-iterations", "2", "--device", "cpu", "--out", str(run)])
+    path = run / "last.pt"
+    _, checkpoint = load_checkpoint(path, torch.device("cpu"))
+    assert checkpoint["epochs"] == 2
+    assert list(run.glob("*.pt")) == [path]
+    log = [json.loads(line) for line in (run / "training.jsonl").read_text().splitlines()]
+    assert [row["epoch"] for row in log] == [1, 2] and all(row["quartets"] == 2 for row in log)
+    report = json.loads((run / "comparison/summary.json").read_text(encoding="utf-8"))
+    assert report["shared_pairs"] == {"ssim": 4, "pearson": 4}
+    assert set(report["methods"]) == {"network", "adam", "global_mp_gs"}
+    assert all(-1 <= value <= 1 for result in report["methods"].values() for value in result["mean"].values())
+    assert report["epoch"] == 2 and "epoch_metrics" not in report
+    markdown = (run / "comparison/report.md").read_text(encoding="utf-8")
+    assert "![Training loss by epoch](loss.png)" in markdown
+    assert report["loss_plot"] == "loss.png"
+    with Image.open(run / "comparison/loss.png") as plot:
+        assert plot.format == "PNG" and plot.width > 500 and plot.height > 200
+    assert not (run / "comparison/metrics.png").exists()
+    (run / "epoch_0001.pt").write_bytes(b"unused archive from a previous run")
+    replay = tmp_path / "replay"
+    evaluate(["--checkpoint", str(path), "--eval-manifest", manifest, "--device", "cpu", "--out", str(replay)])
+    assert json.loads((replay / "summary.json").read_text(encoding="utf-8")) == report
+    assert (replay / "loss.png").is_file()
+    assert not (replay / "metrics.png").exists()
 
 
-def test_nonfinite_objective_does_not_update_parameters():
-    model = PhaseUNet(base_channels=2)
-    before = {key: value.clone() for key, value in model.state_dict().items()}
-    optimizer = torch.optim.Adam(model.parameters())
-    with pytest.raises(FloatingPointError, match="finite real scalar"):
-        train_step(model, torch.rand(1, 4, 16, 16), optimizer, objective=lambda p, t: p.sum() * float("nan"))
-    for key, value in model.state_dict().items():
-        torch.testing.assert_close(value, before[key])
+def test_interruption_during_next_epoch_keeps_previous_weights(tmp_path, monkeypatch):
+    prepare_split(tmp_path, "train", 1, seed=1)
+    manifest = str(tmp_path / "train/manifest.json")
+    run = tmp_path / "run"
+    original_loss = training.reconstruction_loss
+    calls = 0
 
+    def interrupt_second_epoch(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise KeyboardInterrupt
+        return original_loss(*args, **kwargs)
 
-def test_interrupted_callback_saves_completed_step(tmp_path):
-    model = PhaseUNet(base_channels=2)
-
-    def interrupt(record):
-        raise KeyboardInterrupt
-
+    monkeypatch.setattr(training, "reconstruction_loss", interrupt_second_epoch)
     with pytest.raises(KeyboardInterrupt):
-        fit(
-            model, itertools.repeat(torch.rand(1, 4, 16, 16)), steps=5,
-            objective=interface_objective, checkpoint_dir=tmp_path, on_step=interrupt,
-        )
-    assert torch.load(tmp_path / "last.pt", weights_only=True)["step"] == 1
+        train(["--train-manifest", manifest, "--evaluate-train", "--epochs", "2", "--base-channels", "2",
+               "--adam-steps", "1", "--gs-iterations", "1", "--device", "cpu", "--out", str(run)])
+    path = run / "last.pt"
+    _, checkpoint = load_checkpoint(path, torch.device("cpu"))
+    assert checkpoint["epochs"] == 1
+    assert list(run.glob("*.pt")) == [path]
+    assert not (run / "comparison").exists()
+    with (run / "training.jsonl").open("a") as log:
+        log.write('{"epoch": 2, "mean_lo')
+    out = tmp_path / "partial_report"
+    evaluate(["--checkpoint", str(run / "last.pt"), "--eval-manifest", manifest, "--device", "cpu", "--out", str(out)])
+    report = json.loads((out / "summary.json").read_text(encoding="utf-8"))
+    assert report["epoch"] == 1
+    assert (out / "loss.png").is_file()
 
 
-def test_cli_arguments_and_cpu_fft_backward():
-    assert build_parser().parse_args(["--steps", "20"]).steps == 20
-    with pytest.raises(SystemExit):
-        build_parser().parse_args(["--steps", "0"])
-    assert select_device("cpu").type == "cpu"
-
-
-def test_auto_device_falls_back_when_mps_is_unsupported(monkeypatch):
-    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
-    monkeypatch.setattr(torch.backends.mps, "is_available", lambda: True)
-    original = torch.randn
-
-    def unavailable_mps(*args, **kwargs):
-        if kwargs.get("device") == torch.device("mps"):
-            raise NotImplementedError("fixture: MPS FFT unavailable")
-        return original(*args, **kwargs)
-
-    monkeypatch.setattr(torch, "randn", unavailable_mps)
-    assert select_device("auto").type == "cpu"
-
-
-@pytest.mark.parametrize("interleave_factor", [1, 4])
-def test_real_four_plane_objective_updates_network_weights(interleave_factor):
-    from src.data import make_train_loader
-
-    seed_everything(42)
-    model = PhaseUNet(base_channels=2, interleave_factor=interleave_factor)
-    before = model.head.weight.detach().clone()
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-    result = train_step(model, next(iter(make_train_loader(1, 42))), optimizer)
-    assert result["gradient_norm"] > 0
-    assert result["loss"] >= 0
-    assert not torch.equal(model.head.weight.detach(), before)
+def test_summary_uses_shared_pairs_when_one_method_fails_or_pearson_is_undefined():
+    full = {"ssim": [0.1, 0.2, 0.3, 0.4], "pearson": [0.3, 0.4, 0.6, 0.7]}
+    partial = {"ssim": [0.4] * 4, "pearson": [0.0, None, 0.0, 0.0]}
+    methods, shared = _summary([
+        {"metrics": {"network": full, "adam": full, "global_mp_gs": partial}},
+        {"metrics": {"network": full, "adam": full}},
+    ])
+    assert shared == {"ssim": 4, "pearson": 3}
+    assert methods["network"]["mean"]["pearson"] == pytest.approx((0.3 + 0.6 + 0.7) / 3)
+    assert methods["global_mp_gs"]["solved"] == 1
