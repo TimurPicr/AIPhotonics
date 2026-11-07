@@ -10,7 +10,7 @@ class OpticalConfig:
     slm_pitch_m: float = 10e-6
     distances_m: tuple[float, ...] = (0.0241, 0.0253, 0.0265, 0.0277)
     image_size: int = 128
-    # Working assumption until the full task statement is confirmed.
+    # Using "amplitude" reconstruction (by rules).
     reconstruction_value: Literal["amplitude", "intensity"] = "amplitude"
     normalization: Literal["per_plane_max"] = "per_plane_max"
     normalization_eps: float = 1e-8
