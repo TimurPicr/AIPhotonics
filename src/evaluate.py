@@ -13,7 +13,7 @@ from src.baseline import optimize_phase
 from src.data import ManifestDataset
 from src.global_gs import global_mp_gs
 from src.io import file_hash, quantize_phase, quantize_png
-from src.losses import plane_metrics
+from src.losses import plane_metrics, reconstruction_loss
 from src.reconstruction import normalize_recons, reconstruct_four
 
 
@@ -26,6 +26,7 @@ def _plot_loss(log: Path, out: Path, *, through_epoch: int | None = None) -> boo
         return False
     lines = log.read_text(encoding="utf-8").splitlines(keepends=True)
     rows = [json.loads(line) for line in lines if line.endswith("\n") and line.strip()]
+    rows = [row for row in rows if row.get("event", "epoch") == "epoch"]
     if through_epoch is not None:
         rows = [row for row in rows if row["epoch"] <= through_epoch]
     if not rows:
@@ -57,22 +58,81 @@ def _score(phase, targets):
     }
 
 
-def _summary(samples):
+def _summary(samples, method_names=METHODS):
     methods = {
         method: {"solved": sum(method in row["metrics"] for row in samples), "mean": {}}
-        for method in METHODS
+        for method in method_names
     }
     shared = {}
     for metric in ("ssim", "pearson"):
         pairs = [
-            values for row in samples if all(method in row["metrics"] for method in METHODS)
-            for values in zip(*(row["metrics"][method][metric] for method in METHODS))
+            values for row in samples if all(method in row["metrics"] for method in method_names)
+            for values in zip(*(row["metrics"][method][metric] for method in method_names))
             if all(value is not None for value in values)
         ]
         shared[metric] = len(pairs)
-        for index, method in enumerate(METHODS):
+        for index, method in enumerate(method_names):
             methods[method]["mean"][metric] = mean(pair[index] for pair in pairs) if pairs else None
     return methods, shared
+
+
+@torch.no_grad()
+def validate_epoch(
+    infer, dataset, out, *, epoch, batch_size, gs_iterations, seed, alpha, beta,
+    checkpoint, baseline_cache, progress=None,
+):
+    """Score all validation quartets; reuse the unchanged Global MP-GS results.
+
+    Both methods use _score's reference optics and identical 8-bit quantization.
+    Keep one JSON report, overwriting it after each complete validation pass.
+    """
+    rows, loss_sum = [], 0.0
+    loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
+    for targets in loader:
+        phases, recons = infer(targets)
+        value = float(reconstruction_loss(recons, targets, alpha=alpha, beta=beta))
+        if not math.isfinite(value):
+            raise FloatingPointError('Non-finite validation loss')
+        loss_sum += value * len(targets)
+        for phase, target in zip(phases, targets):
+            sample = dataset.samples[len(rows)]
+            target = target[None]
+            if sample['id'] not in baseline_cache:
+                if (target.amax(dim=(-2, -1)) == 0).any():
+                    baseline_cache[sample['id']] = {
+                        'metrics': None, 'error': 'A black target plane is incompatible with nonzero conserved power'}
+                else:
+                    gs = global_mp_gs(target, iterations=gs_iterations, seed=seed, device='cpu')
+                    baseline_cache[sample['id']] = {'metrics': _score(gs, target), 'error': None}
+            baseline = baseline_cache[sample['id']]
+            scores = {'network': _score(phase[None], target)}
+            errors = {}
+            if baseline['metrics'] is not None:
+                scores['global_mp_gs'] = baseline['metrics']
+            else:
+                errors['global_mp_gs'] = baseline['error']
+            rows.append({'id': sample['id'], 'category': sample.get('category'), 'metrics': scores, 'errors': errors})
+            if len(rows) % 50 == 0 or len(rows) == len(dataset):
+                message = {'event': 'validation_progress', 'epoch': epoch,
+                           'quartets': len(rows), 'total_quartets': len(dataset)}
+                if progress:
+                    progress(message)
+                else:
+                    print(json.dumps(message), flush=True)
+    methods, shared = _summary(rows, ('network', 'global_mp_gs'))
+    report = {
+        'epoch': epoch, 'split': dataset.manifest['split'], 'quartets': len(dataset),
+        'total_pairs': 4 * len(dataset), 'mean_loss': loss_sum / len(dataset),
+        'manifest': str(dataset.path.resolve()), 'manifest_sha256': file_hash(dataset.path),
+        'checkpoint': str(checkpoint.resolve()), 'checkpoint_sha256': file_hash(checkpoint),
+        'protocol': CONFIG.snapshot(), 'seed': seed, 'gs_iterations': gs_iterations,
+        'quantization': 'phase and reconstructions, 8-bit',
+        'scoring_device': 'cpu', 'shared_pairs': shared, 'methods': methods, 'samples': rows,
+    }
+    temporary = out.with_suffix('.tmp')
+    temporary.write_text(json.dumps(report, ensure_ascii=False, allow_nan=False) + '\n', encoding='utf-8')
+    temporary.replace(out)
+    return report
 
 
 @torch.no_grad()
