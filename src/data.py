@@ -1,5 +1,6 @@
 """Seeded, independent 2D targets; no external datasets are required."""
 import argparse
+import hashlib
 from pathlib import Path
 
 import numpy as np
@@ -49,13 +50,30 @@ def _target(rng: np.random.Generator, category: str, ood: bool = False) -> torch
 
 
 class ManifestDataset(torch.utils.data.Dataset):
-    """Read one fixed quartet at a time, without keeping a large dataset in RAM."""
+    """Read PNG manifests or memory-mapped uint8 [N, H, W, 4] NumPy arrays."""
 
     def __init__(self, path: str | Path, *, verify: bool = True):
         import json
         from config import CONFIG
 
         self.path = Path(path)
+        self._array = None
+        if self.path.suffix == '.npy':
+            self._array = np.load(self.path, mmap_mode='r', allow_pickle=False)
+            if (self._array.dtype != np.uint8 or self._array.ndim != 4
+                    or self._array.shape[1:] != (SIZE, SIZE, 4) or len(self._array) == 0):
+                raise ValueError('Expected nonempty uint8 NumPy array [N, 128, 128, 4]')
+            self.samples = []
+            for index, images in enumerate(self._array):
+                hashes = [hashlib.sha256(images[:, :, plane].tobytes()).hexdigest() for plane in range(4)]
+                self.samples.append({'id': f'{self.path.stem}_{index:05d}', 'sources': [
+                    {'id': f'raw:{digest}', 'sha256': digest, 'plane': plane + 1}
+                    for plane, digest in enumerate(hashes)]})
+            self.manifest = {'split': {'validation': 'val'}.get(self.path.stem, self.path.stem),
+                             'size': len(self.samples), 'samples': self.samples,
+                             'z_m': list(CONFIG.z_m), 'protocol': CONFIG.snapshot(),
+                             'source_hash': 'sha256 of raw uint8 pixels'}
+            return
         self.manifest = json.loads(self.path.read_text())
         self.samples = self.manifest['samples']
         self.verify = verify
@@ -70,6 +88,8 @@ class ManifestDataset(torch.utils.data.Dataset):
         return len(self.samples)
 
     def __getitem__(self, index):
+        if self._array is not None:
+            return torch.from_numpy(self._array[index].copy()).permute(2, 0, 1).float().div_(255)
         sources = self.samples[index]['sources']
         if len(sources) != 4:
             raise ValueError('A dataset sample must contain exactly four ordered PNGs')

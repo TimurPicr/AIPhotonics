@@ -18,6 +18,21 @@ def test_plane_inverse_returns_physical_fields_to_the_slm():
     torch.testing.assert_close(actual, torch.exp(1j * phase).expand_as(actual), atol=1e-6, rtol=1e-6)
 
 
+def test_cached_chirps_support_backward_after_inference():
+    from src.physics import _cached_chirps
+
+    _cached_chirps.cache_clear()
+    phase = torch.rand(1, 1, 8, 8)
+    with torch.inference_mode():
+        expected = propagate_four(phase)
+    phase.requires_grad_()
+    actual = propagate_four(phase)
+    torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+    assert _cached_chirps.cache_info().hits >= 4
+    actual.real.sum().backward()
+    assert torch.isfinite(phase.grad).all()
+
+
 def _direct_fresnel(phase: torch.Tensor, z: float) -> torch.Tensor:
     wavelength = 532e-9
     dx_in = 10e-6

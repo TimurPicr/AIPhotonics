@@ -60,3 +60,26 @@ def test_manifests_reproducible_disjoint_and_verified(tmp_path):
     write_png(torch.zeros(128, 128), path)
     with pytest.raises(ValueError, match='hash mismatch'):
         load_manifest(tmp_path / 'val/manifest.json')
+
+
+def test_numpy_dataset_matches_png_and_detects_shared_images(tmp_path):
+    from src.data import ManifestDataset, prepare_split, verify_disjoint
+
+    prepare_split(tmp_path, 'train', 2, seed=42)
+    png = ManifestDataset(tmp_path / 'train/manifest.json')
+    pixels = np.rint(torch.stack(list(png)).permute(0, 2, 3, 1).numpy() * 255).astype(np.uint8)
+    path = tmp_path / 'train.npy'
+    np.save(path, pixels)
+    dataset = ManifestDataset(path)
+    assert isinstance(dataset._array, np.memmap) and len(dataset) == 2
+    assert dataset.manifest['split'] == 'train'
+    for index in range(2):
+        torch.testing.assert_close(dataset[index], png[index], rtol=0, atol=0)
+    np.save(tmp_path / 'validation.npy', pixels[:1])
+    validation = ManifestDataset(tmp_path / 'validation.npy')
+    assert validation.manifest['split'] == 'val'
+    with pytest.raises(ValueError, match='Shared sources'):
+        verify_disjoint([dataset.manifest, validation.manifest])
+    np.save(path, pixels.astype(np.float32))
+    with pytest.raises(ValueError, match='uint8'):
+        ManifestDataset(path)
