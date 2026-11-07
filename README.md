@@ -39,7 +39,14 @@ python -m src.train --train-manifest runs/overfit9_balanced/datasets/train.json 
 В `training.jsonl` пишутся train loss, validation loss и метрики каждой эпохи;
 итоговое сравнение использует лучшую сохранённую модель.
 
-На выходе сохраняются `training.jsonl` и `comparison/report.md`.
+При `--backend mlx` по умолчанию сохраняются только `last.pt` и
+`training.jsonl`, без валидации численными методами. Чтобы включить
+сравнение сети с Global MP-GS после каждой эпохи, добавьте
+`--validate-every-epoch`; результаты сохраняются в `validation.json`.
+Для отдельного сравнения после обучения используйте `src.evaluate`.
+
+При backend Torch без `--validate-every-epoch` на выходе сохраняются
+`training.jsonl` и `comparison/report.md`.
 График среднего loss по эпохам сохраняется в `comparison/loss.png` и
 встраивается в отчёт. Повторная оценка строит его по `training.jsonl` рядом
 с checkpoint.

@@ -1,4 +1,6 @@
 import json
+import sys
+from types import SimpleNamespace
 
 import pytest
 import torch
@@ -8,6 +10,52 @@ import src.train as training
 from src.data import prepare_split
 from src.evaluate import _summary, main as evaluate
 from src.train import load_checkpoint, main as train
+
+
+@pytest.mark.parametrize("validate_every_epoch", [False, True])
+def test_mlx_numerical_validation_is_opt_in(tmp_path, monkeypatch, capsys, validate_every_epoch):
+    class StubMLXBackend:
+        def __init__(self, reference, **kwargs):
+            self.model = reference
+
+        def step(self, targets):
+            return 0.25
+
+        def __call__(self, targets):
+            return self.model(targets)
+
+        def state_dict(self):
+            return self.model.state_dict()
+
+        def optimizer_state_dict(self):
+            return {}
+
+    monkeypatch.setitem(sys.modules, "src.mlx_backend", SimpleNamespace(MLXBackend=StubMLXBackend))
+
+    def unexpected_comparison(*args, **kwargs):
+        pytest.fail("MLX must not automatically run the final numerical comparison")
+
+    monkeypatch.setattr(training, "compare", unexpected_comparison)
+    if not validate_every_epoch:
+        monkeypatch.setattr(training, "validate_epoch", unexpected_comparison)
+    prepare_split(tmp_path, "train", 1, seed=1)
+    run = tmp_path / "run"
+    arguments = ["--train-manifest", str(tmp_path / "train/manifest.json"), "--evaluate-train",
+                 "--backend", "mlx", "--device", "cpu", "--epochs", "1", "--batch-size", "1",
+                 "--base-channels", "2", "--gs-iterations", "1", "--preload", "--out", str(run)]
+    if validate_every_epoch:
+        arguments.append("--validate-every-epoch")
+    train(arguments)
+    _, checkpoint = load_checkpoint(run / "last.pt", torch.device("cpu"))
+    assert checkpoint["backend"] == "mlx" and checkpoint["epochs"] == 1
+    rows = [json.loads(line) for line in (run / "training.jsonl").read_text().splitlines()]
+    epoch = next(row for row in rows if row["event"] == "epoch")
+    assert epoch["mean_loss"] == 0.25
+    assert ("validation" in epoch) == validate_every_epoch
+    assert (run / "validation.json").exists() == validate_every_epoch
+    assert rows[-1]["event"] == "complete"
+    expected_output = run / ("validation.json" if validate_every_epoch else "last.pt")
+    assert capsys.readouterr().out.splitlines()[-1] == str(expected_output)
 
 
 def test_training_writes_checkpoint_and_reproducible_comparison(tmp_path):
