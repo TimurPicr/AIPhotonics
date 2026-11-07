@@ -2,7 +2,7 @@ import math
 
 import torch
 
-from src.losses import reconstruction_loss
+from src.losses import plane_metrics, reconstruction_loss
 from src.model import HologramUNet
 from src.physics import backpropagate_four, propagate_four
 from src.reconstruction import normalize_recons, reconstruct_four
@@ -62,3 +62,28 @@ def test_black_targets_produce_finite_masks_and_gradients():
     reconstruction_loss(recons, targets).backward()
     assert torch.equal(mask, torch.zeros_like(mask))
     assert all(param.grad is not None and torch.isfinite(param.grad).all() for param in model.parameters())
+
+
+def test_channels_last_preserves_loss_and_gradients():
+    import copy
+
+    torch.manual_seed(42)
+    targets = torch.rand(2, 4, 32, 32)
+    reference = HologramUNet(base_channels=4)
+    optimized = copy.deepcopy(reference).to(memory_format=torch.channels_last)
+    _, expected = reference(targets)
+    expected_loss = reconstruction_loss(expected, targets)
+    expected_loss.backward()
+    _, actual = optimized(targets.contiguous(memory_format=torch.channels_last))
+    actual_loss = reconstruction_loss(actual, targets)
+    actual_loss.backward()
+    # CPU convolution layouts accumulate float32 sums in different orders.
+    torch.testing.assert_close(actual, expected, rtol=1e-3, atol=2e-4)
+    torch.testing.assert_close(actual_loss, expected_loss, rtol=1e-5, atol=1e-6)
+    actual_ssim, actual_cc, _ = plane_metrics(actual, targets)
+    expected_ssim, expected_cc, _ = plane_metrics(expected, targets)
+    torch.testing.assert_close(actual_ssim, expected_ssim, rtol=0, atol=1e-5)
+    torch.testing.assert_close(actual_cc, expected_cc, rtol=0, atol=1e-5)
+    gradient = torch.cat([parameter.grad.flatten() for parameter in optimized.parameters()])
+    expected_gradient = torch.cat([parameter.grad.flatten() for parameter in reference.parameters()])
+    assert (gradient - expected_gradient).norm() / expected_gradient.norm() < 5e-3

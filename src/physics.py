@@ -1,6 +1,7 @@
 """Differentiable single-FFT Fresnel propagation on a centered square grid."""
 
 import cmath
+from functools import lru_cache
 import math
 
 import torch
@@ -26,14 +27,21 @@ _SPATIAL_DIMS = (-2, -1)
 
 
 def _chirps(field: Tensor, z_m: float, config: OpticalConfig) -> tuple[Tensor, Tensor]:
-    size = field.shape[-1]
+    return _cached_chirps(field.shape[-1], field.device, field.dtype, z_m, config)
+
+
+@lru_cache(maxsize=32)
+def _cached_chirps(size: int, device: torch.device, dtype: torch.dtype, z_m: float,
+                   config: OpticalConfig) -> tuple[Tensor, Tensor]:
     output_pitch = output_pitch_m(z_m, size, config=config)
     phase_scale = math.pi / (config.wavelength_m * z_m)
     # Compute the static coefficients in double precision before casting to the FFT dtype.
-    device = torch.device("cpu") if field.device.type == "mps" else field.device
-    input_chirp = torch.exp(1j * phase_scale * _radius_squared(size, config.slm_pitch_m, device))
-    output_chirp = torch.exp(1j * phase_scale * _radius_squared(size, output_pitch, device))
-    return input_chirp.to(field), output_chirp.to(field)
+    compute_device = torch.device("cpu") if device.type == "mps" else device
+    # Ordinary tensors can be reused by autograd even if the cache is first filled in inference mode.
+    with torch.inference_mode(False):
+        input_chirp = torch.exp(1j * phase_scale * _radius_squared(size, config.slm_pitch_m, compute_device))
+        output_chirp = torch.exp(1j * phase_scale * _radius_squared(size, output_pitch, compute_device))
+        return input_chirp.to(device=device, dtype=dtype), output_chirp.to(device=device, dtype=dtype)
 
 
 def _centered_fft(field: Tensor, *, norm: str) -> Tensor:
@@ -83,7 +91,12 @@ def fresnel_1fft(phase: Tensor, z_m: float, *, config: OpticalConfig = DEFAULT_C
 
 def propagate_four(phase: Tensor, *, config: OpticalConfig = DEFAULT_CONFIG) -> Tensor:
     """Propagate in configuration order; output has shape [B, 4, N, N]."""
-    return torch.cat([fresnel_1fft(phase, z, config=config) for z in config.distances_m], dim=1)
+    if phase.ndim != 4 or phase.shape[1] != 1 or phase.shape[-2] != phase.shape[-1]:
+        raise ValueError("phase must have shape [B, 1, N, N]")
+    if phase.dtype not in (torch.float32, torch.float64):
+        raise TypeError("phase must have dtype float32 or float64")
+    incident = torch.exp(1j * phase)
+    return torch.cat([_fresnel_field_1fft(incident, z, config) for z in config.distances_m], dim=1)
 
 
 def backpropagate_four(fields: Tensor, *, config: OpticalConfig = DEFAULT_CONFIG) -> Tensor:

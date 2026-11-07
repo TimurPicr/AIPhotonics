@@ -74,7 +74,11 @@ def quantize_phase(phase: torch.Tensor, *, keep_device: bool = False) -> torch.T
 
 
 def file_hash(path: str | Path) -> str:
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def write_json(path: str | Path, value: dict) -> None:

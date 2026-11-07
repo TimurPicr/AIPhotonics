@@ -1,4 +1,4 @@
-"""Watch last.pt in a separate process and plot checkpoint loss, SSIM and CC."""
+"""Watch best.pt in a separate process and plot checkpoint loss, SSIM and CC."""
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
@@ -89,7 +89,9 @@ def main(argv=None):
         axis.set(xlabel="Epoch", ylabel=metric.upper())
         axis.grid(alpha=0.25)
         axis.legend()
-    checkpoint = args.run / "last.pt"
+    checkpoint = args.run / "best.pt"
+    if not checkpoint.exists() and (args.run / "last.pt").exists():
+        checkpoint = args.run / "last.pt"  # Compatibility with earlier runs.
     signature = None
     pending = None
 

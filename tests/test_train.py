@@ -66,17 +66,18 @@ def test_training_writes_checkpoint_and_reproducible_comparison(tmp_path):
     train(["--train-manifest", str(tmp_path / "train/manifest.json"), "--eval-manifest", manifest,
            "--epochs", "2", "--batch-size", "3", "--base-channels", "2",
            "--adam-steps", "2", "--gs-iterations", "2", "--device", "cpu", "--out", str(run)])
-    path = run / "last.pt"
+    path = run / "best.pt"
     _, checkpoint = load_checkpoint(path, torch.device("cpu"))
-    assert checkpoint["epochs"] == 2
+    assert 1 <= checkpoint["epochs"] <= 2
     assert list(run.glob("*.pt")) == [path]
     log = [json.loads(line) for line in (run / "training.jsonl").read_text().splitlines()]
     assert [row["epoch"] for row in log] == [1, 2] and all(row["quartets"] == 2 for row in log)
+    assert checkpoint["epochs"] == log[-1]["best_epoch"]
     report = json.loads((run / "comparison/summary.json").read_text(encoding="utf-8"))
     assert report["shared_pairs"] == {"ssim": 4, "pearson": 4}
     assert set(report["methods"]) == {"network", "adam", "global_mp_gs"}
     assert all(-1 <= value <= 1 for result in report["methods"].values() for value in result["mean"].values())
-    assert report["epoch"] == 2 and "epoch_metrics" not in report
+    assert report["epoch"] == checkpoint["epochs"] and "epoch_metrics" not in report
     markdown = (run / "comparison/report.md").read_text(encoding="utf-8")
     assert "![Training loss by epoch](loss.png)" in markdown
     assert report["loss_plot"] == "loss.png"
@@ -100,16 +101,17 @@ def test_interruption_during_next_epoch_keeps_previous_weights(tmp_path, monkeyp
 
     def interrupt_second_epoch(*args, **kwargs):
         nonlocal calls
-        calls += 1
-        if calls == 2:
-            raise KeyboardInterrupt
+        if torch.is_grad_enabled():
+            calls += 1
+            if calls == 2:
+                raise KeyboardInterrupt
         return original_loss(*args, **kwargs)
 
     monkeypatch.setattr(training, "reconstruction_loss", interrupt_second_epoch)
     with pytest.raises(KeyboardInterrupt):
         train(["--train-manifest", manifest, "--evaluate-train", "--epochs", "2", "--base-channels", "2",
                "--adam-steps", "1", "--gs-iterations", "1", "--device", "cpu", "--out", str(run)])
-    path = run / "last.pt"
+    path = run / "best.pt"
     _, checkpoint = load_checkpoint(path, torch.device("cpu"))
     assert checkpoint["epochs"] == 1
     assert list(run.glob("*.pt")) == [path]
@@ -117,7 +119,7 @@ def test_interruption_during_next_epoch_keeps_previous_weights(tmp_path, monkeyp
     with (run / "training.jsonl").open("a") as log:
         log.write('{"epoch": 2, "mean_lo')
     out = tmp_path / "partial_report"
-    evaluate(["--checkpoint", str(run / "last.pt"), "--eval-manifest", manifest, "--device", "cpu", "--out", str(out)])
+    evaluate(["--checkpoint", str(path), "--eval-manifest", manifest, "--device", "cpu", "--out", str(out)])
     report = json.loads((out / "summary.json").read_text(encoding="utf-8"))
     assert report["epoch"] == 1
     assert (out / "loss.png").is_file()
@@ -156,7 +158,7 @@ def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monke
         Image.new("L", (128, 128)).save(path)
         source["sha256"] = file_hash(path)
     test_path.write_text(json.dumps(manifest))
-    model = HologramUNet(base_channels=2).eval()
+    model = HologramUNet(base_channels=2).to(memory_format=torch.channels_last).eval()
     checkpoint = {
         "version": 1, "protocol": CONFIG.snapshot(), "model_config": {"base_channels": 2},
         "model_state_dict": model.state_dict(), "epochs": 1, "batch_size": 2,
@@ -164,7 +166,7 @@ def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monke
         "train_manifest_sha256": file_hash(tmp_path / "train/manifest.json"),
         "loss_config": {"alpha": 0.6, "beta": 0.4},
     }
-    torch.save(checkpoint, tmp_path / "last.pt")
+    torch.save(checkpoint, tmp_path / "best.pt")
     arguments = ["--run", str(tmp_path), "--val-manifest", str(tmp_path / "val/manifest.json"),
                  "--test-manifest", str(test_path), "--device", "cpu"]
     monitor(arguments + ["--once"])
@@ -172,7 +174,7 @@ def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monke
     row = json.loads(journal.read_text())
     targets = torch.stack(list(ManifestDataset(checkpoint["train_manifest"])))
     with torch.inference_mode():
-        _, recons = model(targets)
+        recons = torch.cat([model(batch)[1] for batch in targets.split(checkpoint["batch_size"])])
         ssim, cc, valid = plane_metrics(recons, targets)
         expected_loss = reconstruction_loss(recons, targets, **checkpoint["loss_config"]).item()
     assert row["train"]["loss"] == pytest.approx(expected_loss, abs=1e-6)
@@ -194,7 +196,7 @@ def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monke
         if checkpoint["epochs"] == 1:
             checkpoint["epochs"] = 2
             torch.save(checkpoint, tmp_path / "next.pt")
-            (tmp_path / "next.pt").replace(tmp_path / "last.pt")
+            (tmp_path / "next.pt").replace(tmp_path / "best.pt")
         if len(journal.read_text().splitlines()) == 2:
             figure = plt.gcf()
             assert all(list(line.get_xdata()) == [1, 2] for axis in figure.axes for line in axis.lines)
@@ -207,3 +209,32 @@ def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monke
     monkeypatch.setattr(plt, "show", lambda **kwargs: None)
     monitor(arguments + ["--interval", "0.01"])
     assert [json.loads(line)["epoch"] for line in journal.read_text().splitlines()] == [1, 2]
+
+
+def test_best_checkpoint_keeps_better_earlier_epoch_and_breaks_ties_by_pearson(tmp_path, monkeypatch):
+    prepare_split(tmp_path, "train", 1, seed=1)
+    prepare_split(tmp_path, "val", 1, seed=2)
+    scores = iter([(0.3, 0.4), (0.3, 0.5), (0.2, 0.9), (0.3, 0.5)])
+    expected = {}
+
+    def validation(model, *args):
+        ssim, cc = next(scores)
+        if cc == 0.5 and not expected:
+            expected.update({key: value.detach().clone() for key, value in model.state_dict().items()})
+        return {"loss": 1 - ssim, "worst_plane_ssim": ssim, "mean_pearson": cc}
+
+    def comparison(model, dataset, out, **kwargs):
+        assert kwargs["epoch"] == 2
+        for key, value in model.state_dict().items():
+            torch.testing.assert_close(value, expected[key], rtol=0, atol=0)
+
+    monkeypatch.setattr(training, "validate", validation)
+    monkeypatch.setattr(training, "compare", comparison)
+    run = tmp_path / "run"
+    train(["--train-manifest", str(tmp_path / "train/manifest.json"),
+           "--eval-manifest", str(tmp_path / "val/manifest.json"), "--epochs", "4",
+           "--base-channels", "2", "--device", "cpu", "--out", str(run)])
+    _, checkpoint = load_checkpoint(run / "best.pt", torch.device("cpu"))
+    assert checkpoint["epochs"] == 2
+    assert list(run.glob("*.pt")) == [run / "best.pt"]
+    assert [json.loads(line)["best_epoch"] for line in (run / "training.jsonl").read_text().splitlines()] == [1, 2, 2, 2]

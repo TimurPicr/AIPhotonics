@@ -17,6 +17,7 @@ from src.evaluate import add_runtime_arguments, compare, runtime, validate_epoch
 from src.io import file_hash
 from src.losses import reconstruction_loss
 from src.model import HologramUNet
+from src.reconstruction import normalize_recons, reconstruct_four
 
 
 def load_checkpoint(path: Path, device: torch.device) -> tuple[HologramUNet, dict]:
@@ -27,7 +28,35 @@ def load_checkpoint(path: Path, device: torch.device) -> tuple[HologramUNet, dic
     model = HologramUNet(**checkpoint["model_config"])
     model.load_state_dict(checkpoint["model_state_dict"])
     checkpoint["checkpoint_sha256"] = sha256(contents).hexdigest()
-    return model.to(device).eval(), checkpoint
+    layout = torch.channels_last if device.type == "cpu" else torch.contiguous_format
+    return model.to(device, memory_format=layout).eval(), checkpoint
+
+
+@torch.inference_mode()
+def validate(model, batches, device, loss_config):
+    model.eval()
+    loss_sum = 0.0
+    ssim_sum = torch.zeros(4, dtype=torch.float64)
+    cc_sum = torch.zeros(4, dtype=torch.float64)
+    valid_pairs = torch.zeros(4, dtype=torch.int64)
+    for targets in batches:
+        targets = targets.to(device)
+        phase, recons = model(targets)
+        loss = reconstruction_loss(recons, targets, **loss_config)
+        quantized = torch.cat([quantize_phase(item) for item in phase.split(1)]).to(device)
+        images = quantize_png(normalize_recons(reconstruct_four(quantized)))
+        ssim, cc, valid = plane_metrics(images.double(), targets.cpu().double())
+        if not torch.isfinite(loss) or not torch.isfinite(ssim).all() or not torch.isfinite(cc).all():
+            raise FloatingPointError("Non-finite validation loss or metrics")
+        loss_sum += loss.item() * len(targets)
+        ssim_sum += ssim.sum(dim=0)
+        cc_sum += cc.sum(dim=0)
+        valid_pairs += valid.sum(dim=0)
+    size = len(batches.dataset)
+    return {"loss": loss_sum / size, "ssim": (ssim_sum / size).tolist(),
+            "worst_plane_ssim": (ssim_sum / size).min().item(),
+            "mean_pearson": cc_sum.sum().item() / (4 * size),
+            "valid_cc_pairs": valid_pairs.tolist()}
 
 
 @torch.no_grad()
@@ -67,6 +96,7 @@ def main(argv=None):
                         help="validate against Global MP-GS after every epoch (opt-in for MLX)")
     parser.add_argument("--preload", action="store_true", help="verify targets once and keep them on the selected device")
     add_runtime_arguments(parser)
+    parser.set_defaults(threads=min(6, torch.get_num_threads()))
     args = parser.parse_args(argv)
     if min(args.epochs, args.batch_size, args.adam_steps, args.gs_iterations) < 1:
         parser.error("Epochs, batch size and baseline iteration counts must be positive")
@@ -168,6 +198,8 @@ def main(argv=None):
         "loss_config": loss_config, "baseline_config": baseline_config, "batch_size": args.batch_size,
         "learning_rate": args.lr, "train_manifest": str(train_set.path.resolve()),
         "train_manifest_sha256": file_hash(train_set.path),
+        "validation_manifest": str(eval_set.path.resolve()), "validation_manifest_sha256": file_hash(eval_set.path),
+        "selection": "max worst-plane mean PNG SSIM, then mean PNG Pearson (undefined pairs count as zero)",
     }
     if minimal:
         checkpoint_metadata.update({
