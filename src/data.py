@@ -65,6 +65,41 @@ def make_train_loader(batch_size: int, seed: int) -> TrainStream:
     return TrainStream(batch_size, seed)
 
 
+class ManifestDataset(torch.utils.data.Dataset):
+    """Read one fixed quartet at a time, without keeping a large dataset in RAM."""
+
+    def __init__(self, path: str | Path, *, verify: bool = True):
+        import json
+        from config import CONFIG
+
+        self.path = Path(path)
+        self.manifest = json.loads(self.path.read_text())
+        self.samples = self.manifest['samples']
+        self.verify = verify
+        if not self.samples or self.manifest['size'] != len(self.samples):
+            raise ValueError('Manifest must contain a nonempty, correctly sized dataset')
+        if self.manifest['z_m'] != list(CONFIG.z_m):
+            raise ValueError('Manifest distances differ from the active optical protocol')
+        if 'protocol' in self.manifest and self.manifest['protocol'] != CONFIG.snapshot():
+            raise ValueError('Manifest optical/reconstruction protocol differs from active configuration')
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, index):
+        sources = self.samples[index]['sources']
+        if len(sources) != 4:
+            raise ValueError('A dataset sample must contain exactly four ordered PNGs')
+        if all('plane' in source for source in sources) and [s['plane'] for s in sources] != [1, 2, 3, 4]:
+            raise ValueError('Source order must match the four propagation planes')
+        paths = [self.path.parent / source['path'] for source in sources]
+        if self.verify:
+            for source, path in zip(sources, paths):
+                if file_hash(path) != source['sha256']:
+                    raise ValueError(f'PNG hash mismatch: {path}')
+        return load_four_png([str(path) for path in paths])[0]
+
+
 def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None,
                   z_m: list[float] | None = None) -> dict:
     if z_m is None:
