@@ -64,7 +64,7 @@ def main(argv=None):
     parser.add_argument("--gs-iterations", type=int, default=100)
     parser.add_argument("--backend", choices=("torch", "mlx"), default="torch")
     parser.add_argument("--validate-every-epoch", action="store_true",
-                        help="keep only checkpoint, journal and full network/GS validation JSON")
+                        help="validate against Global MP-GS after every epoch (opt-in for MLX)")
     parser.add_argument("--preload", action="store_true", help="verify targets once and keep them on the selected device")
     add_runtime_arguments(parser)
     args = parser.parse_args(argv)
@@ -197,7 +197,8 @@ def main(argv=None):
         preloaded_val = None
         if args.preload:
             preloaded_train = _preload(train_set, device, args.batch_size, record)
-            preloaded_val = preloaded_train if args.evaluate_train else _preload(eval_set, device, args.batch_size, record)
+            if args.validate_every_epoch:
+                preloaded_val = preloaded_train if args.evaluate_train else _preload(eval_set, device, args.batch_size, record)
             batches = torch.utils.data.DataLoader(
                 preloaded_train, batch_size=args.batch_size, shuffle=True,
                 generator=batch_generator)
@@ -237,6 +238,8 @@ def main(argv=None):
 
             row = {"epoch": epoch, "mean_loss": loss_sum / len(train_set), "quartets": len(train_set)}
             if minimal:
+                row.update({'event': 'epoch', 'seconds': time.monotonic() - epoch_started})
+            if args.validate_every_epoch:
                 model.eval()
                 report = validate_epoch(
                     mlx_backend if mlx_backend else model, eval_set, args.out / 'validation.json',
@@ -255,8 +258,10 @@ def main(argv=None):
         compare(model, eval_set, args.out / "comparison", checkpoint=checkpoint_path, epoch=args.epochs,
                 checkpoint_hash=file_hash(checkpoint_path), **baseline_config, **loss_config)
         print(args.out / "comparison" / "report.md")
-    else:
+    elif args.validate_every_epoch:
         print(args.out / 'validation.json', flush=True)
+    else:
+        print(checkpoint_path, flush=True)
 
 
 if __name__ == "__main__":
