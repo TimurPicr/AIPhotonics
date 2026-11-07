@@ -85,3 +85,77 @@ def test_summary_uses_shared_pairs_when_one_method_fails_or_pearson_is_undefined
     assert shared == {"ssim": 4, "pearson": 3}
     assert methods["network"]["mean"]["pearson"] == pytest.approx((0.3 + 0.6 + 0.7) / 3)
     assert methods["global_mp_gs"]["solved"] == 1
+
+
+def test_monitor_scores_checkpoints_and_updates_existing_history(tmp_path, monkeypatch):
+    import time
+
+    from config import CONFIG
+    from src.data import ManifestDataset
+    from src.io import file_hash
+    from src.losses import plane_metrics, reconstruction_loss
+    from src.model import HologramUNet
+    from src.monitor import main as monitor
+
+    torch.set_num_threads(2)
+    for split, size, seed in (("train", 3, 1), ("val", 1, 2), ("test", 1, 3)):
+        prepare_split(tmp_path, split, size, seed=seed)
+    # Constant targets must produce explicit undefined CC, not a misleading zero.
+    test_path = tmp_path / "test/manifest.json"
+    manifest = json.loads(test_path.read_text())
+    for source in manifest["samples"][0]["sources"]:
+        path = test_path.parent / source["path"]
+        Image.new("L", (128, 128)).save(path)
+        source["sha256"] = file_hash(path)
+    test_path.write_text(json.dumps(manifest))
+    model = HologramUNet(base_channels=2).eval()
+    checkpoint = {
+        "version": 1, "protocol": CONFIG.snapshot(), "model_config": {"base_channels": 2},
+        "model_state_dict": model.state_dict(), "epochs": 1, "batch_size": 2,
+        "train_manifest": str(tmp_path / "train/manifest.json"),
+        "train_manifest_sha256": file_hash(tmp_path / "train/manifest.json"),
+        "loss_config": {"alpha": 0.6, "beta": 0.4},
+    }
+    torch.save(checkpoint, tmp_path / "last.pt")
+    arguments = ["--run", str(tmp_path), "--val-manifest", str(tmp_path / "val/manifest.json"),
+                 "--test-manifest", str(test_path), "--device", "cpu"]
+    monitor(arguments + ["--once"])
+    journal = tmp_path / "monitor.jsonl"
+    row = json.loads(journal.read_text())
+    targets = torch.stack(list(ManifestDataset(checkpoint["train_manifest"])))
+    with torch.inference_mode():
+        _, recons = model(targets)
+        ssim, cc, valid = plane_metrics(recons, targets)
+        expected_loss = reconstruction_loss(recons, targets, **checkpoint["loss_config"]).item()
+    assert row["train"]["loss"] == pytest.approx(expected_loss, abs=1e-6)
+    assert row["train"]["ssim"] == pytest.approx(ssim.mean().item(), abs=1e-6)
+    assert row["train"]["cc"] == pytest.approx(cc[valid].mean().item(), abs=1e-6)
+    assert row["test"]["cc"] is None and row["test"]["valid_cc_pairs"] == 0
+    with Image.open(tmp_path / "monitor.png") as plot:
+        assert plot.width > 1000 and plot.height > 300
+    with journal.open("a") as stream:
+        stream.write('{"epoch":')
+    monitor(arguments + ["--once"])
+    assert len(journal.read_text().splitlines()) == 1
+
+    import matplotlib.pyplot as plt
+
+    deadline = time.monotonic() + 20
+
+    def advance_checkpoint_and_close_when_updated(_):
+        if checkpoint["epochs"] == 1:
+            checkpoint["epochs"] = 2
+            torch.save(checkpoint, tmp_path / "next.pt")
+            (tmp_path / "next.pt").replace(tmp_path / "last.pt")
+        if len(journal.read_text().splitlines()) == 2:
+            figure = plt.gcf()
+            assert all(list(line.get_xdata()) == [1, 2] for axis in figure.axes for line in axis.lines)
+            plt.close("all")
+        elif time.monotonic() > deadline:
+            pytest.fail("Monitor did not observe the new checkpoint")
+        time.sleep(0.01)
+
+    monkeypatch.setattr(plt, "pause", advance_checkpoint_and_close_when_updated)
+    monkeypatch.setattr(plt, "show", lambda **kwargs: None)
+    monitor(arguments + ["--interval", "0.01"])
+    assert [json.loads(line)["epoch"] for line in journal.read_text().splitlines()] == [1, 2]
