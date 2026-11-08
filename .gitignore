@@ -3,12 +3,5 @@
 __pycache__/
 .pytest_cache/
 *.pyc
-
-data/*
-
-runs/
-
-/outputs/*
-!/outputs/.gitkeep
-
-experiments/
+/output/
+/outputs/

@@ -4,7 +4,7 @@ from PIL import Image
 import pytest
 import torch
 
-from src.io import export_phase_png, load_phase_png, load_four_png, write_png, write_json
+from src.io import export_phase_png, load_phase_png, load_four_png, load_four_images, write_png
 
 
 def test_phase_roundtrip(tmp_path):
@@ -40,46 +40,15 @@ def test_order_and_validation(tmp_path):
 def test_finite_validation(tmp_path):
     with pytest.raises(ValueError):
         export_phase_png(torch.full((1, 1, 128, 128), float('nan')), str(tmp_path / 'bad.png'))
-    with pytest.raises(ValueError):
-        write_json(tmp_path / 'bad.json', {'x': float('nan')})
 
 
-def test_manifests_reproducible_disjoint_and_verified(tmp_path):
-    from src.data import prepare_split, load_manifest, verify_disjoint
-    distances = [0.0241, 0.0253, 0.0265, 0.0277]
-    val = prepare_split(tmp_path, 'val', 4, z_m=distances)
-    assert val == prepare_split(tmp_path, 'val', 4, z_m=distances)
-    test = prepare_split(tmp_path, 'test', 4, z_m=distances)
-    verify_disjoint([val, test])
-    with pytest.raises(ValueError, match='Shared sources'):
-        verify_disjoint([val, val])
-    manifest, samples = load_manifest(tmp_path / 'val/manifest.json')
-    assert manifest['z_m'] == distances and len(samples) == 4
-    assert {s['category'] for s, _ in samples} == {'geometry', 'symbols', 'grayscale', 'mixed'}
-    path = tmp_path / 'val' / val['samples'][0]['sources'][0]['path']
-    write_png(torch.zeros(128, 128), path)
-    with pytest.raises(ValueError, match='hash mismatch'):
-        load_manifest(tmp_path / 'val/manifest.json')
-
-
-def test_numpy_dataset_matches_png_and_detects_shared_images(tmp_path):
-    from src.data import ManifestDataset, prepare_split, verify_disjoint
-
-    prepare_split(tmp_path, 'train', 2, seed=42)
-    png = ManifestDataset(tmp_path / 'train/manifest.json')
-    pixels = np.rint(torch.stack(list(png)).permute(0, 2, 3, 1).numpy() * 255).astype(np.uint8)
-    path = tmp_path / 'train.npy'
-    np.save(path, pixels)
-    dataset = ManifestDataset(path)
-    assert isinstance(dataset._array, np.memmap) and len(dataset) == 2
-    assert dataset.manifest['split'] == 'train'
-    for index in range(2):
-        torch.testing.assert_close(dataset[index], png[index], rtol=0, atol=0)
-    np.save(tmp_path / 'validation.npy', pixels[:1])
-    validation = ManifestDataset(tmp_path / 'validation.npy')
-    assert validation.manifest['split'] == 'val'
-    with pytest.raises(ValueError, match='Shared sources'):
-        verify_disjoint([dataset.manifest, validation.manifest])
-    np.save(path, pixels.astype(np.float32))
-    with pytest.raises(ValueError, match='uint8'):
-        ManifestDataset(path)
+def test_color_targets_are_converted_without_resizing(tmp_path):
+    paths = [tmp_path / f'{index}.png' for index in range(4)]
+    for index, path in enumerate(paths):
+        Image.new('RGB', (128, 128), (index * 80,) * 3).save(path)
+    loaded = load_four_images(paths)
+    assert loaded.shape == (1, 4, 128, 128)
+    torch.testing.assert_close(loaded[0, :, 0, 0], torch.arange(4) * 80 / 255)
+    Image.new('L', (64, 128)).save(paths[0])
+    with pytest.raises(ValueError, match='128x128'):
+        load_four_images(paths)

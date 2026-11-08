@@ -1,0 +1,16 @@
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!requirements-dev.txt
+!config.py
+!src/
+!src/*.py
+!weights/
+!weights/h100.pt
+!examples/
+!examples/manifest.json
+!examples/examples_*/
+!examples/examples_*/*.png
+!tests/
+!tests/*.py
