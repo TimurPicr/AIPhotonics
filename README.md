@@ -64,6 +64,25 @@ python -m src.train --train-manifest runs/overfit9_balanced/datasets/train.json 
 python -m src.evaluate --checkpoint runs/hologram_9/best.pt --eval-manifest runs/overfit9_balanced/datasets/probe.json --out runs/hologram_9_probe
 ```
 
+Для дополнительной доводки предсказанной маски задайте `--refine-steps`:
+
+```bash
+python -m src.evaluate --checkpoint outputs/train10k/last.pt --eval-manifest data/validation.npy --out outputs/train10k_refined --refine-steps 20 --refine-lr 0.1
+```
+
+`--refine-steps 0` отключает доводку; для старых checkpoint это поведение
+по умолчанию. Adam начинает с выхода сети и оптимизирует только фазу,
+используя 8-битное квантование через STE. Число шагов может быть любым
+неотрицательным целым. `--refine-lr` задаёт learning rate (по умолчанию 0.1).
+Параметр `--adam-steps` относится к отдельному baseline со случайной фазой.
+
+Эти же параметры доступны в `src.train`: доводка применяется при численной
+валидации с `--validate-every-epoch` и при итоговом сравнении. Параметры
+сохраняются в checkpoint и отчётах как `refinement_config`; повторная оценка
+наследует их, а явные `--refine-steps` / `--refine-lr` переопределяют.
+Обучающие шаги сети и float-оценки отдельного монитора используют исходный
+forward. В Python доводка доступна через `src.refinement.refine_phase`.
+
 Ранее использовавшийся сокращённый набор — `data/train5.5k/train/manifest.json`. В нём
 1 000 синтетических, 250 видео и 125 случайных четвёрок.
 Для обучения с отдельной проверкой используйте `train.json` и `val.json`

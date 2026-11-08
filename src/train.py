@@ -13,7 +13,7 @@ import torch
 
 from config import CONFIG
 from src.data import ManifestDataset, verify_disjoint
-from src.evaluate import add_runtime_arguments, compare, runtime, validate_epoch
+from src.evaluate import add_refinement_arguments, add_runtime_arguments, compare, runtime, validate_epoch
 from src.io import file_hash
 from src.losses import reconstruction_loss
 from src.model import HologramUNet
@@ -91,6 +91,7 @@ def main(argv=None):
     parser.add_argument("--adam-steps", type=int, default=100)
     parser.add_argument("--adam-lr", type=float, default=0.1)
     parser.add_argument("--gs-iterations", type=int, default=100)
+    add_refinement_arguments(parser)
     parser.add_argument("--backend", choices=("torch", "mlx"), default="torch")
     parser.add_argument("--validate-every-epoch", action="store_true",
                         help="validate against Global MP-GS after every epoch (opt-in for MLX)")
@@ -102,6 +103,10 @@ def main(argv=None):
         parser.error("Epochs, batch size and baseline iteration counts must be positive")
     if any(not math.isfinite(rate) or rate <= 0 for rate in (args.lr, args.adam_lr)):
         parser.error("Learning rates must be finite and positive")
+    if args.refine_steps < 0:
+        parser.error("--refine-steps must be nonnegative")
+    if not math.isfinite(args.refine_lr) or args.refine_lr <= 0:
+        parser.error("--refine-lr must be finite and positive")
     if any(not math.isfinite(w) or w < 0 for w in (args.alpha, args.beta)) or args.alpha == args.beta == 0:
         parser.error("Loss weights must be finite, nonnegative and at least one must be positive")
     if args.resume and (args.backend != 'torch' or not args.validate_every_epoch):
@@ -113,6 +118,7 @@ def main(argv=None):
         "base_channels": args.base_channels, "rounds": args.rounds, "plane_weights": tuple(args.plane_weights),
     }
     loss_config = {"alpha": args.alpha, "beta": args.beta}
+    refinement_config = {"steps": args.refine_steps, "lr": args.refine_lr}
     baseline_config = {
         "adam_steps": args.adam_steps, "adam_lr": args.adam_lr, "gs_iterations": args.gs_iterations, "seed": args.seed,
     }
@@ -135,6 +141,8 @@ def main(argv=None):
         if args.resume.resolve() != (args.out / 'last.pt').resolve():
             parser.error('--resume must name --out/last.pt so the existing journal is preserved')
         model, resumed = load_checkpoint(args.resume, device)
+        if resumed.get('refinement_config', {'steps': 0, 'lr': 0.1}) != refinement_config:
+            parser.error('Resume configuration mismatch: refinement_config')
         required = {
             'backend': 'torch', 'model_config': model_config, 'loss_config': loss_config,
             'baseline_config': baseline_config, 'batch_size': args.batch_size, 'learning_rate': args.lr,
@@ -159,6 +167,8 @@ def main(argv=None):
         }
         if any(previous_report.get(key) != value for key, value in report_checks.items()):
             parser.error('Previous validation does not match this checkpoint, dataset or GS configuration')
+        if previous_report.get('refinement_config', {'steps': 0, 'lr': 0.1}) != refinement_config:
+            parser.error('Previous validation uses different refinement settings')
         if [row['id'] for row in previous_report['samples']] != [s['id'] for s in eval_set.samples]:
             parser.error('Previous validation sample order differs from the evaluation manifest')
         baseline_cache = {
@@ -196,6 +206,7 @@ def main(argv=None):
     checkpoint_metadata = {
         "version": 1, "protocol": CONFIG.snapshot(), "model_config": model_config,
         "loss_config": loss_config, "baseline_config": baseline_config, "batch_size": args.batch_size,
+        "refinement_config": refinement_config,
         "learning_rate": args.lr, "train_manifest": str(train_set.path.resolve()),
         "train_manifest_sha256": file_hash(train_set.path),
         "validation_manifest": str(eval_set.path.resolve()), "validation_manifest_sha256": file_hash(eval_set.path),
@@ -277,6 +288,7 @@ def main(argv=None):
                     mlx_backend if mlx_backend else model, eval_set, args.out / 'validation.json',
                     epoch=epoch, batch_size=args.batch_size, device=device, preloaded_targets=preloaded_val,
                     gs_iterations=args.gs_iterations, seed=args.seed, checkpoint=checkpoint_path,
+                    refine_steps=args.refine_steps, refine_lr=args.refine_lr,
                     baseline_cache=baseline_cache, progress=record, **loss_config)
                 row.update({'event': 'epoch', 'val_loss': report['mean_loss'],
                             'validation': report['methods'], 'shared_pairs': report['shared_pairs'],
@@ -288,6 +300,7 @@ def main(argv=None):
 
     if not minimal:
         compare(model, eval_set, args.out / "comparison", checkpoint=checkpoint_path, epoch=args.epochs,
+                refine_steps=args.refine_steps, refine_lr=args.refine_lr,
                 checkpoint_hash=file_hash(checkpoint_path), **baseline_config, **loss_config)
         print(args.out / "comparison" / "report.md")
     elif args.validate_every_epoch:
