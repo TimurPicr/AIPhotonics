@@ -16,8 +16,9 @@ python -m src.train --train-manifest data/train.npy --eval-manifest data/validat
 На CPU используется `channels_last`, коэффициенты Френеля кешируются;
 модель, float32/complex64, loss, batch size и шаг оптимизатора сохранены.
 По умолчанию обучение использует до 6 потоков; `--threads` задаёт их явно.
-После каждой эпохи выполняется validation. В `best.pt` атомарно сохраняются
-только лучшие веса: максимальный худший средний SSIM среди четырёх плоскостей,
+После каждой эпохи выполняется validation. В `last.pt` атомарно сохраняются
+веса конца эпохи, в `best.pt` — только лучшие: максимальный худший средний SSIM
+среди четырёх плоскостей,
 при равенстве — средний Pearson. Метрики выбора учитывают 8-битное
 квантование фазы и реконструкций; неопределённый Pearson учитывается как 0
 с явным числом определённых пар. После обучения запускается сравнение с
@@ -34,8 +35,9 @@ python -m src.train --train-manifest runs/overfit9_balanced/datasets/train.json 
 Настройки модели доступны через `--rounds` и `--plane-weights`. Веса loss
 задаются через `--alpha` и `--beta`.
 
-Файл `best.pt` обновляется только при улучшении validation.
-Для оценки остановленного прогона используйте этот checkpoint.
+Файл `best.pt` обновляется только при улучшении validation, а `last.pt` — каждую
+эпоху; `last.pt` нужно передавать в `--resume`.
+Для оценки остановленного прогона используйте `best.pt`.
 В `training.jsonl` пишутся train loss, validation loss и метрики каждой эпохи;
 итоговое сравнение использует лучшую сохранённую модель.
 
@@ -46,7 +48,7 @@ python -m src.train --train-manifest runs/overfit9_balanced/datasets/train.json 
 Для отдельного сравнения после обучения используйте `src.evaluate`.
 
 При backend Torch без `--validate-every-epoch` на выходе сохраняются
-`training.jsonl` и `comparison/report.md`.
+`training.jsonl`, `last.pt`, `best.pt` и `comparison/report.md`.
 График среднего loss по эпохам сохраняется в `comparison/loss.png` и
 встраивается в отчёт. Повторная оценка строит его по `training.jsonl` рядом
 с checkpoint.

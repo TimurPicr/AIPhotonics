@@ -53,6 +53,7 @@ def test_mlx_numerical_validation_is_opt_in(tmp_path, monkeypatch, capsys, valid
     assert epoch["mean_loss"] == 0.25
     assert ("validation" in epoch) == validate_every_epoch
     assert (run / "validation.json").exists() == validate_every_epoch
+    assert (run / "best.pt").exists() == validate_every_epoch
     assert rows[-1]["event"] == "complete"
     expected_output = run / ("validation.json" if validate_every_epoch else "last.pt")
     assert capsys.readouterr().out.splitlines()[-1] == str(expected_output)
@@ -65,11 +66,13 @@ def test_training_writes_checkpoint_and_reproducible_comparison(tmp_path):
     run = tmp_path / "run"
     train(["--train-manifest", str(tmp_path / "train/manifest.json"), "--eval-manifest", manifest,
            "--epochs", "2", "--batch-size", "3", "--base-channels", "2",
-           "--adam-steps", "2", "--gs-iterations", "2", "--device", "cpu", "--out", str(run)])
+           "--adam-steps", "2", "--gs-iterations", "2", "--device", "cpu", "--threads", "2", "--out", str(run)])
     path = run / "best.pt"
+    last_path = run / "last.pt"
     _, checkpoint = load_checkpoint(path, torch.device("cpu"))
-    assert 1 <= checkpoint["epochs"] <= 2
-    assert list(run.glob("*.pt")) == [path]
+    _, last = load_checkpoint(last_path, torch.device("cpu"))
+    assert 1 <= checkpoint["epochs"] <= 2 and last["epochs"] == 2
+    assert set(run.glob("*.pt")) == {path, last_path}
     log = [json.loads(line) for line in (run / "training.jsonl").read_text().splitlines()]
     assert [row["epoch"] for row in log] == [1, 2] and all(row["quartets"] == 2 for row in log)
     assert checkpoint["epochs"] == log[-1]["best_epoch"]
@@ -112,9 +115,11 @@ def test_interruption_during_next_epoch_keeps_previous_weights(tmp_path, monkeyp
         train(["--train-manifest", manifest, "--evaluate-train", "--epochs", "2", "--base-channels", "2",
                "--adam-steps", "1", "--gs-iterations", "1", "--device", "cpu", "--out", str(run)])
     path = run / "best.pt"
+    last_path = run / "last.pt"
     _, checkpoint = load_checkpoint(path, torch.device("cpu"))
-    assert checkpoint["epochs"] == 1
-    assert list(run.glob("*.pt")) == [path]
+    _, last = load_checkpoint(last_path, torch.device("cpu"))
+    assert checkpoint["epochs"] == 1 and last["epochs"] == 1
+    assert set(run.glob("*.pt")) == {path, last_path}
     assert not (run / "comparison").exists()
     with (run / "training.jsonl").open("a") as log:
         log.write('{"epoch": 2, "mean_lo')
@@ -235,6 +240,7 @@ def test_best_checkpoint_keeps_better_earlier_epoch_and_breaks_ties_by_pearson(t
            "--eval-manifest", str(tmp_path / "val/manifest.json"), "--epochs", "4",
            "--base-channels", "2", "--device", "cpu", "--out", str(run)])
     _, checkpoint = load_checkpoint(run / "best.pt", torch.device("cpu"))
-    assert checkpoint["epochs"] == 2
-    assert list(run.glob("*.pt")) == [run / "best.pt"]
+    _, last = load_checkpoint(run / "last.pt", torch.device("cpu"))
+    assert checkpoint["epochs"] == 2 and last["epochs"] == 4
+    assert set(run.glob("*.pt")) == {run / "best.pt", run / "last.pt"}
     assert [json.loads(line)["best_epoch"] for line in (run / "training.jsonl").read_text().splitlines()] == [1, 2, 2, 2]

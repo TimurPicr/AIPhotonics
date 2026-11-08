@@ -7,6 +7,7 @@ import json
 import math
 import os
 from pathlib import Path
+from statistics import mean
 import time
 
 import torch
@@ -14,8 +15,8 @@ import torch
 from config import CONFIG
 from src.data import ManifestDataset, verify_disjoint
 from src.evaluate import add_runtime_arguments, compare, runtime, validate_epoch
-from src.io import file_hash
-from src.losses import reconstruction_loss
+from src.io import file_hash, quantize_phase, quantize_png
+from src.losses import plane_metrics, reconstruction_loss
 from src.model import HologramUNet
 from src.reconstruction import normalize_recons, reconstruct_four
 
@@ -30,6 +31,30 @@ def load_checkpoint(path: Path, device: torch.device) -> tuple[HologramUNet, dic
     checkpoint["checkpoint_sha256"] = sha256(contents).hexdigest()
     layout = torch.channels_last if device.type == "cpu" else torch.contiguous_format
     return model.to(device, memory_format=layout).eval(), checkpoint
+
+
+def _save_checkpoint(path: Path, temporary: Path, payload: dict) -> None:
+    torch.save(payload, temporary)
+    temporary.replace(path)
+
+
+def _selection_key(report: dict) -> tuple[float, float]:
+    """Worst-plane mean SSIM, then mean Pearson (undefined pairs count as zero)."""
+    rows = report["samples"]
+    worst = min(mean(row["metrics"]["network"]["ssim"][plane] for row in rows) for plane in range(4))
+    pairs = [value for row in rows for value in row["metrics"]["network"]["pearson"]]
+    return worst, sum(value for value in pairs if value is not None) / len(pairs)
+
+
+def _restore_selection(path: Path) -> tuple[int | None, tuple[float, float] | None]:
+    """Continue best-checkpoint tracking from a previous run, if it recorded one."""
+    if not path.is_file():
+        return None, None
+    checkpoint = torch.load(BytesIO(path.read_bytes()), weights_only=True, map_location="cpu")
+    epoch, selection = checkpoint.get("best_epoch"), checkpoint.get("best_selection")
+    if epoch is None or selection is None:
+        return None, None
+    return epoch, (selection["worst_plane_ssim"], selection["mean_pearson"])
 
 
 @torch.inference_mode()
@@ -124,6 +149,7 @@ def main(argv=None):
     else:
         eval_set = ManifestDataset(args.eval_manifest)
         verify_disjoint([train_set.manifest, eval_set.manifest])
+    val_batches = torch.utils.data.DataLoader(eval_set, batch_size=args.batch_size, shuffle=False)
     batch_generator = torch.Generator().manual_seed(args.seed)
     batches = torch.utils.data.DataLoader(
         train_set, batch_size=args.batch_size, shuffle=True, generator=batch_generator,
@@ -193,6 +219,9 @@ def main(argv=None):
         args.out.mkdir(parents=True, exist_ok=False)
     checkpoint_path = args.out / "last.pt"
     temporary = checkpoint_path.with_suffix(".tmp")
+    best_path = args.out / "best.pt"
+    best_temporary = best_path.with_suffix(".tmp")
+    best_epoch, best_key = _restore_selection(best_path) if resumed else (None, None)
     checkpoint_metadata = {
         "version": 1, "protocol": CONFIG.snapshot(), "model_config": model_config,
         "loss_config": loss_config, "baseline_config": baseline_config, "batch_size": args.batch_size,
@@ -265,12 +294,12 @@ def main(argv=None):
             elif minimal:
                 state['optimizer_state_dict'] = optimizer.state_dict()
                 state['data_generator_state'] = batch_generator.get_state()
-            torch.save({**checkpoint_metadata, "epochs": epoch, **state}, temporary)
-            temporary.replace(checkpoint_path)
+            _save_checkpoint(checkpoint_path, temporary, {**checkpoint_metadata, "epochs": epoch, **state})
 
             row = {"epoch": epoch, "mean_loss": loss_sum / len(train_set), "quartets": len(train_set)}
             if minimal:
                 row.update({'event': 'epoch', 'seconds': time.monotonic() - epoch_started})
+            selection = None
             if args.validate_every_epoch:
                 model.eval()
                 report = validate_epoch(
@@ -278,17 +307,34 @@ def main(argv=None):
                     epoch=epoch, batch_size=args.batch_size, device=device, preloaded_targets=preloaded_val,
                     gs_iterations=args.gs_iterations, seed=args.seed, checkpoint=checkpoint_path,
                     baseline_cache=baseline_cache, progress=record, **loss_config)
+                selection = _selection_key(report)
                 row.update({'event': 'epoch', 'val_loss': report['mean_loss'],
                             'validation': report['methods'], 'shared_pairs': report['shared_pairs'],
                             'seconds': time.monotonic() - epoch_started})
+            elif not minimal:
+                model.eval()
+                report = validate(model, val_batches, device, loss_config)
+                selection = (report["worst_plane_ssim"], report["mean_pearson"])
+            if selection is not None:
+                if best_key is None or selection > best_key:
+                    best_key, best_epoch = selection, epoch
+                    _save_checkpoint(best_path, best_temporary, {
+                        **checkpoint_metadata, "epochs": epoch, "best_epoch": epoch,
+                        "best_selection": {"worst_plane_ssim": selection[0], "mean_pearson": selection[1]},
+                        **state,
+                    })
+                row["best_epoch"] = best_epoch
             record(row)
 
         if minimal:
             record({'event': 'complete', 'epochs': args.epochs, 'seconds': time.monotonic() - started})
 
     if not minimal:
-        compare(model, eval_set, args.out / "comparison", checkpoint=checkpoint_path, epoch=args.epochs,
-                checkpoint_hash=file_hash(checkpoint_path), **baseline_config, **loss_config)
+        selected = best_path if best_path.is_file() else checkpoint_path
+        model, selected_checkpoint = load_checkpoint(selected, device)
+        compare(model, eval_set, args.out / "comparison", checkpoint=selected,
+                epoch=selected_checkpoint["epochs"], checkpoint_hash=file_hash(selected),
+                **baseline_config, **loss_config)
         print(args.out / "comparison" / "report.md")
     elif args.validate_every_epoch:
         print(args.out / 'validation.json', flush=True)
