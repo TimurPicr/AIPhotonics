@@ -1,4 +1,11 @@
-"""Differentiable SSIM and Pearson, averaged over examples and planes."""
+"""Differentiable SSIM and Pearson, averaged over examples and planes.
+
+Reconstructions are scaled per plane to the target plane's L2 energy before
+SSIM.  This removes the prediction/target brightness mismatch (the network
+otherwise returns per-plane-max images while targets follow the dataset
+normalization) without discarding the target's relative plane energies.
+Pearson is already invariant to a positive per-plane scale.
+"""
 
 import math
 
@@ -32,18 +39,39 @@ def _pearson(recons: Tensor, targets: Tensor) -> tuple[Tensor, Tensor]:
     return torch.where(valid, correlation, 0.0), valid
 
 
+def match_plane_energy(recons: Tensor, targets: Tensor, *, eps: float = 1e-8) -> Tensor:
+    """Scale each reconstruction plane to its target plane's L2 energy.
+
+    The factor is positive and plane-specific, so Pearson is unchanged, while
+    SSIM stops depending on the prediction's overall brightness.  Degenerate
+    planes (zero norm on either side) are returned unchanged: a blank
+    prediction must not become a perfect match to a blank target.
+    """
+    recon_norm = recons.flatten(2).norm(dim=-1, keepdim=True).unsqueeze(-1)
+    target_norm = targets.flatten(2).norm(dim=-1, keepdim=True).unsqueeze(-1)
+    scale = target_norm / recon_norm.clamp_min(eps)
+    matched = recons * scale
+    keep = (recon_norm > eps) & (target_norm > eps)
+    return torch.where(keep, matched, recons)
+
+
 def plane_metrics(recons: Tensor, targets: Tensor) -> tuple[Tensor, Tensor, Tensor]:
-    """Return per-plane SSIM, Pearson and a mask of defined Pearson values."""
+    """Return per-plane SSIM, Pearson and a mask of defined Pearson values.
+
+    SSIM compares the target with the reconstruction rescaled to the target's
+    per-plane L2 energy.  Pearson is computed on the original reconstructions;
+    it is invariant to that positive per-plane scaling.
+    """
     if recons.shape != targets.shape or recons.ndim != 4 or recons.shape[1] != 4 or min(recons.shape[-2:]) < 7:
         raise ValueError("Expected matching [B, 4, H, W] images with H and W at least 7")
     pearson, valid = _pearson(recons, targets)
-    return _ssim(recons, targets), pearson, valid
+    return _ssim(match_plane_energy(recons, targets), targets), pearson, valid
 
 
 def reconstruction_loss(
     recons: Tensor, targets: Tensor, *, alpha: float = 0.7, beta: float = 0.3,
 ) -> Tensor:
-    """Compare equally weighted pairs of normalized images in [0, 1]."""
+    """Compare equally weighted plane pairs after matching target L2 energy."""
     if not math.isfinite(alpha) or not math.isfinite(beta) or min(alpha, beta) < 0 or max(alpha, beta) <= 0:
         raise ValueError("Loss weights must be finite, nonnegative and at least one must be positive")
     ssim, pearson, _ = plane_metrics(recons, targets)
