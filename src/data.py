@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont, __version__ as pillow_version
 import torch
 
 from src.io import SIZE, file_hash, load_four_png, write_json, write_png
+from src.normalization import DEFAULT_TARGET_MODE, normalize_targets
 
 CATEGORIES = ('geometry', 'symbols', 'grayscale', 'mixed')
 SEEDS = {'val': 42001, 'test': 42002, 'ood': 42003, 'examples': 42004, 'train_diagnostic': 42005}
@@ -119,16 +120,18 @@ def prepare_split(root: Path, split: str, size: int, *, seed: int | None = None,
     for index in range(size):
         category = CATEGORIES[index % len(CATEGORIES)]
         sample_id = f'{split}_{index:04d}'
+        seeds = [int(rng.integers(0, 2**63)) for _ in range(4)]
+        images = [_target(np.random.default_rng(source_seed), category, split == 'ood')
+                  for source_seed in seeds]
         sources = []
-        for plane in range(4):
-            source_seed = int(rng.integers(0, 2**63))
-            image = _target(np.random.default_rng(source_seed), category, split == 'ood')
+        for plane, (source_seed, image) in enumerate(zip(seeds, normalize_targets(torch.stack(images)))):
             path = root / split / sample_id / f'{plane + 1}.png'
             write_png(image, path)
             sources.append({'id': f'{sample_id}_{plane}', 'path': f'{sample_id}/{plane + 1}.png',
                             'seed': source_seed, 'sha256': file_hash(path)})
         samples.append({'id': sample_id, 'category': category, 'sources': sources})
     manifest = {'split': split, 'seed': seed, 'generator': 'synthetic-v1',
+                'target_normalization': DEFAULT_TARGET_MODE,
                 'size': size, 'z_m': list(z_m), 'samples': samples,
                 'versions': {'numpy': np.__version__, 'pillow': pillow_version}}
     write_json(root / split / 'manifest.json', manifest)

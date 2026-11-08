@@ -23,7 +23,8 @@ from config import CONFIG
 from src.dataset_sources import RemoteZip, download
 from src.io import export_phase_png, file_hash, load_four_png, load_phase_png, read_png, write_json, write_png
 from src.physics import output_pitch_m
-from src.reconstruction import normalize_recons, reconstruct_four
+from src.normalization import DEFAULT_TARGET_MODE, normalize_targets
+from src.reconstruction import reconstruct_four
 
 GENERATOR = "mixed55k-physical-v2"
 FAMILIES = ("smooth", "analytic", "mixed")
@@ -121,7 +122,7 @@ def build_synthetic(root: Path, count: int, seed: int, *, batch_size: int) -> li
                 export_phase_png(phase, str(phase_path))
                 quantized.append(load_phase_png(str(phase_path)))
             with torch.no_grad():
-                values = normalize_recons(reconstruct_four(torch.cat(quantized)))
+                values = normalize_targets(reconstruct_four(torch.cat(quantized)))
             for slot, index in enumerate(pending):
                 sample_id = f"synthetic_{index:06d}"
                 folder = root / "train" / "synthetic" / sample_id
@@ -187,7 +188,7 @@ def build_random(root: Path, cache: Path, count: int, seed: int, workers: int) -
         sample_id = f"random_{index:06d}"
         previous_path = root / "train" / "random" / sample_id / "sample.json"
         previous = json.loads(previous_path.read_text()) if previous_path.exists() else None
-        sources = []
+        prepared = []
         for plane in range(1, 5):
             slot = index * 4 + plane - 1
             candidates = ([previous["sources"][plane - 1]["upstream"]] if previous else
@@ -206,12 +207,20 @@ def build_random(root: Path, cache: Path, count: int, seed: int, workers: int) -
             original_sha256 = hashlib.sha256(payload).hexdigest()
             if previous and previous["sources"][plane - 1]["original_sha256"] != original_sha256:
                 raise ValueError("Previously selected COCO JPEG changed at the source")
-            path = root / "train" / "random" / sample_id / f"{plane}.png"
-            write_png(tensor, path)
-            sources.append(_record(root, path, f"coco2017:train:{image['id']}", url=url,
-                original_sha256=original_sha256, upstream=image,
-                rejected_candidates=previous["sources"][plane - 1].get("rejected_candidates", []) if previous else rejected,
-                preprocessing=preprocessing, plane=plane))
+            prepared.append({"tensor": tensor,
+                "path": root / "train" / "random" / sample_id / f"{plane}.png",
+                "id": f"coco2017:train:{image['id']}", "url": url,
+                "original_sha256": original_sha256, "upstream": image,
+                "rejected_candidates": previous["sources"][plane - 1].get("rejected_candidates", []) if previous else rejected,
+                "preprocessing": preprocessing, "plane": plane})
+        values = normalize_targets(torch.stack([item["tensor"] for item in prepared]))
+        sources = []
+        for item, value in zip(prepared, values):
+            write_png(value, item["path"])
+            sources.append(_record(root, item["path"], item["id"], url=item["url"],
+                original_sha256=item["original_sha256"], upstream=item["upstream"],
+                rejected_candidates=item["rejected_candidates"],
+                preprocessing=item["preprocessing"], plane=item["plane"]))
         return _save_sample(root, {"id": sample_id, "category": "random", "sources": sources})
 
     samples = []
@@ -283,10 +292,12 @@ def build_similar(root: Path, cache: Path, count: int, seed: int, workers: int, 
                 rejected.append({"sequence_id": sequence_id, "reason": rejection_reason(error)})
         else:
             raise ValueError(f"No usable Vimeo septuplet for slot {index}: {rejected}")
+        values = normalize_targets(torch.stack([tensor for tensor, _ in prepared]))
         sources = []
-        for plane, (frame, name, (tensor, preprocessing)) in enumerate(zip(frames, chosen_names, prepared), 1):
+        for plane, (frame, name, (_, preprocessing), value) in enumerate(
+                zip(frames, chosen_names, prepared, values), 1):
             path = root / "train" / "similar" / sample_id / f"{plane}.png"
-            write_png(tensor, path)
+            write_png(value, path)
             sources.append(_record(root, path, f"vimeo90k:train:{sequence_id}:im{frame}",
                 dataset="Vimeo90K Septuplet original", archive_url=url, archive_member=name,
                 original_sha256=hashlib.sha256(payloads[name]).hexdigest(), sequence_id=sequence_id,
@@ -311,8 +322,9 @@ def make_manifest(root: Path, samples: list[dict], seed: int) -> dict:
     project = Path(__file__).resolve().parent.parent
     revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=project, capture_output=True, text=True)
     code_files = ["config.py", "src/build_dataset.py", "src/dataset_sources.py",
-                  "src/physics.py", "src/reconstruction.py", "src/io.py"]
+                  "src/normalization.py", "src/physics.py", "src/reconstruction.py", "src/io.py"]
     manifest = {"generator": GENERATOR, "split": "train", "seed": seed,
+        "target_normalization": DEFAULT_TARGET_MODE,
         "size": len(samples), "target_images": len(samples) * 4,
         "z_m": list(CONFIG.z_m), "protocol": CONFIG.snapshot(),
         "dx_out_m": [output_pitch_m(z, 128) for z in CONFIG.z_m],
@@ -375,7 +387,7 @@ def verify_dataset(root: Path, *, audit_phase: bool = True) -> dict:
             synthetic += 1
             if audit_phase:
                 with torch.no_grad():
-                    recons = normalize_recons(reconstruct_four(load_phase_png(str(phase_path))))
+                    recons = normalize_targets(reconstruct_four(load_phase_png(str(phase_path))))
                     recon_codes = recons.clamp(0, 1).mul(255).round()
                 target_codes = load_four_png(paths).mul(255).round()
                 if ((target_codes - recon_codes).abs() > 1).any():
@@ -421,7 +433,7 @@ def main():
         print(json.dumps(verify_dataset(args.root), indent=2))
         return
     plan = {"generator": GENERATOR, "seed": args.seed, "counts_quartets": counts,
-            "protocol": CONFIG.snapshot(),
+            "protocol": CONFIG.snapshot(), "target_normalization": DEFAULT_TARGET_MODE,
             "vimeo_url": args.vimeo_url, "batch_size": args.batch_size}
     plan_path = args.root / "build_config.json"
     if plan_path.exists() and json.loads(plan_path.read_text()) != plan:
