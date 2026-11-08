@@ -15,6 +15,7 @@ from src.global_gs import global_mp_gs
 from src.io import file_hash, quantize_phase, quantize_png
 from src.losses import plane_metrics, reconstruction_loss
 from src.reconstruction import normalize_recons, reconstruct_four
+from src.refinement import refine_phase
 
 
 METHODS = ("network", "adam", "global_mp_gs")
@@ -84,6 +85,7 @@ def _summary(samples, method_names=METHODS):
 def validate_epoch(
     infer, dataset, out, *, epoch, batch_size, gs_iterations, seed, alpha, beta,
     checkpoint, baseline_cache, progress=None, device='cpu', preloaded_targets=None,
+    refine_steps=0, refine_lr=0.1,
 ):
     """Score all validation quartets; reuse the unchanged Global MP-GS results.
 
@@ -97,6 +99,9 @@ def validate_epoch(
     for targets in loader:
         targets = targets.to(device)
         phases, recons = infer(targets)
+        if refine_steps:
+            phases = refine_phase(phases, targets, steps=refine_steps, lr=refine_lr, alpha=alpha, beta=beta)
+            recons = normalize_recons(reconstruct_four(phases))
         value = float(reconstruction_loss(recons, targets, alpha=alpha, beta=beta))
         if not math.isfinite(value):
             raise FloatingPointError('Non-finite validation loss')
@@ -141,6 +146,7 @@ def validate_epoch(
         'manifest': str(dataset.path.resolve()), 'manifest_sha256': file_hash(dataset.path),
         'checkpoint': str(checkpoint.resolve()), 'checkpoint_sha256': file_hash(checkpoint),
         'protocol': CONFIG.snapshot(), 'seed': seed, 'gs_iterations': gs_iterations,
+        'refinement_config': {'steps': refine_steps, 'lr': refine_lr},
         'quantization': 'phase and reconstructions, 8-bit',
         'inference_device': str(device), 'scoring_device': str(device), 'gs_device': str(device),
         'shared_pairs': shared, 'methods': methods, 'samples': rows,
@@ -155,12 +161,15 @@ def validate_epoch(
 def compare(
     model, dataset: ManifestDataset, out: Path, *, adam_steps: int, adam_lr: float,
     gs_iterations: int, seed: int, alpha: float, beta: float, checkpoint: Path, epoch: int, checkpoint_hash: str,
+    refine_steps: int = 0, refine_lr: float = 0.1,
 ) -> dict:
     """Evaluate the same quantized phase and image pipeline for every solver."""
     if min(adam_steps, gs_iterations) < 1:
         raise ValueError("Baseline iteration counts must be positive")
     if not math.isfinite(adam_lr) or adam_lr <= 0:
         raise ValueError("Adam learning rate must be finite and positive")
+    if refine_steps < 0 or not math.isfinite(refine_lr) or refine_lr <= 0:
+        raise ValueError("Refinement steps must be nonnegative and learning rate finite and positive")
     out.mkdir(parents=True, exist_ok=False)
     has_loss_plot = _plot_loss(checkpoint.with_name("training.jsonl"), out / "loss.png", through_epoch=epoch)
     device = next(model.parameters()).device
@@ -169,6 +178,8 @@ def compare(
     for index, sample in enumerate(dataset.samples):
         targets = dataset[index][None].to(device)
         mask, _ = model(targets)
+        if refine_steps:
+            mask = refine_phase(mask, targets, steps=refine_steps, lr=refine_lr, alpha=alpha, beta=beta)
         adam = optimize_phase(targets, steps=adam_steps, lr=adam_lr, seed=seed, alpha=alpha, beta=beta)
         scores = {"network": _score(mask, targets), "adam": _score(adam, targets)}
         errors = {}
@@ -192,6 +203,7 @@ def compare(
         "quantization": "phase and reconstructions, 8-bit",
         "baseline_parameters": {"adam_steps": adam_steps, "adam_lr": adam_lr, "gs_iterations": gs_iterations,
                                 "alpha": alpha, "beta": beta},
+        "refinement_config": {"steps": refine_steps, "lr": refine_lr},
         "shared_pairs": shared, "methods": methods, "samples": samples,
     }
     (out / "summary.json").write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
@@ -202,6 +214,8 @@ def compare(
         f"Набор `{report['split']}`, {len(dataset)} четвёрок. Веса U-Net после эпохи {epoch}. "
         f"Adam — {adam_steps} шагов, "
         f"Global MP-GS — {gs_iterations} итераций на четвёрку.",
+        f"Доводка выхода U-Net: {refine_steps} шагов Adam, lr={refine_lr}; "
+        "при ненулевом числе шагов фаза в цикле квантуется в 8 бит через STE.",
         "",
         "| Метод | Средний SSIM | Средний Pearson | Решено четвёрок |",
         "|---|---:|---:|---:|",
@@ -211,7 +225,8 @@ def compare(
             f"{result['mean'][metric]:.6f}" if result["mean"][metric] is not None else "—"
             for metric in ("ssim", "pearson")
         ]
-        lines.append(f"| {LABELS[method]} | {ssim} | {pearson} | {result['solved']}/{len(dataset)} |")
+        label = f"U-Net + {refine_steps} Adam" if method == "network" and refine_steps else LABELS[method]
+        lines.append(f"| {label} | {ssim} | {pearson} | {result['solved']}/{len(dataset)} |")
     lines += [
         "",
         f"Общие пары для среднего SSIM — {shared['ssim']}/{report['total_pairs']}, "
@@ -229,6 +244,13 @@ def compare(
 def add_runtime_arguments(parser):
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     parser.add_argument("--threads", type=int, default=2)
+
+
+def add_refinement_arguments(parser, *, inherit=False):
+    parser.add_argument("--refine-steps", type=int, default=None if inherit else 0,
+                        help="Additional Adam steps on the network mask; 0 disables refinement")
+    parser.add_argument("--refine-lr", type=float, default=None if inherit else 0.1,
+                        help="Learning rate for network mask refinement (default: 0.1)")
 
 
 def runtime(args):
@@ -251,13 +273,24 @@ def main(argv=None):
     parser.add_argument("--adam-steps", type=int)
     parser.add_argument("--adam-lr", type=float)
     parser.add_argument("--gs-iterations", type=int)
+    add_refinement_arguments(parser, inherit=True)
     add_runtime_arguments(parser)
     args = parser.parse_args(argv)
+    if args.refine_steps is not None and args.refine_steps < 0:
+        parser.error("--refine-steps must be nonnegative")
+    if args.refine_lr is not None and (not math.isfinite(args.refine_lr) or args.refine_lr <= 0):
+        parser.error("--refine-lr must be finite and positive")
     model, checkpoint = load_checkpoint(args.checkpoint, runtime(args))
     settings = checkpoint["baseline_config"].copy()
     settings.update({name: getattr(args, name) for name in settings if getattr(args, name, None) is not None})
+    refinement = {"steps": 10, "lr": 0.1, **checkpoint.get("refinement_config", {})}
+    if args.refine_steps is not None:
+        refinement["steps"] = args.refine_steps
+    if args.refine_lr is not None:
+        refinement["lr"] = args.refine_lr
     compare(model, ManifestDataset(args.eval_manifest), args.out, checkpoint=args.checkpoint, epoch=checkpoint["epochs"],
             checkpoint_hash=checkpoint["checkpoint_sha256"],
+            refine_steps=refinement["steps"], refine_lr=refinement["lr"],
             **settings, **checkpoint["loss_config"])
     print(args.out / "report.md")
 

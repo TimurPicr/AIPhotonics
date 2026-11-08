@@ -10,3 +10,5 @@ runs/
 
 /outputs/*
 !/outputs/.gitkeep
+
+experiments/
